@@ -124,17 +124,10 @@ h1, h2, h3, .nav-logo {
     letter-spacing: 0.5px;
 }
 
-.logo-box {
-    width: 32px;
-    height: 32px;
-    background: var(--accent-gradient);
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    font-weight: 800;
-    font-size: 1.1rem;
+.logo-img {
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
 }
 
 .nav-links {
