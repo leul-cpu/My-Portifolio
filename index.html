@@ -226,7 +226,7 @@
             z-index: 1;
         }
 
-        .grain > * {
+        .grain>* {
             position: relative;
             z-index: 2;
         }
@@ -927,12 +927,12 @@
             text-transform: uppercase;
         }
 
-        .footer-grid > *:nth-child(2) {
+        .footer-grid>*:nth-child(2) {
             text-align: center;
             color: var(--text-muted);
         }
 
-        .footer-grid > *:nth-child(3) {
+        .footer-grid>*:nth-child(3) {
             text-align: right;
             color: var(--text-faint);
         }
@@ -1003,7 +1003,7 @@
                 padding-right: 0;
             }
 
-            .project-row > div {
+            .project-row>div {
                 min-width: 0;
             }
 
@@ -1018,8 +1018,8 @@
                 gap: calc(var(--space-base) * 3);
             }
 
-            .footer-grid > *:nth-child(2),
-            .footer-grid > *:nth-child(3) {
+            .footer-grid>*:nth-child(2),
+            .footer-grid>*:nth-child(3) {
                 text-align: left;
             }
 
@@ -1146,6 +1146,7 @@
 
         /* Mobile: touch — native cursor, no custom square */
         @media (hover: none) and (pointer: coarse) {
+
             body.has-custom-cursor,
             body.has-custom-cursor * {
                 cursor: auto !important;
@@ -1159,431 +1160,448 @@
 </head>
 
 <body>
-    <a href="#home" class="skip-link">Skip to main content</a>
 
-    <div>
-        <svg width="0" height="0" aria-hidden="true" focusable="false">
-            <filter id="grain-filter">
-                <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="4" stitchTiles="stitch" />
-            </filter>
-        </svg>
-    </div>
-
-    <div id="cursor-square" aria-hidden="true"></div>
-
-    <header class="navbar" role="banner">
-        <div class="nav-inner">
-            <a href="#home" class="nav-brand" aria-label="Leul — Home"><strong>LEUL</strong> / DEV</a>
-            <div class="nav-right">
-                <nav aria-label="Primary">
-                    <ul class="nav-links">
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#projects">Work</a></li>
-                        <li><a href="#method">Method</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </nav>
-                <a href="#contact" class="nav-cta">Let's Talk →</a>
-                <button class="nav-toggle" id="navToggle" type="button" aria-label="Open menu" aria-expanded="false"
-                    aria-controls="navOverlay">
-                    <span></span><span></span><span></span>
-                </button>
-            </div>
+    <!-- ===== NAVIGATION ===== -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">
+                <img src="leul_abiti_webdev_logo.svg" alt="Leul Logo" class="logo-img">
+                <span class="logo-text">Leul</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#principles">Principles</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <a href="#contact" class="btn-nav">Let's Talk</a>
+            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+                <span></span><span></span><span></span>
+            </button>
         </div>
-    </header>
+    </nav>
 
-    <div class="nav-overlay" id="navOverlay" aria-hidden="true" role="dialog" aria-modal="true"
-        aria-label="Mobile navigation">
-        <a href="#home">Home</a>
-        <a href="#projects">Work</a>
-        <a href="#method">Method</a>
-        <a href="#contact">Contact</a>
-        <a href="#contact" class="nav-overlay-cta">Let's Talk →</a>
-    </div>
+    <!-- ===== HERO ===== -->
+    <section id="home" class="hero">
+        <div class="hero-bg-grid"></div>
+        <div class="hero-glow hero-glow-1"></div>
+        <div class="hero-glow hero-glow-2"></div>
 
-    <main id="main">
-        <section id="home" class="hero section--paper section-pad grain" aria-labelledby="hero-heading">
-            <div class="reg-marks" aria-hidden="true"><span></span></div>
-            <div class="container">
-                <p class="margin-label hero-meta reveal">§ 01 / Intro — Frontend Software Developer — Addis Ababa</p>
-                <div class="hero-layout">
-                    <div class="hero-main">
-                        <h1 id="hero-heading" class="hero-name reveal">LEUL</h1>
-                        <hr class="rule-h hero-rule reveal" aria-hidden="true">
-                        <p class="hero-role reveal">Frontend Software<br>Developer</p>
-                        <p class="hero-tagline reveal">Turning imagination into reality.</p>
-                        <div class="hero-ctas reveal">
-                            <a href="#projects" class="hero-cta-primary">View Work ↓</a>
-                            <span class="hero-cta-sep" aria-hidden="true">/</span>
-                            <a href="#contact" class="hero-cta-secondary">Contact →</a>
+        <div class="container hero-container">
+            <div class="hero-content reveal">
+                <div class="hero-greeting">
+                    <span class="wave">👋</span> Hey, I'm<span class="highlight">Leul</span>, coding and crafting
+                    products and I'm a...
+                </div>
+                <h1>
+                    Front-end focused <br>
+                    <span class="gradient-text">Software Developer.</span>
+                </h1>
+
+                <div class="hero-tags">
+                    <span class="tag"><span class="dot"></span>requirements</span>
+                    <span class="tag"><span class="dot"></span>trends</span>
+                    <span class="tag"><span class="dot"></span>UI / UX</span>
+                    <span class="tag"><span class="dot"></span>accessibility</span>
+                    <span class="tag"><span class="dot"></span>performance</span>
+                </div>
+            </div>
+
+            <main id="main">
+                <section id="home" class="hero section--paper section-pad grain" aria-labelledby="hero-heading">
+                    <div class="reg-marks" aria-hidden="true"><span></span></div>
+                    <div class="container">
+                        <p class="margin-label hero-meta reveal">§ 01 / Intro — Frontend Software Developer — Addis
+                            Ababa</p>
+                        <div class="hero-layout">
+                            <div class="hero-main">
+                                <h1 id="hero-heading" class="hero-name reveal">LEUL</h1>
+                                <hr class="rule-h hero-rule reveal" aria-hidden="true">
+                                <p class="hero-role reveal">Frontend Software<br>Developer</p>
+                                <p class="hero-tagline reveal">Turning imagination into reality.</p>
+                                <div class="hero-ctas reveal">
+                                    <a href="#projects" class="hero-cta-primary">View Work ↓</a>
+                                    <span class="hero-cta-sep" aria-hidden="true">/</span>
+                                    <a href="#contact" class="hero-cta-secondary">Contact →</a>
+                                </div>
+                            </div>
+                            <aside class="hero-stats-col" aria-label="Statistics">
+                                <div class="stat-block reveal">
+                                    <span class="stat-value" data-count="6" data-suffix="+">0+</span>
+                                    <span class="stat-label">Projects</span>
+                                </div>
+                                <div class="stat-block reveal">
+                                    <span class="stat-value" data-count="4" data-suffix="+">0+</span>
+                                    <span class="stat-label">Technologies</span>
+                                </div>
+                                <div class="stat-block reveal">
+                                    <span class="stat-value" data-count="100" data-suffix="%">0%</span>
+                                    <span class="stat-label">Satisfaction</span>
+                                </div>
+                                <div class="stat-block reveal">
+                                    <span class="stat-value" data-infinity="true">∞</span>
+                                    <span class="stat-label">Clean Code</span>
+                                </div>
+                                <p class="stats-footer reveal">Est. 2024 — Ongoing</p>
+                            </aside>
                         </div>
                     </div>
-                    <aside class="hero-stats-col" aria-label="Statistics">
-                        <div class="stat-block reveal">
-                            <span class="stat-value" data-count="6" data-suffix="+">0+</span>
-                            <span class="stat-label">Projects</span>
+                </section>
+
+                <hr class="rule-h" aria-hidden="true">
+
+                <section id="projects" class="section--ink section-pad" aria-labelledby="projects-heading">
+                    <span class="watermark watermark--02" data-parallax="0.4" aria-hidden="true">02</span>
+                    <div class="container">
+                        <header class="section-intro reveal">
+                            <p class="margin-label">§ 02 / Work</p>
+                            <h2 id="projects-heading" class="section-title">Selected Work</h2>
+                            <p class="section-sub">6 Projects / 2024–2026</p>
+                        </header>
+
+                        <div class="project-list">
+                            <a href="https://github.com/leul-cpu/MED-CHAIN" target="_blank" rel="noopener noreferrer"
+                                class="project-row reveal">
+                                <span class="project-num">01</span>
+                                <div>
+                                    <h3 class="project-name">MED-CHAIN</h3>
+                                    <p class="project-desc">Blockchain-backed medical records system — school capstone
+                                        exploring
+                                        secure patient data exchange.</p>
+                                    <p class="project-tech">Java · Spring · JavaScript</p>
+                                </div>
+                                <span class="project-arrow" aria-hidden="true">→</span>
+                            </a>
+
+                            <a href="https://mohsquare1.netlify.app/" target="_blank" rel="noopener noreferrer"
+                                class="project-row reveal">
+                                <span class="project-num">02</span>
+                                <div>
+                                    <h3 class="project-name">Mohsquare</h3>
+                                    <p class="project-desc">Client portfolio for a construction brand — editorial
+                                        layout, live
+                                        deployment on Netlify.</p>
+                                    <p class="project-tech">HTML/CSS · JavaScript · Python</p>
+                                </div>
+                                <span class="project-arrow" aria-hidden="true">→</span>
+                            </a>
+
+                            <a href="https://leul-cpu.github.io/leulfit/" target="_blank" rel="noopener noreferrer"
+                                class="project-row reveal">
+                                <span class="project-num">03</span>
+                                <div>
+                                    <h3 class="project-name">LeulFit</h3>
+                                    <p class="project-desc">Fitness tracking concept — workout logging UI built as a
+                                        future-facing
+                                        personal project.</p>
+                                    <p class="project-tech">HTML · CSS</p>
+                                </div>
+                                <span class="project-arrow" aria-hidden="true">→</span>
+                            </a>
+
+                            <a href="https://leul-cpu.github.io/Bellanawit/" target="_blank" rel="noopener noreferrer"
+                                class="project-row reveal">
+                                <span class="project-num">04</span>
+                                <div>
+                                    <h3 class="project-name">Bellanawit</h3>
+                                    <p class="project-desc">Client portfolio for a personal brand — clean typographic
+                                        system and
+                                        responsive static pages.</p>
+                                    <p class="project-tech">HTML · CSS</p>
+                                </div>
+                                <span class="project-arrow" aria-hidden="true">→</span>
+                            </a>
+
+                            <a href="https://leul-cpu.github.io/Simple-Task-Manager/" target="_blank"
+                                rel="noopener noreferrer" class="project-row reveal">
+                                <span class="project-num">05</span>
+                                <div>
+                                    <h3 class="project-name">Simple Task Manager</h3>
+                                    <p class="project-desc">Lightweight productivity app — add, complete, and filter
+                                        tasks in the
+                                        browser with zero backend.</p>
+                                    <p class="project-tech">JavaScript · HTML · CSS</p>
+                                </div>
+                                <span class="project-arrow" aria-hidden="true">→</span>
+                            </a>
+
+                            <a href="https://leul-cpu.github.io/retro-login/" target="_blank" rel="noopener noreferrer"
+                                class="project-row reveal">
+                                <span class="project-num">06</span>
+                                <div>
+                                    <h3 class="project-name">Retro Login UI</h3>
+                                    <p class="project-desc">CRT-inspired authentication screen — neon accents,
+                                        scanlines, and
+                                        keyboard-first interaction prototype.</p>
+                                    <p class="project-tech">CSS · HTML</p>
+                                </div>
+                                <span class="project-arrow" aria-hidden="true">→</span>
+                            </a>
                         </div>
-                        <div class="stat-block reveal">
-                            <span class="stat-value" data-count="4" data-suffix="+">0+</span>
-                            <span class="stat-label">Technologies</span>
-                        </div>
-                        <div class="stat-block reveal">
-                            <span class="stat-value" data-count="100" data-suffix="%">0%</span>
-                            <span class="stat-label">Satisfaction</span>
-                        </div>
-                        <div class="stat-block reveal">
-                            <span class="stat-value" data-infinity="true">∞</span>
-                            <span class="stat-label">Clean Code</span>
-                        </div>
-                        <p class="stats-footer reveal">Est. 2024 — Ongoing</p>
-                    </aside>
-                </div>
-            </div>
-        </section>
 
-        <hr class="rule-h" aria-hidden="true">
-
-        <section id="projects" class="section--ink section-pad" aria-labelledby="projects-heading">
-            <span class="watermark watermark--02" data-parallax="0.4" aria-hidden="true">02</span>
-            <div class="container">
-                <header class="section-intro reveal">
-                    <p class="margin-label">§ 02 / Work</p>
-                    <h2 id="projects-heading" class="section-title">Selected Work</h2>
-                    <p class="section-sub">6 Projects / 2024–2026</p>
-                </header>
-
-                <div class="project-list">
-                    <a href="https://github.com/leul-cpu/MED-CHAIN" target="_blank" rel="noopener noreferrer"
-                        class="project-row reveal">
-                        <span class="project-num">01</span>
-                        <div>
-                            <h3 class="project-name">MED-CHAIN</h3>
-                            <p class="project-desc">Blockchain-backed medical records system — school capstone exploring
-                                secure patient data exchange.</p>
-                            <p class="project-tech">Java · Spring · JavaScript</p>
-                        </div>
-                        <span class="project-arrow" aria-hidden="true">→</span>
-                    </a>
-
-                    <a href="https://mohsquare1.netlify.app/" target="_blank" rel="noopener noreferrer"
-                        class="project-row reveal">
-                        <span class="project-num">02</span>
-                        <div>
-                            <h3 class="project-name">Mohsquare</h3>
-                            <p class="project-desc">Client portfolio for a construction brand — editorial layout, live
-                                deployment on Netlify.</p>
-                            <p class="project-tech">HTML/CSS · JavaScript · Python</p>
-                        </div>
-                        <span class="project-arrow" aria-hidden="true">→</span>
-                    </a>
-
-                    <a href="https://leul-cpu.github.io/leulfit/" target="_blank" rel="noopener noreferrer"
-                        class="project-row reveal">
-                        <span class="project-num">03</span>
-                        <div>
-                            <h3 class="project-name">LeulFit</h3>
-                            <p class="project-desc">Fitness tracking concept — workout logging UI built as a future-facing
-                                personal project.</p>
-                            <p class="project-tech">HTML · CSS</p>
-                        </div>
-                        <span class="project-arrow" aria-hidden="true">→</span>
-                    </a>
-
-                    <a href="https://leul-cpu.github.io/Bellanawit/" target="_blank" rel="noopener noreferrer"
-                        class="project-row reveal">
-                        <span class="project-num">04</span>
-                        <div>
-                            <h3 class="project-name">Bellanawit</h3>
-                            <p class="project-desc">Client portfolio for a personal brand — clean typographic system and
-                                responsive static pages.</p>
-                            <p class="project-tech">HTML · CSS</p>
-                        </div>
-                        <span class="project-arrow" aria-hidden="true">→</span>
-                    </a>
-
-                    <a href="https://leul-cpu.github.io/Simple-Task-Manager/" target="_blank"
-                        rel="noopener noreferrer" class="project-row reveal">
-                        <span class="project-num">05</span>
-                        <div>
-                            <h3 class="project-name">Simple Task Manager</h3>
-                            <p class="project-desc">Lightweight productivity app — add, complete, and filter tasks in the
-                                browser with zero backend.</p>
-                            <p class="project-tech">JavaScript · HTML · CSS</p>
-                        </div>
-                        <span class="project-arrow" aria-hidden="true">→</span>
-                    </a>
-
-                    <a href="https://leul-cpu.github.io/retro-login/" target="_blank" rel="noopener noreferrer"
-                        class="project-row reveal">
-                        <span class="project-num">06</span>
-                        <div>
-                            <h3 class="project-name">Retro Login UI</h3>
-                            <p class="project-desc">CRT-inspired authentication screen — neon accents, scanlines, and
-                                keyboard-first interaction prototype.</p>
-                            <p class="project-tech">CSS · HTML</p>
-                        </div>
-                        <span class="project-arrow" aria-hidden="true">→</span>
-                    </a>
-                </div>
-
-                <p class="projects-footer reveal">
-                    All projects on <a href="https://github.com/leul-cpu" target="_blank"
-                        rel="noopener noreferrer">GitHub →</a>
-                </p>
-            </div>
-        </section>
-
-        <hr class="rule-h rule-h--light" aria-hidden="true">
-
-        <section id="method" class="section--paper section-pad grain" aria-labelledby="method-heading">
-            <span class="watermark watermark--03" data-parallax="0.4" aria-hidden="true">03</span>
-            <div class="container">
-                <header class="section-intro reveal">
-                    <p class="margin-label">§ 03 / Method</p>
-                    <h2 id="method-heading" class="section-title">Method</h2>
-                </header>
-
-                <div class="method-grid">
-                    <article class="method-item reveal">
-                        <span class="method-num" aria-hidden="true">01</span>
-                        <h3 class="method-title">Latest Tech</h3>
-                        <p class="method-body">Stay ahead with modern frameworks and tooling — ship interfaces that feel
-                            current without chasing hype for its own sake.</p>
-                    </article>
-                    <article class="method-item reveal">
-                        <span class="method-num" aria-hidden="true">02</span>
-                        <h3 class="method-title">Responsiveness</h3>
-                        <p class="method-body">Layouts that adapt across breakpoints — mobile-first structure, tested on
-                            real devices, never an afterthought.</p>
-                    </article>
-                    <article class="method-item reveal">
-                        <span class="method-num" aria-hidden="true">03</span>
-                        <h3 class="method-title">Performance</h3>
-                        <p class="method-body">Optimized assets, minimal blocking scripts, and perceptual speed — fast
-                            pages users actually notice.</p>
-                    </article>
-                    <article class="method-item reveal">
-                        <span class="method-num" aria-hidden="true">04</span>
-                        <h3 class="method-title">Beautiful UI</h3>
-                        <p class="method-body">Typography, spacing, and hierarchy first — interfaces that are clear,
-                            intentional, and enjoyable to use.</p>
-                    </article>
-                </div>
-            </div>
-        </section>
-
-        <hr class="rule-h" aria-hidden="true">
-
-        <section id="contact" class="section--ink section-pad" aria-labelledby="contact-heading">
-            <div class="container">
-                <div class="contact-layout">
-                    <div class="contact-main">
-                        <p class="margin-label reveal">§ 04 / Contact</p>
-                        <h2 id="contact-heading" class="contact-heading reveal">
-                            Let's Build<br>Something<span class="accent">.</span>
-                        </h2>
-                        <a href="mailto:leulabiti98@gmail.com" class="contact-cta-big reveal">Get In Touch →</a>
+                        <p class="projects-footer reveal">
+                            All projects on <a href="https://github.com/leul-cpu" target="_blank"
+                                rel="noopener noreferrer">GitHub →</a>
+                        </p>
                     </div>
-                    <aside class="contact-side reveal" aria-label="Contact links">
-                        <div class="contact-block">
-                            <p class="contact-block-label">Email</p>
-                            <a href="mailto:leulabiti98@gmail.com">leulabiti98@gmail.com</a>
+                </section>
+
+                <hr class="rule-h rule-h--light" aria-hidden="true">
+
+                <section id="method" class="section--paper section-pad grain" aria-labelledby="method-heading">
+                    <span class="watermark watermark--03" data-parallax="0.4" aria-hidden="true">03</span>
+                    <div class="container">
+                        <header class="section-intro reveal">
+                            <p class="margin-label">§ 03 / Method</p>
+                            <h2 id="method-heading" class="section-title">Method</h2>
+                        </header>
+
+                        <div class="method-grid">
+                            <article class="method-item reveal">
+                                <span class="method-num" aria-hidden="true">01</span>
+                                <h3 class="method-title">Latest Tech</h3>
+                                <p class="method-body">Stay ahead with modern frameworks and tooling — ship interfaces
+                                    that feel
+                                    current without chasing hype for its own sake.</p>
+                            </article>
+                            <article class="method-item reveal">
+                                <span class="method-num" aria-hidden="true">02</span>
+                                <h3 class="method-title">Responsiveness</h3>
+                                <p class="method-body">Layouts that adapt across breakpoints — mobile-first structure,
+                                    tested on
+                                    real devices, never an afterthought.</p>
+                            </article>
+                            <article class="method-item reveal">
+                                <span class="method-num" aria-hidden="true">03</span>
+                                <h3 class="method-title">Performance</h3>
+                                <p class="method-body">Optimized assets, minimal blocking scripts, and perceptual speed
+                                    — fast
+                                    pages users actually notice.</p>
+                            </article>
+                            <article class="method-item reveal">
+                                <span class="method-num" aria-hidden="true">04</span>
+                                <h3 class="method-title">Beautiful UI</h3>
+                                <p class="method-body">Typography, spacing, and hierarchy first — interfaces that are
+                                    clear,
+                                    intentional, and enjoyable to use.</p>
+                            </article>
                         </div>
-                        <div class="contact-block">
-                            <p class="contact-block-label">GitHub</p>
-                            <a href="https://github.com/leul-cpu" target="_blank"
-                                rel="noopener noreferrer">github.com/leul-cpu</a>
+                    </div>
+                </section>
+
+                <hr class="rule-h" aria-hidden="true">
+
+                <section id="contact" class="section--ink section-pad" aria-labelledby="contact-heading">
+                    <div class="container">
+                        <div class="contact-layout">
+                            <div class="contact-main">
+                                <p class="margin-label reveal">§ 04 / Contact</p>
+                                <h2 id="contact-heading" class="contact-heading reveal">
+                                    Let's Build<br>Something<span class="accent">.</span>
+                                </h2>
+                                <a href="mailto:leulabiti98@gmail.com" class="contact-cta-big reveal">Get In Touch →</a>
+                            </div>
+                            <aside class="contact-side reveal" aria-label="Contact links">
+                                <div class="contact-block">
+                                    <p class="contact-block-label">Email</p>
+                                    <a href="mailto:leulabiti98@gmail.com">leulabiti98@gmail.com</a>
+                                </div>
+                                <div class="contact-block">
+                                    <p class="contact-block-label">GitHub</p>
+                                    <a href="https://github.com/leul-cpu" target="_blank"
+                                        rel="noopener noreferrer">github.com/leul-cpu</a>
+                                </div>
+                                <div class="contact-block">
+                                    <p class="contact-block-label">LinkedIn</p>
+                                    <a href="https://linkedin.com/in/Leul" target="_blank"
+                                        rel="noopener noreferrer">linkedin.com/in/Leul</a>
+                                </div>
+                                <div class="contact-block">
+                                    <p class="contact-block-label">Socials</p>
+                                    <a href="https://x.com/leulleo8" target="_blank" rel="noopener noreferrer">X /
+                                        @leulleo8</a>
+                                    <a href="https://instagram.com/leul_my2" target="_blank"
+                                        rel="noopener noreferrer">Instagram / @leul_my2</a>
+                                    <a href="https://t.me/llEUlllll" target="_blank" rel="noopener noreferrer">Telegram
+                                        /
+                                        @llEUlllll</a>
+                                </div>
+                            </aside>
                         </div>
-                        <div class="contact-block">
-                            <p class="contact-block-label">LinkedIn</p>
-                            <a href="https://linkedin.com/in/Leul" target="_blank"
-                                rel="noopener noreferrer">linkedin.com/in/Leul</a>
-                        </div>
-                        <div class="contact-block">
-                            <p class="contact-block-label">Socials</p>
-                            <a href="https://x.com/leulleo8" target="_blank" rel="noopener noreferrer">X /
-                                @leulleo8</a>
-                            <a href="https://instagram.com/leul_my2" target="_blank"
-                                rel="noopener noreferrer">Instagram / @leul_my2</a>
-                            <a href="https://t.me/llEUlllll" target="_blank" rel="noopener noreferrer">Telegram /
-                                @llEUlllll</a>
-                        </div>
-                    </aside>
+                    </div>
+                </section>
+            </main>
+
+            <footer class="footer section--paper" role="contentinfo">
+                <div class="container footer-grid">
+                    <span>Leul / Frontend Dev</span>
+                    <span>© 2024–2026</span>
+                    <span>Crafted with focus. ✦</span>
                 </div>
-            </div>
-        </section>
-    </main>
+            </footer>
 
-    <footer class="footer section--paper" role="contentinfo">
-        <div class="container footer-grid">
-            <span>Leul / Frontend Dev</span>
-            <span>© 2024–2026</span>
-            <span>Crafted with focus. ✦</span>
-        </div>
-    </footer>
+            <script>
+                (function () {
+                    'use strict';
 
-    <script>
-        (function () {
-            'use strict';
+                    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                    const isFinePointer = window.matchMedia('(pointer: fine) and (hover: hover)').matches;
 
-            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-            const isFinePointer = window.matchMedia('(pointer: fine) and (hover: hover)').matches;
+                    /* — Scroll reveal (slide from left) — */
+                    const revealEls = document.querySelectorAll('.reveal');
+                    let staggerIndex = 0;
 
-            /* — Scroll reveal (slide from left) — */
-            const revealEls = document.querySelectorAll('.reveal');
-            let staggerIndex = 0;
+                    const revealObserver = new IntersectionObserver(
+                        (entries) => {
+                            entries.forEach((entry) => {
+                                if (!entry.isIntersecting) return;
+                                const el = entry.target;
+                                if (!el.dataset.delaySet) {
+                                    el.style.transitionDelay = (staggerIndex++ % 8) * 60 + 'ms';
+                                    el.dataset.delaySet = '1';
+                                }
+                                el.classList.add('visible');
+                                revealObserver.unobserve(el);
+                            });
+                        },
+                        { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
+                    );
 
-            const revealObserver = new IntersectionObserver(
-                (entries) => {
-                    entries.forEach((entry) => {
-                        if (!entry.isIntersecting) return;
-                        const el = entry.target;
-                        if (!el.dataset.delaySet) {
-                            el.style.transitionDelay = (staggerIndex++ % 8) * 60 + 'ms';
-                            el.dataset.delaySet = '1';
-                        }
-                        el.classList.add('visible');
-                        revealObserver.unobserve(el);
+                    revealEls.forEach((el) => revealObserver.observe(el));
+
+                    const heroSection = document.getElementById('home');
+                    if (heroSection) {
+                        const showHero = () => {
+                            heroSection.querySelectorAll('.reveal').forEach((el) => {
+                                el.classList.add('visible');
+                            });
+                        };
+                        if (prefersReducedMotion) showHero();
+                        else requestAnimationFrame(showHero);
+                    }
+
+                    /* — Watermark parallax — */
+                    const watermarks = document.querySelectorAll('[data-parallax]');
+                    if (!prefersReducedMotion && watermarks.length) {
+                        const onParallax = () => {
+                            watermarks.forEach((wm) => {
+                                const section = wm.closest('section');
+                                if (!section) return;
+                                const rect = section.getBoundingClientRect();
+                                const speed = parseFloat(wm.dataset.parallax) || 0.4;
+                                const offset = (window.innerHeight - rect.top) * speed * 0.15;
+                                wm.style.transform = 'translateY(' + offset + 'px)';
+                            });
+                        };
+                        window.addEventListener('scroll', onParallax, { passive: true });
+                        onParallax();
+                    }
+
+                    /* — Mobile nav — */
+                    const navToggle = document.getElementById('navToggle');
+                    const navOverlay = document.getElementById('navOverlay');
+
+                    const setMenuOpen = (open) => {
+                        navToggle?.classList.toggle('is-open', open);
+                        navOverlay?.classList.toggle('is-open', open);
+                        navToggle?.setAttribute('aria-expanded', String(open));
+                        navOverlay?.setAttribute('aria-hidden', String(!open));
+                        document.body.style.overflow = open ? 'hidden' : '';
+                    };
+
+                    navToggle?.addEventListener('click', () => {
+                        setMenuOpen(!navOverlay?.classList.contains('is-open'));
                     });
-                },
-                { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
-            );
 
-            revealEls.forEach((el) => revealObserver.observe(el));
-
-            const heroSection = document.getElementById('home');
-            if (heroSection) {
-                const showHero = () => {
-                    heroSection.querySelectorAll('.reveal').forEach((el) => {
-                        el.classList.add('visible');
+                    navOverlay?.querySelectorAll('a').forEach((a) => {
+                        a.addEventListener('click', () => setMenuOpen(false));
                     });
-                };
-                if (prefersReducedMotion) showHero();
-                else requestAnimationFrame(showHero);
-            }
 
-            /* — Watermark parallax — */
-            const watermarks = document.querySelectorAll('[data-parallax]');
-            if (!prefersReducedMotion && watermarks.length) {
-                const onParallax = () => {
-                    watermarks.forEach((wm) => {
-                        const section = wm.closest('section');
-                        if (!section) return;
-                        const rect = section.getBoundingClientRect();
-                        const speed = parseFloat(wm.dataset.parallax) || 0.4;
-                        const offset = (window.innerHeight - rect.top) * speed * 0.15;
-                        wm.style.transform = 'translateY(' + offset + 'px)';
+                    document.addEventListener('keydown', (e) => {
+                        if (e.key === 'Escape') setMenuOpen(false);
                     });
-                };
-                window.addEventListener('scroll', onParallax, { passive: true });
-                onParallax();
-            }
 
-            /* — Mobile nav — */
-            const navToggle = document.getElementById('navToggle');
-            const navOverlay = document.getElementById('navOverlay');
-
-            const setMenuOpen = (open) => {
-                navToggle?.classList.toggle('is-open', open);
-                navOverlay?.classList.toggle('is-open', open);
-                navToggle?.setAttribute('aria-expanded', String(open));
-                navOverlay?.setAttribute('aria-hidden', String(!open));
-                document.body.style.overflow = open ? 'hidden' : '';
-            };
-
-            navToggle?.addEventListener('click', () => {
-                setMenuOpen(!navOverlay?.classList.contains('is-open'));
-            });
-
-            navOverlay?.querySelectorAll('a').forEach((a) => {
-                a.addEventListener('click', () => setMenuOpen(false));
-            });
-
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape') setMenuOpen(false);
-            });
-
-            /* — Smooth scroll — */
-            document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-                anchor.addEventListener('click', (e) => {
-                    const id = anchor.getAttribute('href');
-                    if (!id || id === '#') return;
-                    const target = document.querySelector(id);
-                    if (!target) return;
-                    e.preventDefault();
-                    target.scrollIntoView({
-                        behavior: prefersReducedMotion ? 'auto' : 'smooth',
-                        block: 'start'
-                    });
-                    setMenuOpen(false);
-                });
-            });
-
-            /* — Stat count-up — */
-            const statEls = document.querySelectorAll('.stat-value[data-count]');
-            let statsDone = false;
-
-            const animateValue = (el, end, suffix) => {
-                if (prefersReducedMotion) {
-                    el.textContent = end + suffix;
-                    return;
-                }
-                const start = performance.now();
-                const duration = 1200;
-                const step = (now) => {
-                    const t = Math.min((now - start) / duration, 1);
-                    const eased = 1 - Math.pow(1 - t, 3);
-                    el.textContent = Math.round(end * eased) + suffix;
-                    if (t < 1) requestAnimationFrame(step);
-                };
-                requestAnimationFrame(step);
-            };
-
-            const statsObserver = new IntersectionObserver(
-                (entries) => {
-                    entries.forEach((entry) => {
-                        if (!entry.isIntersecting || statsDone) return;
-                        statsDone = true;
-                        statEls.forEach((el) => {
-                            animateValue(el, Number(el.dataset.count), el.dataset.suffix || '');
+                    /* — Smooth scroll — */
+                    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+                        anchor.addEventListener('click', (e) => {
+                            const id = anchor.getAttribute('href');
+                            if (!id || id === '#') return;
+                            const target = document.querySelector(id);
+                            if (!target) return;
+                            e.preventDefault();
+                            target.scrollIntoView({
+                                behavior: prefersReducedMotion ? 'auto' : 'smooth',
+                                block: 'start'
+                            });
+                            setMenuOpen(false);
                         });
-                        statsObserver.disconnect();
                     });
-                },
-                { threshold: 0.3 }
-            );
 
-            const statsCol = document.querySelector('.hero-stats-col');
-            if (statsCol) statsObserver.observe(statsCol);
+                    /* — Stat count-up — */
+                    const statEls = document.querySelectorAll('.stat-value[data-count]');
+                    let statsDone = false;
 
-            /* — Custom cursor (red square) — */
-            const cursor = document.getElementById('cursor-square');
+                    const animateValue = (el, end, suffix) => {
+                        if (prefersReducedMotion) {
+                            el.textContent = end + suffix;
+                            return;
+                        }
+                        const start = performance.now();
+                        const duration = 1200;
+                        const step = (now) => {
+                            const t = Math.min((now - start) / duration, 1);
+                            const eased = 1 - Math.pow(1 - t, 3);
+                            el.textContent = Math.round(end * eased) + suffix;
+                            if (t < 1) requestAnimationFrame(step);
+                        };
+                        requestAnimationFrame(step);
+                    };
 
-            if (!prefersReducedMotion && isFinePointer && cursor) {
-                document.body.classList.add('has-custom-cursor');
-                let mx = 0;
-                let my = 0;
+                    const statsObserver = new IntersectionObserver(
+                        (entries) => {
+                            entries.forEach((entry) => {
+                                if (!entry.isIntersecting || statsDone) return;
+                                statsDone = true;
+                                statEls.forEach((el) => {
+                                    animateValue(el, Number(el.dataset.count), el.dataset.suffix || '');
+                                });
+                                statsObserver.disconnect();
+                            });
+                        },
+                        { threshold: 0.3 }
+                    );
 
-                document.addEventListener('mousemove', (e) => {
-                    mx = e.clientX;
-                    my = e.clientY;
-                    cursor.style.left = mx + 'px';
-                    cursor.style.top = my + 'px';
-                }, { passive: true });
+                    const statsCol = document.querySelector('.hero-stats-col');
+                    if (statsCol) statsObserver.observe(statsCol);
 
-                document.addEventListener('mousedown', () => cursor.classList.add('is-pressed'));
-                document.addEventListener('mouseup', () => cursor.classList.remove('is-pressed'));
+                    /* — Custom cursor (red square) — */
+                    const cursor = document.getElementById('cursor-square');
 
-                const interactive = 'a, button, .project-row, .method-item, .contact-cta-big, .nav-links a';
-                document.querySelectorAll(interactive).forEach((el) => {
-                    el.addEventListener('mouseenter', () => cursor.classList.add('is-hover'));
-                    el.addEventListener('mouseleave', () => cursor.classList.remove('is-hover'));
-                });
-            } else {
-                cursor?.remove();
-            }
-        })();
-    </script>
+                    if (!prefersReducedMotion && isFinePointer && cursor) {
+                        document.body.classList.add('has-custom-cursor');
+                        let mx = 0;
+                        let my = 0;
+
+                        document.addEventListener('mousemove', (e) => {
+                            mx = e.clientX;
+                            my = e.clientY;
+                            cursor.style.left = mx + 'px';
+                            cursor.style.top = my + 'px';
+                        }, { passive: true });
+
+                        document.addEventListener('mousedown', () => cursor.classList.add('is-pressed'));
+                        document.addEventListener('mouseup', () => cursor.classList.remove('is-pressed'));
+
+                        const interactive = 'a, button, .project-row, .method-item, .contact-cta-big, .nav-links a';
+                        document.querySelectorAll(interactive).forEach((el) => {
+                            el.addEventListener('mouseenter', () => cursor.classList.add('is-hover'));
+                            el.addEventListener('mouseleave', () => cursor.classList.remove('is-hover'));
+                        });
+                    } else {
+                        cursor?.remove();
+                    }
+                })();
+            </script>
 </body>
 
 </html>
