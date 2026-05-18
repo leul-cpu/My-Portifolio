@@ -35,31 +35,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // ── Mobile Menu Toggle ──
     const navToggle = document.getElementById('navToggle');
     const navLinks = document.querySelector('.nav-links');
-
-    const toggleMenu = (forceClose = false) => {
-        if (forceClose) {
-            navToggle.classList.remove('active');
-            navLinks.classList.remove('active');
-            document.body.style.overflow = '';
-        } else {
-            navToggle.classList.toggle('active');
-            navLinks.classList.toggle('active');
-
-            // Prevent scrolling when menu is open
-            if (navLinks.classList.contains('active')) {
-                document.body.style.overflow = 'hidden';
-            } else {
-                document.body.style.overflow = '';
-            }
-        }
-    };
-
-    navToggle.addEventListener('click', () => toggleMenu());
-
-    // Close menu on resize if switching to desktop
-    window.addEventListener('resize', () => {
-        if (window.innerWidth > 768 && navLinks.classList.contains('active')) {
-            toggleMenu(true);
         }
     });
 
@@ -94,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
                 
                 // Close mobile menu on click
-                toggleMenu(true);
+
             }
         });
     });
