@@ -35,16 +35,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // ── Mobile Menu Toggle ──
     const navToggle = document.getElementById('navToggle');
     const navLinks = document.querySelector('.nav-links');
-
-    navToggle.addEventListener('click', () => {
-        navToggle.classList.toggle('active');
-        navLinks.classList.toggle('active');
-
-        // Prevent scrolling when menu is open
-        if (navLinks.classList.contains('active')) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = '';
         }
     });
 
@@ -79,9 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
                 
                 // Close mobile menu on click
-                navToggle.classList.remove('active');
-                navLinks.classList.remove('active');
-                document.body.style.overflow = '';
+
             }
         });
     });
