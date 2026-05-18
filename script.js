@@ -32,17 +32,24 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // ── Mobile Menu Toggle (Simplified for now) ──
+    // ── Mobile Menu Toggle ──
     const navToggle = document.getElementById('navToggle');
-    // Implement mobile menu drop down if needed. For now, it just toggles the icon.
+    const navLinks = document.querySelector('.nav-links');
+
     navToggle.addEventListener('click', () => {
-        // Toggle animation for hamburger icon
         navToggle.classList.toggle('active');
-        // If there was a mobile menu, toggle it here
+        navLinks.classList.toggle('active');
+
+        // Prevent scrolling when menu is open
+        if (navLinks.classList.contains('active')) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
     });
 
     // ── Project Bento Card Hover Glow ──
-    const projectCards = document.querySelectorAll('.project-card');
+    const projectCards = document.querySelectorAll('.itsvg-card');
 
     projectCards.forEach(card => {
         card.addEventListener('mousemove', (e) => {
@@ -71,8 +78,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     block: 'start'
                 });
                 
-                // Close mobile menu on click if implemented
+                // Close mobile menu on click
                 navToggle.classList.remove('active');
+                navLinks.classList.remove('active');
+                document.body.style.overflow = '';
             }
         });
     });
