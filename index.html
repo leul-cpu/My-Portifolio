@@ -3,72 +3,213 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nova-OS // Terminal Console</title>
+    <title>Leul Abiti | Technical Schematic</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
-<body class="terminal-body">
-    <div class="crt-overlay"></div>
-    <div class="scanlines"></div>
+<body class="blueprint-canvas">
+    <div class="technical-grid"></div>
+    <div class="margin-markers">
+        <span class="m-top">FRONT_VIEW // 01</span>
+        <span class="m-right">REF: 2024.L_ABITI</span>
+        <span class="m-bottom">ALL DIMENSIONS IN PIXELS</span>
+        <span class="m-left">SCALE: 1:1</span>
+    </div>
 
-    <div class="nova-os-container">
-        <!-- Sidebar: System Telemetry -->
-        <aside class="system-telemetry">
-            <div class="telemetry-header">SYSTEM_STATUS: <span class="status-ok">OPTIMAL</span></div>
-            <div class="telemetry-grid">
-                <div class="telemetry-item">
-                    <label>CPU_LOAD</label>
-                    <div class="bar-container"><div class="bar" style="width: 12%;"></div></div>
+    <header class="blueprint-nav">
+        <div class="nav-brand">SPEC_01 // L_ABITI</div>
+        <div class="nav-links">
+            <a href="#hero" class="active">GENERAL_ARRANGEMENT</a>
+            <a href="#projects">COMPONENTS</a>
+            <a href="#principles">ASSEMBLY_RULES</a>
+            <a href="#contact">INQUIRY_FORM</a>
+        </div>
+    </header>
+
+    <main class="schematic-container">
+        <!-- Hero: General Arrangement -->
+        <section id="hero" class="schematic-section hero-schematic reveal">
+            <div class="callout callout-left" style="top: 10%">ROLE_IDENTIFIER</div>
+            <div class="hero-main">
+                <div class="hero-title-group">
+                    <h1 class="blueprint-title">LEUL ABITI</h1>
+                    <div class="blueprint-subtitle">FRONTEND_FOCUSED_ENGINEER</div>
                 </div>
-                <div class="telemetry-item">
-                    <label>MEM_USAGE</label>
-                    <div class="bar-container"><div class="bar" style="width: 45%;"></div></div>
+                <div class="technical-stats">
+                    <div class="stat-spec">
+                        <span class="label">EXP_DURATION</span>
+                        <span class="val">04_YEARS</span>
+                    </div>
+                    <div class="stat-spec">
+                        <span class="label">PROJECT_QTY</span>
+                        <span class="val">06_UNITS</span>
+                    </div>
                 </div>
             </div>
+            <div class="callout callout-right" style="bottom: 20%">UNIT_LOCATION: ADDIS_ABABA</div>
+        </section>
 
-            <div class="telemetry-stats">
-                <div class="stat-box">
-                    <span class="stat-label">PROJECT_FRAGMENTS</span>
-                    <span class="stat-value">06</span>
+        <!-- Projects: Component Details -->
+        <section id="projects" class="schematic-section projects-schematic">
+            <div class="section-header">
+                <span class="index">PART_02</span>
+                <h2>COMPONENT_DETAILS</h2>
+            </div>
+            <div class="blueprint-grid">
+                <!-- Project 1: MED-CHAIN -->
+                <div class="blueprint-card reveal">
+                    <div class="card-header">REF: MED_CHAIN</div>
+                    <div class="card-body">
+                        <div class="blueprint-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" /></svg>
+                        </div>
+                        <h3>BLOCKCHAIN_ECOSYSTEM</h3>
+                        <p>Secure medical record management with high-integrity audit trails.</p>
+                        <div class="tech-specs"><span>STK_JAVA</span><span>STK_SPRING</span></div>
+                    </div>
                 </div>
-                <div class="stat-box">
-                    <span class="stat-label">UPTIME</span>
-                    <span class="stat-value">256d</span>
+
+                <!-- Project 2: MohSquare -->
+                <div class="blueprint-card reveal">
+                    <div class="card-header">REF: MOHSQUARE</div>
+                    <div class="card-body">
+                        <div class="blueprint-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2" ry="2" /><circle cx="8.5" cy="8.5" r="1.5" /><polyline points="21 15 16 10 5 21" /></svg>
+                        </div>
+                        <h3>ART_PORTFOLIO_V1</h3>
+                        <p>Immersive visual platform designed for high-performance gallery rendering.</p>
+                        <div class="tech-specs"><span>STK_REACT</span><span>STK_PYTHON</span></div>
+                    </div>
+                </div>
+
+                <!-- Project 3: LeulFit -->
+                <div class="blueprint-card reveal">
+                    <div class="card-header">REF: LEULFIT</div>
+                    <div class="card-body">
+                        <div class="blueprint-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.42 4.58a5 5 0 010 7.07l-7.07 7.07-7.07-7.07a5 5 0 017.07-7.07 5 5 0 017.07 0z" /></svg>
+                        </div>
+                        <h3>HEALTH_TRACKER</h3>
+                        <p>Prototype for biometric monitoring and physical activity optimization.</p>
+                        <div class="tech-specs"><span>STK_HTML</span><span>STK_CSS</span></div>
+                    </div>
+                </div>
+
+                <!-- Project 4: Bellanawit -->
+                <div class="blueprint-card reveal">
+                    <div class="card-header">REF: BELLANAWIT</div>
+                    <div class="card-body">
+                        <div class="blueprint-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10" /><path d="M12 8v4l3 3" /></svg>
+                        </div>
+                        <h3>CLIENT_PROFILE_A</h3>
+                        <p>Custom-engineered professional presence for independent consultants.</p>
+                        <div class="tech-specs"><span>STK_HTML</span><span>STK_CSS</span></div>
+                    </div>
+                </div>
+
+                <!-- Project 5: Task Manager -->
+                <div class="blueprint-card reveal">
+                    <div class="card-header">REF: TASK_CORE</div>
+                    <div class="card-body">
+                        <div class="blueprint-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 11l3 3L22 4" /><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11" /></svg>
+                        </div>
+                        <h3>WORKFLOW_ENGINE</h3>
+                        <p>Lightweight utility for task prioritization and resource allocation.</p>
+                        <div class="tech-specs"><span>STK_JS</span><span>STK_HTML</span></div>
+                    </div>
+                </div>
+
+                <!-- Project 6: Retro Login -->
+                <div class="blueprint-card reveal">
+                    <div class="card-header">REF: AUTH_UI_90</div>
+                    <div class="card-body">
+                        <div class="blueprint-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2" /><path d="M7 11V7a5 5 0 0110 0v4" /></svg>
+                        </div>
+                        <h3>LEGACY_INTERFACE</h3>
+                        <p>Aesthetic prototype exploring retro-computing authentication flows.</p>
+                        <div class="tech-specs"><span>STK_CSS</span><span>STK_HTML</span></div>
+                    </div>
                 </div>
             </div>
+        </section>
 
-            <div class="system-logs" id="systemLogs">
-                <div class="log-line">> SECURE_LINK_ESTABLISHED</div>
-                <div class="log-line">> ENCRYPTION: AES-256</div>
+        <!-- Principles: Assembly Rules -->
+        <section id="principles" class="schematic-section principles-schematic">
+            <div class="section-header">
+                <span class="index">PART_03</span>
+                <h2>ASSEMBLY_RULES</h2>
+            </div>
+            <div class="principles-grid">
+                <div class="principle-item reveal">
+                    <span class="p-id">RULE_01</span>
+                    <h3>LATEST_TECH</h3>
+                    <p>Integrate cutting-edge frameworks for scalable and modern architecture.</p>
+                </div>
+                <div class="principle-item reveal">
+                    <span class="p-id">RULE_02</span>
+                    <h3>RESPONSIVENESS</h3>
+                    <p>Maintain dimensional integrity across all device orientations.</p>
+                </div>
+                <div class="principle-item reveal">
+                    <span class="p-id">RULE_03</span>
+                    <h3>PERFORMANCE</h3>
+                    <p>Optimize for sub-second latency and high-efficiency operations.</p>
+                </div>
+                <div class="principle-item reveal">
+                    <span class="p-id">RULE_04</span>
+                    <h3>BEAUTIFUL_UI</h3>
+                    <p>Adhere to aesthetic precision and intuitive user interaction flows.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Toolkit Sidebar -->
+        <aside class="toolkit-sidebar reveal">
+            <div class="toolkit-title">TOOLKIT_SPECS</div>
+            <div class="skill-blueprint">
+                <div class="skill-row">
+                    <span class="s-name">REACT_UI</span>
+                    <div class="s-meter"><div class="s-bar" style="width: 90%;"></div></div>
+                </div>
+                <div class="skill-row">
+                    <span class="s-name">TYPE_SCRIPT</span>
+                    <div class="s-meter"><div class="s-bar" style="width: 85%;"></div></div>
+                </div>
+                <div class="skill-row">
+                    <span class="s-name">UI_UX_DESIGN</span>
+                    <div class="s-meter"><div class="s-bar" style="width: 80%;"></div></div>
+                </div>
+                <div class="skill-row">
+                    <span class="s-name">PYTHON_DEV</span>
+                    <div class="s-meter"><div class="s-bar" style="width: 75%;"></div></div>
+                </div>
             </div>
         </aside>
 
-        <!-- Main Terminal -->
-        <main class="terminal-core">
-            <div class="terminal-header">
-                <div class="os-brand">NOVA-OS v4.2.0_L_ABITI</div>
-                <div class="os-time" id="osTime">00:00:00</div>
-            </div>
-
-            <div class="terminal-output" id="terminalOutput">
-                <div class="boot-sequence">
-                    <p class="boot-line">INIT_SYSTEM_BOOT...</p>
-                    <p class="boot-line">LOAD_KERNEL_MODULES [OK]</p>
-                    <p class="boot-line">IDENTIFYING_ENGINEER: <span class="highlight">LEUL_ABITI</span></p>
-                    <p class="boot-line">ACCESS_GRANTED. WELCOME BACK.</p>
-                    <p class="boot-line mt-1">Type 'help' for available commands.</p>
+        <!-- Footer / Contact -->
+        <footer id="contact" class="schematic-section contact-schematic reveal">
+            <div class="technical-border"></div>
+            <div class="contact-blueprint">
+                <h2>INQUIRY_PROCEDURE</h2>
+                <p>Establishing secure channel for new technical requirements and collaborations.</p>
+                <div class="contact-links">
+                    <a href="mailto:leulabiti98@gmail.com" class="btn-blueprint">SEND_TRANSMISSION</a>
+                    <div class="social-technical">
+                        <a href="#">GH_REPOS</a>
+                        <a href="#">LI_PROFILE</a>
+                        <a href="#">X_THREAD</a>
+                    </div>
                 </div>
             </div>
+        </footer>
+    </main>
 
-            <div class="terminal-input-wrapper">
-                <span class="prompt">nova@root:~$</span>
-                <input type="text" id="terminalInput" autofocus spellcheck="false" autocomplete="off">
-            </div>
-        </main>
-    </div>
-
+    <div class="cursor-crosshair"></div>
     <script src="script.js"></script>
 </body>
 </html>

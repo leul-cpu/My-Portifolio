@@ -1,15 +1,14 @@
 /* ===================================================
-   NOVA-OS — Tactical Terminal Portfolio
+   LEUL — Blueprint Schematic Portfolio
    =================================================== */
 
 :root {
-    --color-bg: #050808;
-    --color-main: #20c20e; /* Matrix Green */
-    --color-accent: #00f3ff; /* Cyber Teal */
-    --color-dim: #0a4d0a;
-    --color-warning: #ffb000;
-    --font-mono: 'JetBrains Mono', monospace;
-    --glow: 0 0 10px rgba(32, 194, 14, 0.4);
+    --color-paper: #f0ede5;
+    --color-ink: #1a4a8a; /* Blueprint Blue */
+    --color-grid: rgba(26, 74, 138, 0.08);
+    --color-accent: #d94e4e; /* Construction Red */
+    --font-technical: 'JetBrains Mono', monospace;
+    --font-heading: 'Outfit', sans-serif;
 }
 
 /* ── Reset ── */
@@ -19,198 +18,307 @@
     box-sizing: border-box;
 }
 
-body, html {
-    height: 100%;
-    background: var(--color-bg);
-    color: var(--color-main);
-    font-family: var(--font-mono);
-    overflow: hidden;
+html {
+    scroll-behavior: smooth;
 }
 
-/* ── CRT & Scanline Effects ── */
-.crt-overlay {
+body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-technical);
+    overflow-x: hidden;
+    line-height: 1.4;
+}
+
+/* ── Technical Grid ── */
+.technical-grid {
     position: fixed;
     inset: 0;
-    background: radial-gradient(circle, transparent 20%, rgba(0, 0, 0, 0.4) 100%);
+    background-image:
+        linear-gradient(var(--color-grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--color-grid) 1px, transparent 1px);
+    background-size: 40px 40px;
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* ── Margin Markers ── */
+.margin-markers {
+    position: fixed;
+    inset: 20px;
+    border: 1px solid rgba(26, 74, 138, 0.2);
     pointer-events: none;
     z-index: 100;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 1px;
 }
 
-.scanlines {
+.margin-markers span { position: absolute; }
+.m-top { top: -10px; left: 50%; transform: translateX(-50%); background: var(--color-paper); padding: 0 10px; }
+.m-right { right: -10px; top: 50%; transform: translateY(-50%) rotate(90deg); background: var(--color-paper); padding: 0 10px; }
+.m-bottom { bottom: -10px; left: 50%; transform: translateX(-50%); background: var(--color-paper); padding: 0 10px; }
+.m-left { left: -10px; top: 50%; transform: translateY(-50%) rotate(-90deg); background: var(--color-paper); padding: 0 10px; }
+
+/* ── Navigation ── */
+.blueprint-nav {
     position: fixed;
-    inset: 0;
-    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%),
-                linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
-    background-size: 100% 3px, 3px 100%;
-    pointer-events: none;
+    top: 40px;
+    left: 40px;
+    right: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     z-index: 101;
-    opacity: 0.3;
+    border-bottom: 2px solid var(--color-ink);
+    padding-bottom: 10px;
+    background: var(--color-paper);
 }
 
-@keyframes glitch {
-    0% { transform: translate(0); }
-    20% { transform: translate(-2px, 2px); }
-    40% { transform: translate(-2px, -2px); }
-    60% { transform: translate(2px, 2px); }
-    80% { transform: translate(2px, -2px); }
-    100% { transform: translate(0); }
-}
+.nav-brand { font-weight: 800; font-size: 0.9rem; }
 
-.glitch-text {
-    animation: glitch 0.2s infinite;
-    display: none;
-    color: var(--color-warning);
-}
-
-/* ── Layout ── */
-.nova-os-container {
-    display: flex;
-    height: 100vh;
-    padding: 2rem;
-    gap: 2rem;
-}
-
-/* ── Telemetry Sidebar ── */
-.system-telemetry {
-    width: 300px;
-    border: 1px solid var(--color-dim);
-    padding: 1.5rem;
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(5px);
-}
-
-.telemetry-header {
+.nav-links { display: flex; gap: 2rem; }
+.nav-links a {
+    text-decoration: none;
+    color: var(--color-ink);
     font-size: 0.75rem;
     font-weight: 700;
-    border-bottom: 1px solid var(--color-dim);
-    padding-bottom: 0.5rem;
+    transition: 0.2s;
 }
 
-.status-ok { color: var(--color-accent); }
-
-.telemetry-item label {
-    display: block;
-    font-size: 0.65rem;
-    margin-bottom: 0.5rem;
-    color: var(--color-dim);
-}
-
-.bar-container {
-    height: 4px;
-    background: var(--color-dim);
-    border-radius: 2px;
-}
-
-.bar {
-    height: 100%;
-    background: var(--color-accent);
-    box-shadow: 0 0 8px var(--color-accent);
-}
-
-.stat-box {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    margin-bottom: 1rem;
-}
-
-.stat-label { font-size: 0.65rem; color: var(--color-dim); }
-.stat-value { font-size: 1.5rem; font-weight: 700; line-height: 1; }
-
-.system-logs {
-    flex: 1;
-    overflow-y: auto;
-    font-size: 0.7rem;
-    color: var(--color-dim);
-}
-
-/* ── Terminal Core ── */
-.terminal-core {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    background: rgba(0, 10, 0, 0.4);
-    border: 1px solid var(--color-dim);
-    padding: 1.5rem;
-}
-
-.terminal-header {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.8rem;
-    margin-bottom: 2rem;
-    border-bottom: 1px solid var(--color-dim);
-    padding-bottom: 0.5rem;
+.nav-links a:hover, .nav-links a.active {
     color: var(--color-accent);
 }
 
-.terminal-output {
-    flex: 1;
-    overflow-y: auto;
-    margin-bottom: 1.5rem;
-    scrollbar-width: none;
+/* ── Main Container ── */
+.schematic-container {
+    max-width: 1200px;
+    margin: 120px auto;
+    padding: 0 40px;
+    position: relative;
 }
 
-.terminal-output::-webkit-scrollbar { display: none; }
-
-.terminal-input-wrapper {
+/* ── Hero Section ── */
+.hero-schematic {
+    height: 70vh;
     display: flex;
-    gap: 0.75rem;
     align-items: center;
+    position: relative;
+    border: 1px dashed var(--color-ink);
+    margin-bottom: 4rem;
 }
 
-.prompt {
+.callout {
+    position: absolute;
+    font-size: 0.65rem;
     font-weight: 700;
-    color: var(--color-warning);
+    color: var(--color-accent);
+    padding: 2px 8px;
+    border: 1px solid var(--color-accent);
 }
 
-#terminalInput {
-    background: transparent;
-    border: none;
-    outline: none;
-    color: var(--color-main);
-    font-family: inherit;
-    font-size: 1rem;
-    flex: 1;
-    text-shadow: var(--glow);
+.callout::before {
+    content: '';
+    position: absolute;
+    background: var(--color-accent);
 }
 
-/* ── Output Styles ── */
-.output-line { margin-bottom: 0.5rem; }
-.output-title { font-weight: 700; font-size: 1.2rem; color: var(--color-accent); margin-top: 1rem; }
-.output-cmd { color: var(--color-warning); }
+.callout-left { left: -20px; }
+.callout-left::before { width: 30px; height: 1px; top: 50%; left: 100%; }
 
-.highlight { color: #fff; text-shadow: 0 0 5px #fff; }
-.mt-1 { margin-top: 1rem; }
+.callout-right { right: -20px; }
+.callout-right::before { width: 30px; height: 1px; top: 50%; right: 100%; }
 
-/* Project Cards in Terminal */
-.project-fragment {
-    border: 1px solid var(--color-dim);
-    padding: 1rem;
-    margin: 1rem 0;
-    background: rgba(32, 194, 14, 0.05);
+.hero-main { padding-left: 10%; }
+
+.blueprint-title {
+    font-family: var(--font-heading);
+    font-size: clamp(3rem, 10vw, 6rem);
+    font-weight: 800;
+    line-height: 0.9;
+}
+
+.blueprint-subtitle {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-top: 1rem;
+    letter-spacing: 2px;
+}
+
+.technical-stats {
+    display: flex;
+    gap: 4rem;
+    margin-top: 3rem;
+}
+
+.stat-spec { display: flex; flex-direction: column; }
+.stat-spec .label { font-size: 0.6rem; color: rgba(26, 74, 138, 0.6); }
+.stat-spec .val { font-size: 1.5rem; font-weight: 800; border-bottom: 1px solid var(--color-ink); }
+
+/* ── Project Cards ── */
+.projects-schematic { margin-bottom: 6rem; }
+
+.section-header { margin-bottom: 3rem; border-left: 4px solid var(--color-ink); padding-left: 1.5rem; }
+.section-header .index { font-size: 0.7rem; font-weight: 700; color: var(--color-accent); display: block; }
+.section-header h2 { font-family: var(--font-heading); font-size: 2.5rem; font-weight: 800; }
+
+.blueprint-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+}
+
+.blueprint-card {
+    border: 1px solid var(--color-ink);
+    transition: 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.blueprint-card:hover {
+    background: #fff;
+    transform: translate(-5px, -5px);
+    box-shadow: 10px 10px 0 var(--color-ink);
+}
+
+.card-header {
+    background: var(--color-ink);
+    color: #fff;
+    padding: 0.5rem 1rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+}
+
+.card-body { padding: 2rem; }
+
+.blueprint-icon { width: 40px; height: 40px; color: var(--color-accent); margin-bottom: 1.5rem; }
+
+.card-body h3 { font-size: 1.1rem; font-weight: 800; margin-bottom: 0.75rem; }
+.card-body p { font-size: 0.9rem; color: #555; margin-bottom: 1.5rem; }
+
+.tech-specs { display: flex; gap: 1rem; }
+.tech-specs span { font-size: 0.65rem; font-weight: 700; background: rgba(26, 74, 138, 0.1); padding: 2px 6px; }
+
+/* ── Principles ── */
+.principles-schematic { margin-bottom: 6rem; }
+
+.principles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+}
+
+.principle-item {
+    border: 1px dashed var(--color-ink);
+    padding: 1.5rem;
     transition: 0.3s;
 }
 
-.project-fragment:hover {
+.principle-item:hover {
+    border-style: solid;
     border-color: var(--color-accent);
-    background: rgba(0, 243, 255, 0.05);
 }
 
-.tech-tag {
-    display: inline-block;
+.p-id { font-size: 0.6rem; font-weight: 700; color: var(--color-accent); display: block; margin-bottom: 0.5rem; }
+.principle-item h3 { font-size: 0.9rem; font-weight: 800; margin-bottom: 0.5rem; }
+.principle-item p { font-size: 0.8rem; color: #555; }
+
+/* ── Toolkit Sidebar ── */
+.toolkit-sidebar {
+    position: absolute;
+    right: 40px;
+    top: 150px;
+    width: 250px;
+    border: 1px solid var(--color-ink);
+    padding: 1.5rem;
+    background: var(--color-paper);
+    z-index: 90;
+}
+
+.toolkit-title {
     font-size: 0.7rem;
-    margin-right: 0.5rem;
-    padding: 2px 6px;
-    border: 1px solid var(--color-dim);
-    color: var(--color-dim);
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--color-ink);
+    padding-bottom: 0.5rem;
+}
+
+.skill-row { margin-bottom: 1.25rem; }
+.s-name { font-size: 0.65rem; font-weight: 700; display: block; margin-bottom: 0.5rem; }
+.s-meter { height: 10px; border: 1px solid var(--color-ink); padding: 2px; }
+.s-bar { height: 100%; background: var(--color-accent); }
+
+/* ── Contact Section ── */
+.contact-schematic { margin-top: 8rem; position: relative; padding-bottom: 4rem; }
+
+.technical-border {
+    height: 1px;
+    background: repeating-linear-gradient(90deg, var(--color-ink), var(--color-ink) 10px, transparent 10px, transparent 20px);
+    margin-bottom: 4rem;
+}
+
+.contact-blueprint h2 { font-family: var(--font-heading); font-size: 3rem; font-weight: 800; margin-bottom: 1rem; }
+.contact-blueprint p { max-width: 500px; margin-bottom: 2.5rem; }
+
+.btn-blueprint {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    background: var(--color-ink);
+    color: #fff;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.9rem;
+    transition: 0.2s;
+}
+
+.btn-blueprint:hover { background: var(--color-accent); transform: translateY(-2px); }
+
+.social-technical { display: flex; gap: 2rem; margin-top: 3rem; }
+.social-technical a { color: var(--color-ink); font-size: 0.7rem; font-weight: 700; text-decoration: none; border-bottom: 1px solid transparent; }
+.social-technical a:hover { border-color: var(--color-ink); }
+
+/* ── Cursor ── */
+.cursor-crosshair {
+    width: 30px;
+    height: 30px;
+    border: 1px solid var(--color-accent);
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 9999;
+    mix-blend-mode: multiply;
+    transform: translate(-50%, -50%);
+}
+
+.cursor-crosshair::before, .cursor-crosshair::after {
+    content: '';
+    position: absolute;
+    background: var(--color-accent);
+}
+
+.cursor-crosshair::before { width: 100%; height: 1px; top: 50%; left: 0; }
+.cursor-crosshair::after { width: 1px; height: 100%; top: 0; left: 50%; }
+
+/* ── Reveal ── */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 /* ── Responsive ── */
-@media (max-width: 900px) {
-    .system-telemetry { display: none; }
-    .nova-os-container { padding: 1rem; }
+@media (max-width: 1200px) {
+    .toolkit-sidebar { position: static; width: 100%; margin-bottom: 4rem; }
+}
+
+@media (max-width: 768px) {
+    .schematic-container { margin-top: 100px; padding: 0 20px; }
+    .blueprint-nav { left: 20px; right: 20px; flex-direction: column; gap: 1rem; }
+    .blueprint-title { font-size: 3.5rem; }
+    .technical-stats { flex-direction: column; gap: 1.5rem; }
+    .margin-markers { display: none; }
 }
