@@ -1,27 +1,22 @@
 import asyncio
 from playwright.async_api import async_playwright
+import os
 
 async def run():
     async with async_playwright() as p:
-        browser = await p.chromium.launch()
-        page = await browser.new_page()
+        browser = await p.chromium.launch(headless=True)
 
-        # Desktop
-        await page.set_viewport_size({"width": 1280, "height": 800})
-        await page.goto('http://localhost:8000')
-        await asyncio.sleep(1.5) # Wait for animations
+        # Desktop verification
+        page = await browser.new_page(viewport={'width': 1440, 'height': 900})
+        await page.goto(f'file://{os.getcwd()}/index.html')
+        await asyncio.sleep(2)  # Wait for animations
         await page.screenshot(path='screenshot_desktop.png', full_page=True)
 
-        # Mobile
-        await page.set_viewport_size({"width": 375, "height": 667})
-        await page.goto('http://localhost:8000')
-        await asyncio.sleep(1.5) # Wait for animations
-        await page.screenshot(path='screenshot_mobile.png')
-
-        # Open mobile menu
-        await page.click('#navToggle')
-        await asyncio.sleep(0.5) # wait for transition
-        await page.screenshot(path='screenshot_mobile_menu.png')
+        # Mobile verification
+        mobile_page = await browser.new_page(viewport={'width': 375, 'height': 812})
+        await mobile_page.goto(f'file://{os.getcwd()}/index.html')
+        await asyncio.sleep(2)
+        await mobile_page.screenshot(path='screenshot_mobile.png')
 
         await browser.close()
 

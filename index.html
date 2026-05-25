@@ -1,160 +1,147 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Leul | Software Developer</title>
-    <meta name="description"
-        content="Leul — Frontend focused Software Developer crafting modern web applications and turning imagination into reality.">
+    <title>Leul | Developer Portfolio</title>
+    <meta name="description" content="Cinematic split-screen developer portfolio inspired by VS Code and modern browser previews.">
+
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@400;500;600&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="styles.css">
 </head>
+<body class="cinematic-layout">
 
-<body class="bento-layout">
-    <!-- ===== CUSTOM CURSOR ===== -->
-    <div class="custom-cursor"></div>
-    <div class="custom-cursor-dot"></div>
+    <div class="app-container">
+        <!-- Sidebar: File Explorer -->
+        <aside class="editor-sidebar">
+            <div class="sidebar-header">EXPLORER</div>
+            <div class="file-tree">
+                <div class="tree-item active" data-file="portfolio.js">
+                    <span class="icon">JS</span> portfolio.js
+                </div>
+                <div class="tree-item" data-file="projects.js">
+                    <span class="icon">JS</span> projects.js
+                </div>
+                <div class="tree-item" data-file="principles.css">
+                    <span class="icon">#</span> principles.css
+                </div>
+                <div class="tree-item" data-file="contact.js">
+                    <span class="icon">JS</span> contact.js
+                </div>
+            </div>
+        </aside>
 
-    <!-- ===== NAVIGATION ===== -->
-    <nav id="navbar">
-        <div class="nav-container">
-            <a href="#" class="nav-logo">
-                <img src="leul_abiti_webdev_logo.svg" alt="Leul Logo" class="logo-img">
-                <span class="logo-text">Leul</span>
-            </a>
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#projects">Work</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-            <a href="#contact" class="btn-nav magnetic">Let's Talk</a>
-            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
-                <span></span><span></span><span></span>
-            </button>
-        </div>
-    </nav>
+        <!-- Main Workspace -->
+        <div class="workspace-main">
 
-    <main class="container bento-wrapper">
-        <div class="bento-grid-layout">
-
-            <!-- Hero Tile -->
-            <section id="home" class="bento-tile hero-tile reveal" data-tilt>
-                <div class="hero-bg-grid"></div>
-                <div class="hero-content">
-                    <div class="hero-greeting">
-                        <span class="wave">👋</span>
-                        <span>Hey, I'm <span class="highlight">Leul</span></span>
-                    </div>
-                    <h1>Front-end focused <span class="gradient-text">Developer.</span></h1>
-                    <p class="hero-sub">Crafting digital experiences with precision and passion.</p>
-                    <div class="hero-tags">
-                        <span class="tag">UI/UX</span>
-                        <span class="tag">Architecture</span>
-                        <span class="tag">Performance</span>
+            <!-- Left: Code Editor -->
+            <section class="pane editor-pane">
+                <header class="pane-header editor-tabs">
+                    <div class="tab active" data-file="portfolio.js">portfolio.js</div>
+                    <div class="tab" data-file="projects.js">projects.js</div>
+                    <div class="tab" data-file="principles.css">principles.css</div>
+                    <div class="tab" data-file="contact.js">contact.js</div>
+                </header>
+                <div class="editor-body">
+                    <div class="line-numbers" id="lineNumbers"></div>
+                    <div class="code-viewport" id="editorContent">
+                        <!-- Content injected via JS -->
                     </div>
                 </div>
             </section>
 
-            <!-- Stats Tiles -->
-            <div class="bento-tile stat-tile reveal" style="transition-delay: 0.1s;">
-                <div class="stat-num" data-target="6" data-suffix="+">0</div>
-                <div class="stat-label">Projects Completed</div>
-            </div>
+            <!-- Right: Browser Preview -->
+            <section class="pane preview-pane">
+                <header class="pane-header preview-controls">
+                    <div class="mac-dots">
+                        <span class="dot red"></span>
+                        <span class="dot yellow"></span>
+                        <span class="dot green"></span>
+                    </div>
+                    <div class="url-bar">
+                        <span class="secure-icon">🔒</span>
+                        localhost:3000/leul-portfolio
+                    </div>
+                </header>
+                <div class="preview-body" id="previewContainer">
+                    <!-- Portfolio content -->
+                    <div class="preview-content">
+                        <!-- Hero Section -->
+                        <section id="hero" class="preview-section">
+                            <div class="hero-top">
+                                <span class="badge available"><span class="dot"></span> Available for Work</span>
+                                <span class="badge">Frontend Engineer</span>
+                            </div>
+                            <h1 class="preview-title">Leul <span class="accent-serif">Abiti</span></h1>
+                            <p class="preview-subtitle">Crafting high-performance digital experiences with a focus on aesthetics and engineering precision.</p>
+                            <div class="preview-stats">
+                                <div class="p-stat">
+                                    <span class="num" data-target="6">0</span>
+                                    <span class="label">PROJECTS</span>
+                                </div>
+                                <div class="p-stat">
+                                    <span class="num" data-target="100">0</span>
+                                    <span class="label">CLIENTS</span>
+                                </div>
+                                <div class="p-stat">
+                                    <span class="num" data-target="4">0</span>
+                                    <span class="label">YEARS</span>
+                                </div>
+                            </div>
+                        </section>
 
-            <div class="bento-tile stat-tile reveal" style="transition-delay: 0.2s;">
-                <div class="stat-num" data-target="100" data-suffix="%">0</div>
-                <div class="stat-label">Client Happiness</div>
-            </div>
+                        <!-- Projects Section -->
+                        <section id="projects" class="preview-section">
+                            <h2 class="section-title">Selected Works</h2>
+                            <div class="project-cards">
+                                <!-- Cards injected here -->
+                            </div>
+                        </section>
 
-            <!-- About/Skills Tile -->
-            <section id="about" class="bento-tile about-tile reveal" style="transition-delay: 0.3s;">
-                <h3>Core Stack</h3>
-                <div class="skills-grid">
-                    <div class="skill-item"><span>Java</span></div>
-                    <div class="skill-item"><span>Spring</span></div>
-                    <div class="skill-item"><span>JS</span></div>
-                    <div class="skill-item"><span>HTML/CSS</span></div>
-                    <div class="skill-item"><span>Python</span></div>
-                    <div class="skill-item"><span>React</span></div>
+                        <!-- Principles Section -->
+                        <section id="principles" class="preview-section">
+                            <h2 class="section-title">Philosophy</h2>
+                            <div class="principle-cards">
+                                <!-- Principle cards here -->
+                            </div>
+                        </section>
+
+                        <!-- Contact Section -->
+                        <section id="contact" class="preview-section">
+                            <div class="contact-card">
+                                <h2>Let's build something amazing.</h2>
+                                <p>Currently open to new opportunities and collaborations.</p>
+                                <a href="mailto:leulabiti98@gmail.com" class="preview-btn">Send Message</a>
+                                <div class="contact-socials">
+                                    <a href="#">GitHub</a>
+                                    <a href="#">LinkedIn</a>
+                                    <a href="#">X</a>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
                 </div>
             </section>
-
-            <!-- Projects Header -->
-            <div class="bento-tile section-header-tile reveal" style="transition-delay: 0.4s;">
-                <h2>Selected Works</h2>
-                <p>Digital solutions for real-world problems.</p>
-            </div>
-
-            <!-- Project Tiles -->
-            <a href="https://github.com/leul-cpu/MED-CHAIN" target="_blank" class="bento-tile project-tile reveal" style="transition-delay: 0.5s;" data-tilt>
-                <div class="project-info">
-                    <span class="project-category">Full Stack</span>
-                    <h3>MED-CHAIN</h3>
-                    <p>Blockchain medical records.</p>
-                </div>
-                <div class="project-link-icon">↗</div>
-            </a>
-
-            <a href="https://mohsquare1.netlify.app/" target="_blank" class="bento-tile project-tile reveal" style="transition-delay: 0.6s;" data-tilt>
-                <div class="project-info">
-                    <span class="project-category">Web App</span>
-                    <h3>MohSquare</h3>
-                    <p>Portfolio for clients.</p>
-                </div>
-                <div class="project-link-icon">↗</div>
-            </a>
-
-            <!-- Small Interactive Tile -->
-            <div class="bento-tile interactive-tile reveal" style="transition-delay: 0.7s;">
-                <div class="availability">
-                    <span class="pulse-dot"></span>
-                    Available for Work
-                </div>
-            </div>
-
-            <!-- Principles Tile -->
-            <div class="bento-tile principles-tile reveal" style="transition-delay: 0.8s;">
-                <h3>Philosophy</h3>
-                <ul class="principles-list">
-                    <li>Latest Tech</li>
-                    <li>Responsive</li>
-                    <li>Performance</li>
-                    <li>Beautiful UI</li>
-                </ul>
-            </div>
-
-            <!-- Contact Tile -->
-            <section id="contact" class="bento-tile contact-tile reveal" style="transition-delay: 0.9s;">
-                <h2>Start a Project</h2>
-                <p>Have an idea? Let's bring it to life.</p>
-                <a href="mailto:leulabiti98@gmail.com" class="btn-primary magnetic">Get In Touch</a>
-            </section>
-
         </div>
-    </main>
 
-    <footer class="bento-footer container">
-        <div class="footer-grid">
-            <div class="footer-logo">
-                <img src="leul_abiti_webdev_logo.svg" alt="Leul Logo">
-                <span>Leul</span>
+        <!-- Status Bar -->
+        <footer class="status-bar">
+            <div class="status-left">
+                <span class="branch"> main</span>
+                <span class="status-item">syncing...</span>
             </div>
-            <div class="footer-socials">
-                <a href="https://github.com/leul-cpu" target="_blank">GH</a>
-                <a href="https://linkedin.com/in/Leul" target="_blank">LI</a>
-                <a href="https://x.com/leulleo8" target="_blank">X</a>
+            <div class="status-right">
+                <span class="status-item">UTF-8</span>
+                <span class="status-item">JavaScript</span>
+                <span class="status-item">Prettier</span>
             </div>
-            <p class="copyright">&copy; 2024 — 2026</p>
-        </div>
-    </footer>
+        </footer>
+    </div>
 
     <script src="script.js"></script>
 </body>
-
 </html>
