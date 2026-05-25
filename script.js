@@ -32,17 +32,39 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // ── Mobile Menu Toggle (Simplified for now) ──
+    // ── Mobile Menu Toggle ──
     const navToggle = document.getElementById('navToggle');
-    // Implement mobile menu drop down if needed. For now, it just toggles the icon.
-    navToggle.addEventListener('click', () => {
-        // Toggle animation for hamburger icon
-        navToggle.classList.toggle('active');
-        // If there was a mobile menu, toggle it here
+    const navLinks = document.querySelector('.nav-links');
+
+    const toggleMenu = (forceClose = false) => {
+        if (forceClose) {
+            navToggle.classList.remove('active');
+            navLinks.classList.remove('active');
+            document.body.style.overflow = '';
+        } else {
+            navToggle.classList.toggle('active');
+            navLinks.classList.toggle('active');
+
+            // Prevent scrolling when menu is open
+            if (navLinks.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        }
+    };
+
+    navToggle.addEventListener('click', () => toggleMenu());
+
+    // Close menu on resize if switching to desktop
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 768 && navLinks.classList.contains('active')) {
+            toggleMenu(true);
+        }
     });
 
     // ── Project Bento Card Hover Glow ──
-    const projectCards = document.querySelectorAll('.project-card');
+    const projectCards = document.querySelectorAll('.itsvg-card');
 
     projectCards.forEach(card => {
         card.addEventListener('mousemove', (e) => {
@@ -55,6 +77,92 @@ document.addEventListener('DOMContentLoaded', () => {
             card.style.setProperty('--mouse-x', `${x}px`);
             card.style.setProperty('--mouse-y', `${y}px`);
         });
+    });
+
+    // ── Stats Count-up Animation ──
+    const stats = document.querySelectorAll('.stat-num');
+
+    const animateValue = (obj, start, end, duration) => {
+        let startTimestamp = null;
+        const suffix = obj.getAttribute('data-suffix') || obj.innerText.replace(/[0-9]/g, '');
+        const step = (timestamp) => {
+            if (!startTimestamp) startTimestamp = timestamp;
+            const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+            const currentCount = Math.floor(progress * (end - start) + start);
+            obj.textContent = currentCount + suffix;
+            if (progress < 1) {
+                window.requestAnimationFrame(step);
+            }
+        };
+        window.requestAnimationFrame(step);
+    };
+
+    const statsObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const target = entry.target;
+                const endValue = parseInt(target.getAttribute('data-target') || target.innerText.replace(/[^0-9]/g, ''));
+                if (!isNaN(endValue)) {
+                    animateValue(target, 0, endValue, 2000);
+                }
+                statsObserver.unobserve(target);
+            }
+        });
+    }, { threshold: 0.5 });
+
+    stats.forEach(stat => statsObserver.observe(stat));
+
+    // ── Magnetic Buttons ──
+    const magneticBtns = document.querySelectorAll('.btn-nav, .btn-primary');
+
+    magneticBtns.forEach(btn => {
+        btn.addEventListener('mousemove', (e) => {
+            const rect = btn.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+
+            btn.style.transform = `translate(${x * 0.3}px, ${y * 0.5}px)`;
+        });
+
+        btn.addEventListener('mouseleave', () => {
+            btn.style.transform = '';
+        });
+    });
+
+    // ── Custom Cursor ──
+    const cursor = document.querySelector('.custom-cursor');
+    const cursorDot = document.querySelector('.custom-cursor-dot');
+    const links = document.querySelectorAll('a, button, .itsvg-card');
+
+    if (cursor && cursorDot && window.innerWidth > 768) {
+        document.body.classList.add('custom-cursor-active');
+
+        document.addEventListener('mousemove', (e) => {
+            const { clientX: x, clientY: y } = e;
+            cursor.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%)`;
+            cursorDot.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%)`;
+        });
+    }
+
+    links.forEach(link => {
+        link.addEventListener('mouseenter', () => {
+            cursor.classList.add('hover');
+        });
+        link.addEventListener('mouseleave', () => {
+            cursor.classList.remove('hover');
+        });
+    });
+
+    // ── Parallax Background ──
+    window.addEventListener('scroll', () => {
+        const scrolled = window.scrollY;
+        const grid = document.querySelector('.hero-bg-grid');
+        const glow1 = document.querySelector('.hero-glow-1');
+        const glow2 = document.querySelector('.hero-glow-2');
+
+        if (grid) grid.style.transform = `translateY(${scrolled * 0.3}px)`;
+        if (glow1) glow1.style.transform = `translateY(${scrolled * 0.15}px)`;
+        if (glow2) glow2.style.transform = `translateY(${scrolled * 0.1}px)`;
     });
 
     // ── Smooth Scroll for Anchor Links ──
@@ -71,8 +179,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     block: 'start'
                 });
                 
-                // Close mobile menu on click if implemented
-                navToggle.classList.remove('active');
+                // Close mobile menu on click
+                toggleMenu(true);
             }
         });
     });
