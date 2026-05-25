@@ -769,10 +769,6 @@ h1, h2, h3, .nav-logo {
         display: flex;
         z-index: 1001;
     }
-
-    .custom-cursor, .custom-cursor-dot {
-        display: none !important;
-    }
     
     .hero h1 {
         font-size: 3rem;

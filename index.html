@@ -3,322 +3,1572 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Leul | Software Developer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#F2EFE9">
+    <title>Leul | Frontend Software Developer</title>
     <meta name="description"
-        content="Leul — Frontend focused Software Developer crafting modern web applications and turning imagination into reality.">
+        content="Leul — Frontend Software Developer, Addis Ababa. Turning imagination into reality.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@400;500;600&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:ital,wght@0,400;0,500;1,400&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* ===================================================
+           LEUL — Raw Editorial Brutalist (single-file)
+           =================================================== */
+        :root {
+            --bg-paper: #F2EFE9;
+            --bg-ink: #0F0F0D;
+            --bg-mid: #1C1C19;
+            --bg-rule: #E0DBD3;
+
+            --accent-red: #D62828;
+            --accent-red-dark: #A01E1E;
+
+            --text-ink: #0F0F0D;
+            --text-paper: #F2EFE9;
+            --text-muted: #5C5C56;
+            --text-faint: #8A8A82;
+
+            --rule: #0F0F0D;
+            --rule-light: #E0DBD3;
+
+            --font-display: 'Bebas Neue', system-ui, sans-serif;
+            --font-editorial: 'Playfair Display', Georgia, serif;
+            --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+
+            --text-display: clamp(80px, 18vw, 220px);
+            --text-section: clamp(48px, 8vw, 96px);
+            --text-heading: clamp(28px, 4vw, 48px);
+            --text-body: clamp(13px, 1.5vw, 15px);
+            --text-label: 11px;
+            --text-stat: clamp(48px, 8vw, 72px);
+
+            --space-base: 8px;
+            --section-pad: 120px;
+            --section-pad-mob: 64px;
+            --nav-height: 64px;
+            --gutter: 24px;
+            --container-max: 1280px;
+
+            --ease-slide: cubic-bezier(0.77, 0, 0.175, 1);
+            --reveal-duration: 0.35s;
+            --reveal-stagger: 60ms;
+        }
+
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            border-radius: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        section[id] {
+            scroll-margin-top: calc(var(--nav-height) + env(safe-area-inset-top, 0px));
+        }
+
+        body {
+            font-family: var(--font-mono);
+            font-size: var(--text-body);
+            color: var(--text-ink);
+            background: var(--bg-paper);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+
+            .reveal {
+                opacity: 1 !important;
+                transform: none !important;
+            }
+
+            .watermark {
+                transform: none !important;
+            }
+        }
+
+        body.has-custom-cursor,
+        body.has-custom-cursor * {
+            cursor: none !important;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        button {
+            font: inherit;
+            border: none;
+            background: none;
+            color: inherit;
+        }
+
+        :focus-visible {
+            outline: 2px solid var(--accent-red);
+            outline-offset: 2px;
+        }
+
+        .skip-link {
+            position: absolute;
+            top: -100%;
+            left: var(--space-base);
+            z-index: 10001;
+            padding: calc(var(--space-base) * 2) calc(var(--space-base) * 3);
+            background: var(--accent-red);
+            color: var(--text-paper);
+            font-family: var(--font-mono);
+            font-size: var(--text-label);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .skip-link:focus {
+            top: var(--space-base);
+        }
+
+        .container {
+            width: 100%;
+            max-width: var(--container-max);
+            margin: 0 auto;
+            padding-left: max(var(--gutter), env(safe-area-inset-left, 0px));
+            padding-right: max(var(--gutter), env(safe-area-inset-right, 0px));
+        }
+
+        .grid-12 {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: var(--gutter);
+        }
+
+        .margin-label {
+            font-family: var(--font-mono);
+            font-size: var(--text-label);
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--text-faint);
+        }
+
+        .rule-h {
+            width: 100%;
+            height: 1px;
+            background: var(--rule);
+            border: none;
+        }
+
+        .rule-h--light {
+            background: var(--rule-light);
+        }
+
+        .rule-h--2 {
+            height: 2px;
+        }
+
+        .section--paper {
+            background: var(--bg-paper);
+            color: var(--text-ink);
+            position: relative;
+            overflow-x: clip;
+        }
+
+        .section--ink {
+            background: var(--bg-ink);
+            color: var(--text-paper);
+            position: relative;
+            overflow-x: clip;
+        }
+
+        .section-pad {
+            padding: var(--section-pad) 0;
+        }
+
+        @media (max-width: 768px) {
+            .section-pad {
+                padding: var(--section-pad-mob) 0;
+            }
+        }
+
+        /* — Grain texture (paper sections) — */
+        .grain::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            opacity: 0.07;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+            background-repeat: repeat;
+            z-index: 1;
+        }
+
+        .grain>* {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* — Registration marks — */
+        .reg-marks {
+            position: absolute;
+            inset: var(--gutter);
+            pointer-events: none;
+            z-index: 3;
+        }
+
+        .reg-marks::before,
+        .reg-marks::after,
+        .reg-marks span::before,
+        .reg-marks span::after {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+        }
+
+        .reg-marks::before {
+            top: 0;
+            left: 0;
+            border-top: 1px solid var(--text-faint);
+            border-left: 1px solid var(--text-faint);
+        }
+
+        .reg-marks::after {
+            top: 0;
+            right: 0;
+            border-top: 1px solid var(--text-faint);
+            border-right: 1px solid var(--text-faint);
+        }
+
+        .reg-marks span::before {
+            bottom: 0;
+            left: 0;
+            border-bottom: 1px solid var(--text-faint);
+            border-left: 1px solid var(--text-faint);
+        }
+
+        .reg-marks span::after {
+            bottom: 0;
+            right: 0;
+            border-bottom: 1px solid var(--text-faint);
+            border-right: 1px solid var(--text-faint);
+        }
+
+        /* — Watermark numbers — */
+        .watermark {
+            position: absolute;
+            font-family: var(--font-display);
+            font-size: clamp(120px, 22vw, 280px);
+            line-height: 0.85;
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(242, 239, 233, 0.06);
+            text-stroke: 1px rgba(242, 239, 233, 0.06);
+            pointer-events: none;
+            user-select: none;
+            z-index: 0;
+            will-change: transform;
+        }
+
+        .section--paper .watermark {
+            -webkit-text-stroke: 1px rgba(15, 15, 13, 0.06);
+            text-stroke: 1px rgba(15, 15, 13, 0.06);
+        }
+
+        .watermark--02 {
+            top: var(--section-pad);
+            right: 5%;
+        }
+
+        .watermark--03 {
+            top: var(--section-pad);
+            left: 3%;
+        }
+
+        /* — Scroll reveal — */
+        .reveal {
+            opacity: 0;
+            transform: translateX(-24px);
+            transition: opacity var(--reveal-duration) var(--ease-slide),
+                transform var(--reveal-duration) var(--ease-slide);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* — Custom cursor — */
+        #cursor-square {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 12px;
+            height: 12px;
+            background: var(--accent-red);
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            will-change: transform, width, height;
+            transition: width 0.15s ease, height 0.15s ease;
+        }
+
+        #cursor-square.is-hover {
+            width: 24px;
+            height: 24px;
+        }
+
+        #cursor-square.is-pressed {
+            width: 8px;
+            height: 8px;
+        }
+
+        /* — Nav — */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: calc(var(--nav-height) + env(safe-area-inset-top, 0px));
+            padding-top: env(safe-area-inset-top, 0px);
+            background: var(--bg-paper);
+            border-bottom: 1px solid var(--rule);
+            z-index: 1000;
+        }
+
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: var(--nav-height);
+            max-width: var(--container-max);
+            margin: 0 auto;
+            padding-left: max(var(--gutter), env(safe-area-inset-left, 0px));
+            padding-right: max(var(--gutter), env(safe-area-inset-right, 0px));
+        }
+
+        .nav-brand {
+            font-family: var(--font-mono);
+            font-size: var(--text-label);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            min-height: 44px;
+            touch-action: manipulation;
+        }
+
+        .nav-brand strong {
+            font-weight: 500;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: calc(var(--space-base) * 4);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: calc(var(--space-base) * 3);
+        }
+
+        .nav-links a {
+            font-family: var(--font-mono);
+            font-size: var(--text-label);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            min-height: 44px;
+            padding: 0 4px 2px;
+            touch-action: manipulation;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 0;
+            height: 2px;
+            background: var(--text-ink);
+            transition: width 0.2s var(--ease-slide);
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a:focus-visible::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            font-family: var(--font-mono);
+            font-size: var(--text-label);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--accent-red);
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            min-height: 44px;
+            touch-action: manipulation;
+        }
+
+        .nav-cta:hover {
+            color: var(--accent-red-dark);
+        }
+
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            min-width: 44px;
+            min-height: 44px;
+            padding: 10px;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .nav-toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--text-ink);
+            transition: transform 0.25s ease, opacity 0.25s ease;
+        }
+
+        .nav-toggle.is-open span:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+
+        .nav-toggle.is-open span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .nav-toggle.is-open span:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+
+        .nav-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 1100;
+            background: var(--bg-ink);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-start;
+            padding-top: calc(var(--nav-height) + env(safe-area-inset-top, 0px) + var(--space-base) * 6);
+            padding-right: max(calc(var(--space-base) * 4), env(safe-area-inset-right, 0px));
+            padding-bottom: max(calc(var(--space-base) * 6), env(safe-area-inset-bottom, 0px));
+            padding-left: max(calc(var(--space-base) * 4), env(safe-area-inset-left, 0px));
+            gap: calc(var(--space-base) * 2);
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            overscroll-behavior: contain;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .nav-overlay.is-open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .nav-overlay a {
+            font-family: var(--font-display);
+            font-size: clamp(40px, 11vw, 64px);
+            line-height: 1;
+            color: var(--text-paper);
+            letter-spacing: 0.02em;
+            display: flex;
+            align-items: center;
+            min-height: 44px;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .nav-overlay a:hover {
+            color: var(--accent-red);
+        }
+
+        .nav-overlay-cta {
+            margin-top: calc(var(--space-base) * 4);
+            font-family: var(--font-mono) !important;
+            font-size: var(--text-label) !important;
+            color: var(--accent-red) !important;
+            letter-spacing: 0.14em;
+        }
+
+        /* — Hero — */
+        .hero {
+            min-height: 100vh;
+            min-height: 100dvh;
+            padding-top: calc(var(--nav-height) + env(safe-area-inset-top, 0px) + var(--section-pad));
+            padding-bottom: max(var(--section-pad), env(safe-area-inset-bottom, 0px));
+        }
+
+        .hero-meta {
+            margin-bottom: calc(var(--space-base) * 4);
+        }
+
+        .hero-name {
+            font-family: var(--font-display);
+            font-size: var(--text-display);
+            line-height: 0.9;
+            letter-spacing: -0.02em;
+            transform: rotate(-3deg);
+            transform-origin: left center;
+            margin: calc(var(--space-base) * 2) 0 calc(var(--space-base) * 4);
+        }
+
+        .hero-rule {
+            margin: calc(var(--space-base) * 4) 0;
+        }
+
+        .hero-role {
+            font-family: var(--font-editorial);
+            font-size: var(--text-heading);
+            font-weight: 400;
+            line-height: 1.25;
+            max-width: 18ch;
+        }
+
+        .hero-tagline {
+            font-family: var(--font-editorial);
+            font-style: italic;
+            font-size: clamp(18px, 2.5vw, 24px);
+            color: var(--text-muted);
+            margin-top: calc(var(--space-base) * 3);
+        }
+
+        .hero-ctas {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: calc(var(--space-base) * 2);
+            margin-top: calc(var(--space-base) * 6);
+            font-family: var(--font-mono);
+            font-size: var(--text-label);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .hero-ctas a {
+            display: inline-flex;
+            align-items: center;
+            min-height: 44px;
+            padding: 4px 0;
+            touch-action: manipulation;
+        }
+
+        .hero-cta-primary {
+            color: var(--accent-red);
+            font-weight: 500;
+        }
+
+        .hero-cta-primary:hover {
+            color: var(--accent-red-dark);
+        }
+
+        .hero-cta-sep {
+            color: var(--text-faint);
+        }
+
+        .hero-cta-secondary:hover {
+            text-decoration: underline;
+            text-underline-offset: 4px;
+        }
+
+        .hero-layout {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: var(--gutter);
+            align-items: start;
+        }
+
+        .hero-main {
+            grid-column: 1 / 8;
+        }
+
+        .hero-stats-col {
+            grid-column: 9 / 13;
+            padding-top: calc(var(--space-base) * 8);
+        }
+
+        .stat-block {
+            padding: calc(var(--space-base) * 3) 0;
+            border-bottom: 1px solid var(--rule);
+        }
+
+        .stat-block:first-child {
+            border-top: 1px solid var(--rule);
+        }
+
+        .stat-value {
+            font-family: var(--font-display);
+            font-size: var(--text-stat);
+            line-height: 1;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: var(--text-label);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-top: var(--space-base);
+        }
+
+        .stats-footer {
+            margin-top: calc(var(--space-base) * 4);
+            font-size: var(--text-label);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--text-faint);
+        }
+
+        /* — Section headers — */
+        .section-intro {
+            margin-bottom: calc(var(--space-base) * 8);
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: var(--text-section);
+            line-height: 0.95;
+            letter-spacing: 0.02em;
+            margin-top: calc(var(--space-base) * 2);
+        }
+
+        .section-sub {
+            font-family: var(--font-mono);
+            font-size: var(--text-label);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-faint);
+            margin-top: calc(var(--space-base) * 2);
+        }
+
+        .section--ink .section-sub,
+        .section--ink .margin-label {
+            color: rgba(242, 239, 233, 0.45);
+        }
+
+        /* — Projects list — */
+        .project-list {
+            border-top: 1px solid rgba(242, 239, 233, 0.2);
+        }
+
+        .project-row {
+            display: grid;
+            grid-template-columns: 48px 1fr auto;
+            gap: var(--gutter);
+            align-items: baseline;
+            width: 100%;
+            min-height: 44px;
+            padding: calc(var(--space-base) * 4) calc(var(--space-base) * 2);
+            border-bottom: 1px solid rgba(242, 239, 233, 0.2);
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+            transition: background 0.2s ease, padding 0.2s ease, color 0.2s ease;
+        }
+
+        .project-row:hover,
+        .project-row:focus-within,
+        .project-row:active {
+            background: var(--accent-red);
+            color: var(--bg-paper);
+            padding-left: calc(var(--space-base) * 3);
+            padding-right: calc(var(--space-base) * 3);
+        }
+
+        .project-row:hover .project-desc,
+        .project-row:hover .project-tech,
+        .project-row:focus-within .project-desc,
+        .project-row:focus-within .project-tech,
+        .project-row:active .project-desc,
+        .project-row:active .project-tech {
+            color: var(--bg-paper);
+            opacity: 0.85;
+        }
+
+        .project-num {
+            font-family: var(--font-mono);
+            font-size: var(--text-label);
+            letter-spacing: 0.08em;
+            opacity: 0.6;
+        }
+
+        .project-name {
+            font-family: var(--font-editorial);
+            font-size: clamp(22px, 3vw, 36px);
+            font-weight: 600;
+            margin-bottom: calc(var(--space-base) * 1);
+        }
+
+        .project-desc {
+            font-size: var(--text-body);
+            color: rgba(242, 239, 233, 0.65);
+            margin-bottom: calc(var(--space-base) * 2);
+        }
+
+        .project-tech {
+            font-size: var(--text-label);
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: rgba(242, 239, 233, 0.5);
+            overflow-wrap: anywhere;
+            word-break: break-word;
+        }
+
+        .project-arrow {
+            font-family: var(--font-mono);
+            font-size: var(--text-label);
+            align-self: center;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .project-row:hover .project-arrow,
+        .project-row:focus-within .project-arrow,
+        .project-row:active .project-arrow {
+            opacity: 1;
+        }
+
+        @media (hover: none) and (pointer: coarse) {
+            .project-row .project-arrow {
+                opacity: 0.5;
+            }
+        }
+
+        .projects-footer {
+            margin-top: calc(var(--space-base) * 6);
+            padding-top: calc(var(--space-base) * 4);
+            border-top: 1px solid rgba(242, 239, 233, 0.2);
+            font-size: var(--text-label);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .projects-footer a {
+            display: inline-flex;
+            align-items: center;
+            min-height: 44px;
+            text-decoration: underline;
+            text-underline-offset: 4px;
+            touch-action: manipulation;
+        }
+
+        .projects-footer a:hover {
+            color: var(--accent-red);
+        }
+
+        /* — Method grid — */
+        .method-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: calc(var(--gutter) * 2);
+        }
+
+        .method-item {
+            padding-bottom: calc(var(--space-base) * 4);
+            border-bottom: 1px solid var(--rule);
+        }
+
+        .method-num {
+            font-family: var(--font-display);
+            font-size: clamp(48px, 6vw, 72px);
+            color: var(--accent-red);
+            line-height: 1;
+            display: inline-block;
+            transition: transform 0.2s ease;
+        }
+
+        .method-item:hover .method-num {
+            transform: scale(1.1);
+        }
+
+        .method-title {
+            font-family: var(--font-editorial);
+            font-size: clamp(20px, 2.5vw, 28px);
+            font-weight: 600;
+            margin: calc(var(--space-base) * 2) 0;
+        }
+
+        .method-body {
+            color: var(--text-muted);
+            max-width: 42ch;
+        }
+
+        /* — Contact — */
+        .contact-layout {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: var(--gutter);
+        }
+
+        .contact-main {
+            grid-column: 1 / 7;
+        }
+
+        .contact-heading {
+            font-family: var(--font-display);
+            font-size: clamp(56px, 10vw, 120px);
+            line-height: 0.95;
+            letter-spacing: 0.01em;
+            margin-top: calc(var(--space-base) * 4);
+        }
+
+        .contact-heading .accent {
+            color: var(--accent-red);
+        }
+
+        .contact-side {
+            grid-column: 8 / 13;
+            padding-top: calc(var(--space-base) * 8);
+        }
+
+        .contact-block {
+            padding: calc(var(--space-base) * 3) 0;
+            border-bottom: 1px solid rgba(242, 239, 233, 0.2);
+        }
+
+        .contact-block:first-of-type {
+            border-top: 1px solid rgba(242, 239, 233, 0.2);
+        }
+
+        .contact-block-label {
+            font-size: var(--text-label);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: rgba(242, 239, 233, 0.45);
+            margin-bottom: calc(var(--space-base) * 2);
+        }
+
+        .contact-block a,
+        .contact-block p {
+            font-size: var(--text-body);
+            display: block;
+            line-height: 1.8;
+        }
+
+        .contact-block a {
+            display: flex;
+            align-items: center;
+            min-height: 44px;
+            touch-action: manipulation;
+        }
+
+        .contact-block a:hover {
+            color: var(--accent-red);
+        }
+
+        .contact-cta-big {
+            display: inline-flex;
+            align-items: center;
+            min-height: 44px;
+            margin-top: calc(var(--space-base) * 8);
+            font-family: var(--font-display);
+            font-size: clamp(28px, 6vw, 36px);
+            letter-spacing: 0.04em;
+            color: var(--text-paper);
+            border-bottom: 2px solid var(--text-paper);
+            padding-bottom: 4px;
+            touch-action: manipulation;
+            transition: color 0.2s ease, border-color 0.2s ease;
+        }
+
+        .contact-cta-big:hover {
+            color: var(--accent-red);
+            border-color: var(--accent-red);
+        }
+
+        /* — Footer — */
+        .footer {
+            border-top: 2px solid var(--rule);
+            padding-top: calc(var(--space-base) * 6);
+            padding-bottom: max(calc(var(--space-base) * 6), env(safe-area-inset-bottom, 16px));
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--gutter);
+            font-size: var(--text-label);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .footer-grid>*:nth-child(2) {
+            text-align: center;
+            color: var(--text-muted);
+        }
+
+        .footer-grid>*:nth-child(3) {
+            text-align: right;
+            color: var(--text-faint);
+        }
+
+        /* — Responsive: tablet & below (≤768px) — */
+        @media (max-width: 768px) {
+            :root {
+                --gutter: 20px;
+                --section-pad-mob: 56px;
+            }
+
+            .grid-12,
+            .hero-layout,
+            .contact-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-main,
+            .hero-stats-col,
+            .contact-main,
+            .contact-side {
+                grid-column: 1 / -1;
+            }
+
+            .hero-stats-col {
+                padding-top: calc(var(--space-base) * 6);
+            }
+
+            .contact-side {
+                padding-top: 0;
+            }
+
+            .hero-name {
+                transform: rotate(-2deg);
+            }
+
+            .watermark {
+                font-size: clamp(88px, 24vw, 180px);
+            }
+
+            .watermark--02 {
+                right: -4%;
+                top: var(--section-pad-mob);
+            }
+
+            .watermark--03 {
+                left: -6%;
+                top: var(--section-pad-mob);
+            }
+
+            .nav-links,
+            .nav-cta {
+                display: none;
+            }
+
+            .nav-toggle {
+                display: flex;
+            }
+
+            .method-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .project-row {
+                grid-template-columns: 40px minmax(0, 1fr);
+                align-items: start;
+                padding-left: 0;
+                padding-right: 0;
+            }
+
+            .project-row>div {
+                min-width: 0;
+            }
+
+            .project-name,
+            .project-desc {
+                overflow-wrap: anywhere;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                text-align: left !important;
+                gap: calc(var(--space-base) * 3);
+            }
+
+            .footer-grid>*:nth-child(2),
+            .footer-grid>*:nth-child(3) {
+                text-align: left;
+            }
+
+            .reg-marks {
+                display: none;
+            }
+
+            .hero-ctas {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .hero-cta-sep {
+                display: none;
+            }
+        }
+
+        /* — Responsive: large phones (481–768px) — */
+        @media (min-width: 481px) and (max-width: 768px) {
+            :root {
+                --text-display: clamp(72px, 15vw, 140px);
+            }
+
+            .hero-role {
+                max-width: none;
+            }
+        }
+
+        /* — Responsive: small phones (≤480px) — */
+        @media (max-width: 480px) {
+            :root {
+                --gutter: 16px;
+                --section-pad-mob: 48px;
+                --text-display: clamp(52px, 20vw, 96px);
+                --text-section: clamp(40px, 12vw, 72px);
+                --text-stat: clamp(40px, 12vw, 56px);
+            }
+
+            .hero-meta {
+                font-size: 10px;
+                letter-spacing: 0.1em;
+                line-height: 1.5;
+            }
+
+            .hero-name {
+                transform: rotate(-1deg);
+                max-width: 100%;
+                overflow-wrap: anywhere;
+            }
+
+            .hero-role {
+                font-size: clamp(24px, 7vw, 32px);
+                max-width: none;
+            }
+
+            .hero-tagline {
+                font-size: clamp(16px, 4.5vw, 20px);
+            }
+
+            .watermark {
+                font-size: clamp(64px, 22vw, 120px);
+            }
+
+            .watermark--02 {
+                right: -12%;
+            }
+
+            .watermark--03 {
+                left: -14%;
+            }
+
+            .section-title {
+                letter-spacing: 0;
+            }
+
+            .contact-heading {
+                font-size: clamp(44px, 14vw, 72px);
+            }
+
+            .nav-overlay {
+                padding-top: calc(var(--nav-height) + env(safe-area-inset-top, 0px) + var(--space-base) * 4);
+            }
+
+            .project-row {
+                grid-template-columns: 1fr;
+                gap: calc(var(--space-base) * 2);
+                padding-top: calc(var(--space-base) * 5);
+                padding-bottom: calc(var(--space-base) * 5);
+            }
+
+            .project-num {
+                opacity: 0.7;
+            }
+
+            .project-arrow {
+                display: none;
+            }
+
+            .stat-block {
+                padding: calc(var(--space-base) * 2) 0;
+            }
+        }
+
+        /* — Responsive: desktop (769px+) — */
+        @media (min-width: 769px) {
+            .hero-main {
+                grid-column: 1 / 8;
+            }
+
+            .hero-stats-col {
+                grid-column: 9 / 13;
+                padding-top: calc(var(--space-base) * 8);
+            }
+
+            .contact-main {
+                grid-column: 1 / 7;
+            }
+
+            .contact-side {
+                grid-column: 8 / 13;
+                padding-top: calc(var(--space-base) * 8);
+            }
+        }
+
+        /* Mobile: touch — native cursor, no custom square */
+        @media (hover: none) and (pointer: coarse) {
+
+            body.has-custom-cursor,
+            body.has-custom-cursor * {
+                cursor: auto !important;
+            }
+
+            #cursor-square {
+                display: none !important;
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <!-- ===== CUSTOM CURSOR ===== -->
-    <div class="custom-cursor"></div>
-    <div class="custom-cursor-dot"></div>
-
-    <!-- ===== NAVIGATION ===== -->
-    <nav id="navbar">
-        <div class="nav-container">
-            <a href="#" class="nav-logo">
-                <img src="leul_abiti_webdev_logo.svg" alt="Leul Logo" class="logo-img">
-                <span class="logo-text">Leul</span>
-            </a>
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#principles">Principles</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-            <a href="#contact" class="btn-nav">Let's Talk</a>
-            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
-                <span></span><span></span><span></span>
-            </button>
-        </div>
-    </nav>
-
-    <!-- ===== HERO ===== -->
-    <section id="home" class="hero">
-        <div class="hero-bg-grid"></div>
-        <div class="hero-glow hero-glow-1"></div>
-        <div class="hero-glow hero-glow-2"></div>
-
-        <div class="container hero-container">
-            <div class="hero-content reveal">
-                <div class="hero-greeting">
-                    <span class="wave">👋</span>
-                    <span>Hey, I'm <span class="highlight">Leul,</span> coding and crafting products and I'm a...</span>
-                </div>
-                <h1>
-                    Front-end focused <br>
-                    <span class="gradient-text">Software Developer.</span>
-                </h1>
-
-                <div class="hero-tags">
-                    <span class="tag"><span class="dot"></span>requirements</span>
-                    <span class="tag"><span class="dot"></span>trends</span>
-                    <span class="tag"><span class="dot"></span>UI / UX</span>
-                    <span class="tag"><span class="dot"></span>accessibility</span>
-                    <span class="tag"><span class="dot"></span>performance</span>
-                </div>
-            </div>
-
-            <div class="hero-scroll">
-                <div class="mouse"></div>
-                <span>Scroll to explore</span>
-            </div>
-        </div>
-    </section>
-
-    <!-- ===== STATS BANNER ===== -->
-    <section class="stats-banner">
-        <div class="container">
-            <div class="stats-grid reveal">
-                <div class="stat-item">
-                    <div class="stat-num" data-target="6" data-suffix="+">6+</div>
-                    <div class="stat-text">Projects<br>Launched</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-num" data-target="4" data-suffix="+">4+</div>
-                    <div class="stat-text">Core<br>Technologies</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-num" data-target="100" data-suffix="%">100%</div>
-                    <div class="stat-text">Client<br>Satisfaction</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-num" data-target="1000" data-suffix="+">∞</div>
-                    <div class="stat-text">Lines of<br>Clean Code</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ===== PROJECTS ===== -->
-    <section id="projects" class="projects">
-        <div class="container">
-            <div class="section-header reveal">
-                <div class="section-title-wrap">
-                    <span class="dot-accent"></span>
-                    <h2>Projects</h2>
-                </div>
-                <p>A selection of my recent work and personal projects.</p>
-            </div>
-
-            <div class="itsvg-grid">
-
-                <!-- Project 1: MED-CHAIN -->
-                <a href="https://github.com/leul-cpu/MED-CHAIN" target="_blank" rel="noopener"
-                    class="itsvg-card reveal">
-                    <div class="itsvg-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                            <polyline points="15 3 21 3 21 9"></polyline>
-                            <line x1="10" y1="14" x2="21" y2="3"></line>
-                        </svg>
-                    </div>
-                    <div class="itsvg-info">
-                        <h3>MED-CHAIN</h3>
-                        <p class="itsvg-url">MED-CHAIN (school project)</p>
-                        <div class="itsvg-tech">
-                            <span>Java</span><span>Spring</span><span>JS</span>
-                        </div>
-                    </div>
-                </a>
-
-                <!-- Project 2: Client Portfolio -->
-                <a href="https://mohsquare1.netlify.app/" target="_blank" rel="noopener" class="itsvg-card reveal">
-                    <div class="itsvg-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                            <polyline points="15 3 21 3 21 9"></polyline>
-                            <line x1="10" y1="14" x2="21" y2="3"></line>
-                        </svg>
-                    </div>
-                    <div class="itsvg-info">
-                        <h3>Client Portfolio</h3>
-                        <p class="itsvg-url">mohsquare1</p>
-                        <div class="itsvg-tech">
-                            <span>HTML/CSS</span><span>JS</span><span>Python</span>
-                        </div>
-                    </div>
-                </a>
-
-                <!-- Project 3: LeulFit -->
-                <a href="https://leul-cpu.github.io/leulfit/" target="_blank" rel="noopener" class="itsvg-card reveal">
-                    <div class="itsvg-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                            <polyline points="15 3 21 3 21 9"></polyline>
-                            <line x1="10" y1="14" x2="21" y2="3"></line>
-                        </svg>
-                    </div>
-                    <div class="itsvg-info">
-                        <h3>LeulFit</h3>
-                        <p class="itsvg-url">leulfit (future project)</p>
-                        <div class="itsvg-tech">
-                            <span>HTML</span><span>CSS</span>
-                        </div>
-                    </div>
-                </a>
-
-                <!-- Project 4: Bellanawit -->
-                <a href="https://leul-cpu.github.io/Bellanawit/" target="_blank" rel="noopener"
-                    class="itsvg-card reveal">
-                    <div class="itsvg-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                            <polyline points="15 3 21 3 21 9"></polyline>
-                            <line x1="10" y1="14" x2="21" y2="3"></line>
-                        </svg>
-                    </div>
-                    <div class="itsvg-info">
-                        <h3>Bellanawit Portfolio</h3>
-                        <p class="itsvg-url">Bellanawit (client portfolio)</p>
-                        <div class="itsvg-tech">
-                            <span>HTML</span><span>CSS</span>
-                        </div>
-                    </div>
-                </a>
-
-                <!-- Project 5: Simple Task Manager -->
-                <a href="https://leul-cpu.github.io/Simple-Task-Manager/" target="_blank" rel="noopener"
-                    class="itsvg-card reveal">
-                    <div class="itsvg-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                            <polyline points="15 3 21 3 21 9"></polyline>
-                            <line x1="10" y1="14" x2="21" y2="3"></line>
-                        </svg>
-                    </div>
-                    <div class="itsvg-info">
-                        <h3>Task Manager</h3>
-                        <p class="itsvg-url">Simple-Task-Manager</p>
-                        <div class="itsvg-tech">
-                            <span>JS</span><span>HTML</span><span>CSS</span>
-                        </div>
-                    </div>
-                </a>
-
-                <!-- Project 6: Retro Login -->
-                <a href="https://leul-cpu.github.io/retro-login/" target="_blank" rel="noopener"
-                    class="itsvg-card reveal">
-                    <div class="itsvg-icon">
-                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-                            <polyline points="15 3 21 3 21 9"></polyline>
-                            <line x1="10" y1="14" x2="21" y2="3"></line>
-                        </svg>
-                    </div>
-                    <div class="itsvg-info">
-                        <h3>Retro Login UI</h3>
-                        <p class="itsvg-url">retro-login (prototype)</p>
-                        <div class="itsvg-tech">
-                            <span>CSS</span><span>HTML</span>
-                        </div>
-                    </div>
-                </a>
 
             </div>
         </div>
-    </section>
+    </header>
 
-    <!-- ===== PRINCIPLES ===== -->
-    <section id="principles" class="principles">
-        <div class="container">
-            <div class="section-header reveal">
-                <div class="section-title-wrap">
-                    <span class="dot-accent"></span>
-                    <h2>Principles</h2>
-                </div>
-            </div>
+    <div class="nav-overlay" id="navOverlay" aria-hidden="true" role="dialog" aria-modal="true"
+        aria-label="Mobile navigation">
+        <a href="#home">Home</a>
+        <a href="#projects">Work</a>
+        <a href="#method">Method</a>
+        <a href="#contact">Contact</a>
+        <a href="#contact" class="nav-overlay-cta">Let's Talk →</a>
+    </div>
 
-            <div class="principles-grid">
-                <div class="principle-item reveal">
-                    <div class="p-icon">🚀</div>
-                    <div class="p-content">
-                        <h3>Latest Tech</h3>
-                        <p>Stay ahead with cutting-edge frameworks and libraries for a modern web experience.</p>
+    <main id="main">
+                <section id="home" class="hero section--paper section-pad grain" aria-labelledby="hero-heading">
+                    <div class="reg-marks" aria-hidden="true"><span></span></div>
+                    <div class="container">
+                        <p class="margin-label hero-meta reveal">§ 01 / Intro — Frontend Software Developer — Addis
+                            Ababa</p>
+                        <div class="hero-layout">
+                            <div class="hero-main">
+                                <h1 id="hero-heading" class="hero-name reveal">LEUL</h1>
+                                <hr class="rule-h hero-rule reveal" aria-hidden="true">
+                                <p class="hero-role reveal">Frontend Software<br>Developer</p>
+                                <p class="hero-tagline reveal">Turning imagination into reality.</p>
+                                <div class="hero-ctas reveal">
+                                    <a href="#projects" class="hero-cta-primary">View Work ↓</a>
+                                    <span class="hero-cta-sep" aria-hidden="true">/</span>
+                                    <a href="#contact" class="hero-cta-secondary">Contact →</a>
+                                </div>
+                            </div>
+                            <aside class="hero-stats-col" aria-label="Statistics">
+                                <div class="stat-block reveal">
+                                    <span class="stat-value" data-count="6" data-suffix="+">0+</span>
+                                    <span class="stat-label">Projects</span>
+                                </div>
+                                <div class="stat-block reveal">
+                                    <span class="stat-value" data-count="4" data-suffix="+">0+</span>
+                                    <span class="stat-label">Technologies</span>
+                                </div>
+                                <div class="stat-block reveal">
+                                    <span class="stat-value" data-count="100" data-suffix="%">0%</span>
+                                    <span class="stat-label">Satisfaction</span>
+                                </div>
+                                <div class="stat-block reveal">
+                                    <span class="stat-value" data-infinity="true">∞</span>
+                                    <span class="stat-label">Clean Code</span>
+                                </div>
+                                <p class="stats-footer reveal">Est. 2024 — Ongoing</p>
+                            </aside>
+                        </div>
                     </div>
-                </div>
+                </section>
 
-                <div class="principle-item reveal" style="transition-delay: 0.1s;">
-                    <div class="p-icon">📱</div>
-                    <div class="p-content">
-                        <h3>Responsiveness</h3>
-                        <p>Seamless adaptation across devices for a flawless user experience everywhere.</p>
+                <hr class="rule-h" aria-hidden="true">
+
+                <section id="projects" class="section--ink section-pad" aria-labelledby="projects-heading">
+                    <span class="watermark watermark--02" data-parallax="0.4" aria-hidden="true">02</span>
+                    <div class="container">
+                        <header class="section-intro reveal">
+                            <p class="margin-label">§ 02 / Work</p>
+                            <h2 id="projects-heading" class="section-title">Selected Work</h2>
+                            <p class="section-sub">6 Projects / 2024–2026</p>
+                        </header>
+
+                        <div class="project-list">
+                            <a href="https://github.com/leul-cpu/MED-CHAIN" target="_blank" rel="noopener noreferrer"
+                                class="project-row reveal">
+                                <span class="project-num">01</span>
+                                <div>
+                                    <h3 class="project-name">MED-CHAIN</h3>
+                                    <p class="project-desc">Blockchain-backed medical records system — school capstone
+                                        exploring
+                                        secure patient data exchange.</p>
+                                    <p class="project-tech">Java · Spring · JavaScript</p>
+                                </div>
+                                <span class="project-arrow" aria-hidden="true">→</span>
+                            </a>
+
+                            <a href="https://mohsquare1.netlify.app/" target="_blank" rel="noopener noreferrer"
+                                class="project-row reveal">
+                                <span class="project-num">02</span>
+                                <div>
+                                    <h3 class="project-name">Mohsquare</h3>
+                                    <p class="project-desc">Client portfolio for a construction brand — editorial
+                                        layout, live
+                                        deployment on Netlify.</p>
+                                    <p class="project-tech">HTML/CSS · JavaScript · Python</p>
+                                </div>
+                                <span class="project-arrow" aria-hidden="true">→</span>
+                            </a>
+
+                            <a href="https://leul-cpu.github.io/leulfit/" target="_blank" rel="noopener noreferrer"
+                                class="project-row reveal">
+                                <span class="project-num">03</span>
+                                <div>
+                                    <h3 class="project-name">LeulFit</h3>
+                                    <p class="project-desc">Fitness tracking concept — workout logging UI built as a
+                                        future-facing
+                                        personal project.</p>
+                                    <p class="project-tech">HTML · CSS</p>
+                                </div>
+                                <span class="project-arrow" aria-hidden="true">→</span>
+                            </a>
+
+                            <a href="https://leul-cpu.github.io/Bellanawit/" target="_blank" rel="noopener noreferrer"
+                                class="project-row reveal">
+                                <span class="project-num">04</span>
+                                <div>
+                                    <h3 class="project-name">Bellanawit</h3>
+                                    <p class="project-desc">Client portfolio for a personal brand — clean typographic
+                                        system and
+                                        responsive static pages.</p>
+                                    <p class="project-tech">HTML · CSS</p>
+                                </div>
+                                <span class="project-arrow" aria-hidden="true">→</span>
+                            </a>
+
+                            <a href="https://leul-cpu.github.io/Simple-Task-Manager/" target="_blank"
+                                rel="noopener noreferrer" class="project-row reveal">
+                                <span class="project-num">05</span>
+                                <div>
+                                    <h3 class="project-name">Simple Task Manager</h3>
+                                    <p class="project-desc">Lightweight productivity app — add, complete, and filter
+                                        tasks in the
+                                        browser with zero backend.</p>
+                                    <p class="project-tech">JavaScript · HTML · CSS</p>
+                                </div>
+                                <span class="project-arrow" aria-hidden="true">→</span>
+                            </a>
+
+                            <a href="https://leul-cpu.github.io/retro-login/" target="_blank" rel="noopener noreferrer"
+                                class="project-row reveal">
+                                <span class="project-num">06</span>
+                                <div>
+                                    <h3 class="project-name">Retro Login UI</h3>
+                                    <p class="project-desc">CRT-inspired authentication screen — neon accents,
+                                        scanlines, and
+                                        keyboard-first interaction prototype.</p>
+                                    <p class="project-tech">CSS · HTML</p>
+                                </div>
+                                <span class="project-arrow" aria-hidden="true">→</span>
+                            </a>
+                        </div>
+
+                        <p class="projects-footer reveal">
+                            All projects on <a href="https://github.com/leul-cpu" target="_blank"
+                                rel="noopener noreferrer">GitHub →</a>
+                        </p>
                     </div>
-                </div>
+                </section>
 
-                <div class="principle-item reveal" style="transition-delay: 0.2s;">
-                    <div class="p-icon">⚡</div>
-                    <div class="p-content">
-                        <h3>Performance</h3>
-                        <p>Optimized for speed and efficiency, delivering lightning-fast experiences.</p>
+                <hr class="rule-h rule-h--light" aria-hidden="true">
+
+                <section id="method" class="section--paper section-pad grain" aria-labelledby="method-heading">
+                    <span class="watermark watermark--03" data-parallax="0.4" aria-hidden="true">03</span>
+                    <div class="container">
+                        <header class="section-intro reveal">
+                            <p class="margin-label">§ 03 / Method</p>
+                            <h2 id="method-heading" class="section-title">Method</h2>
+                        </header>
+
+                        <div class="method-grid">
+                            <article class="method-item reveal">
+                                <span class="method-num" aria-hidden="true">01</span>
+                                <h3 class="method-title">Latest Tech</h3>
+                                <p class="method-body">Stay ahead with modern frameworks and tooling — ship interfaces
+                                    that feel
+                                    current without chasing hype for its own sake.</p>
+                            </article>
+                            <article class="method-item reveal">
+                                <span class="method-num" aria-hidden="true">02</span>
+                                <h3 class="method-title">Responsiveness</h3>
+                                <p class="method-body">Layouts that adapt across breakpoints — mobile-first structure,
+                                    tested on
+                                    real devices, never an afterthought.</p>
+                            </article>
+                            <article class="method-item reveal">
+                                <span class="method-num" aria-hidden="true">03</span>
+                                <h3 class="method-title">Performance</h3>
+                                <p class="method-body">Optimized assets, minimal blocking scripts, and perceptual speed
+                                    — fast
+                                    pages users actually notice.</p>
+                            </article>
+                            <article class="method-item reveal">
+                                <span class="method-num" aria-hidden="true">04</span>
+                                <h3 class="method-title">Beautiful UI</h3>
+                                <p class="method-body">Typography, spacing, and hierarchy first — interfaces that are
+                                    clear,
+                                    intentional, and enjoyable to use.</p>
+                            </article>
+                        </div>
                     </div>
-                </div>
+                </section>
 
-                <div class="principle-item reveal" style="transition-delay: 0.3s;">
-                    <div class="p-icon">✨</div>
-                    <div class="p-content">
-                        <h3>Beautiful UI</h3>
-                        <p>Crafting intuitive and enjoyable interactions that keep users engaged.</p>
+                <hr class="rule-h" aria-hidden="true">
+
+                <section id="contact" class="section--ink section-pad" aria-labelledby="contact-heading">
+                    <div class="container">
+                        <div class="contact-layout">
+                            <div class="contact-main">
+                                <p class="margin-label reveal">§ 04 / Contact</p>
+                                <h2 id="contact-heading" class="contact-heading reveal">
+                                    Let's Build<br>Something<span class="accent">.</span>
+                                </h2>
+                                <a href="mailto:leulabiti98@gmail.com" class="contact-cta-big reveal">Get In Touch →</a>
+                            </div>
+                            <aside class="contact-side reveal" aria-label="Contact links">
+                                <div class="contact-block">
+                                    <p class="contact-block-label">Email</p>
+                                    <a href="mailto:leulabiti98@gmail.com">leulabiti97@gmail.com</a>
+                                </div>
+                                <div class="contact-block">
+                                    <p class="contact-block-label">GitHub</p>
+                                    <a href="https://github.com/leul-cpu" target="_blank"
+                                        rel="noopener noreferrer">github.com/leul-cpu</a>
+                                </div>
+                                <div class="contact-block">
+                                    <p class="contact-block-label">LinkedIn</p>
+                                    <a href="https://linkedin.com/in/Leul" target="_blank"
+                                        rel="noopener noreferrer">linkedin.com/in/Leul</a>
+                                </div>
+                                <div class="contact-block">
+                                    <p class="contact-block-label">Socials</p>
+                                    <a href="https://x.com/leulleo8" target="_blank" rel="noopener noreferrer">X /
+                                        @leulleo8</a>
+                                    <a href="https://instagram.com/leul_my2" target="_blank"
+                                        rel="noopener noreferrer">Instagram / @leul_my2</a>
+                                    <a href="https://t.me/llEUlllll" target="_blank" rel="noopener noreferrer">Telegram
+                                        /
+                                        @llEUlllll</a>
+                                </div>
+                            </aside>
+                        </div>
                     </div>
+                </section>
+            </main>
+
+            <footer class="footer section--paper" role="contentinfo">
+                <div class="container footer-grid">
+                    <span>Leul / Frontend Dev</span>
+                    <span>© 2024–2026</span>
+                    <span>Crafted with focus. ✦</span>
                 </div>
-            </div>
-        </div>
-    </section>
+            </footer>
 
-    <!-- ===== FOOTER & CONTACT ===== -->
-    <footer id="contact" class="footer">
-        <div class="container">
-            <div class="footer-cta reveal">
-                <h2>Enjoying my work?</h2>
-                <p>Consider reaching out to collaborate. Let's turn your imagination into reality and build something
-                    amazing together.</p>
-                <a href="mailto:leulabiti98@gmail.com" class="btn-primary">
-                    Get In Touch
-                </a>
-            </div>
+            <script>
+                (function () {
+                    'use strict';
 
-            <div class="footer-bottom">
-                <div class="footer-brand">
-                    <img src="leul_abiti_webdev_logo.svg" alt="Leul Logo" class="logo-img">
-                    <span>Leul</span>
-                </div>
+                    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                    const isFinePointer = window.matchMedia('(pointer: fine) and (hover: hover)').matches;
 
-                <div class="footer-socials">
-                    <p>Connect with me on:</p>
-                    <div class="social-links">
-                        <a href="https://github.com/leul-cpu" target="_blank" rel="noopener">GitHub</a>
-                        <span class="sep">•</span>
-                        <a href="https://linkedin.com/in/Leul" target="_blank" rel="noopener">LinkedIn</a>
-                        <span class="sep">•</span>
-                        <a href="https://x.com/leulleo8" target="_blank" rel="noopener">X</a>
-                        <span class="sep">•</span>
-                        <a href="https://instagram.com/leul_my2" target="_blank" rel="noopener">Instagram</a>
-                        <span class="sep">•</span>
-                        <a href="https://t.me/llEUlllll" target="_blank" rel="noopener">Telegram</a>
-                    </div>
-                </div>
-            </div>
+                    /* — Scroll reveal (slide from left) — */
+                    const revealEls = document.querySelectorAll('.reveal');
+                    let staggerIndex = 0;
 
-            <div class="footer-copyright">
-                &copy; 2024 — 2026 Leul. Crafted with focus on aesthetics and performance.
-            </div>
-        </div>
-    </footer>
+                    const revealObserver = new IntersectionObserver(
+                        (entries) => {
+                            entries.forEach((entry) => {
+                                if (!entry.isIntersecting) return;
+                                const el = entry.target;
+                                if (!el.dataset.delaySet) {
+                                    el.style.transitionDelay = (staggerIndex++ % 8) * 60 + 'ms';
+                                    el.dataset.delaySet = '1';
+                                }
+                                el.classList.add('visible');
+                                revealObserver.unobserve(el);
+                            });
+                        },
+                        { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }
+                    );
 
-    <script src="script.js"></script>
+                    revealEls.forEach((el) => revealObserver.observe(el));
+
+                    const heroSection = document.getElementById('home');
+                    if (heroSection) {
+                        const showHero = () => {
+                            heroSection.querySelectorAll('.reveal').forEach((el) => {
+                                el.classList.add('visible');
+                            });
+                        };
+                        if (prefersReducedMotion) showHero();
+                        else requestAnimationFrame(showHero);
+                    }
+
+                    /* — Watermark parallax — */
+                    const watermarks = document.querySelectorAll('[data-parallax]');
+                    if (!prefersReducedMotion && watermarks.length) {
+                        const onParallax = () => {
+                            watermarks.forEach((wm) => {
+                                const section = wm.closest('section');
+                                if (!section) return;
+                                const rect = section.getBoundingClientRect();
+                                const speed = parseFloat(wm.dataset.parallax) || 0.4;
+                                const offset = (window.innerHeight - rect.top) * speed * 0.15;
+                                wm.style.transform = 'translateY(' + offset + 'px)';
+                            });
+                        };
+                        window.addEventListener('scroll', onParallax, { passive: true });
+                        onParallax();
+                    }
+
+                    /* — Mobile nav — */
+                    const navToggle = document.getElementById('navToggle');
+                    const navOverlay = document.getElementById('navOverlay');
+
+                    const setMenuOpen = (open) => {
+                        navToggle?.classList.toggle('is-open', open);
+                        navOverlay?.classList.toggle('is-open', open);
+                        navToggle?.setAttribute('aria-expanded', String(open));
+                        navOverlay?.setAttribute('aria-hidden', String(!open));
+                        document.body.style.overflow = open ? 'hidden' : '';
+                    };
+
+                    navToggle?.addEventListener('click', () => {
+                        setMenuOpen(!navOverlay?.classList.contains('is-open'));
+                    });
+
+                    navOverlay?.querySelectorAll('a').forEach((a) => {
+                        a.addEventListener('click', () => setMenuOpen(false));
+                    });
+
+                    document.addEventListener('keydown', (e) => {
+                        if (e.key === 'Escape') setMenuOpen(false);
+                    });
+
+                    /* — Smooth scroll — */
+                    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+                        anchor.addEventListener('click', (e) => {
+                            const id = anchor.getAttribute('href');
+                            if (!id || id === '#') return;
+                            const target = document.querySelector(id);
+                            if (!target) return;
+                            e.preventDefault();
+                            target.scrollIntoView({
+                                behavior: prefersReducedMotion ? 'auto' : 'smooth',
+                                block: 'start'
+                            });
+                            setMenuOpen(false);
+                        });
+                    });
+
+                    /* — Stat count-up — */
+                    const statEls = document.querySelectorAll('.stat-value[data-count]');
+                    let statsDone = false;
+
+                    const animateValue = (el, end, suffix) => {
+                        if (prefersReducedMotion) {
+                            el.textContent = end + suffix;
+                            return;
+                        }
+                        const start = performance.now();
+                        const duration = 1200;
+                        const step = (now) => {
+                            const t = Math.min((now - start) / duration, 1);
+                            const eased = 1 - Math.pow(1 - t, 3);
+                            el.textContent = Math.round(end * eased) + suffix;
+                            if (t < 1) requestAnimationFrame(step);
+                        };
+                        requestAnimationFrame(step);
+                    };
+
+                    const statsObserver = new IntersectionObserver(
+                        (entries) => {
+                            entries.forEach((entry) => {
+                                if (!entry.isIntersecting || statsDone) return;
+                                statsDone = true;
+                                statEls.forEach((el) => {
+                                    animateValue(el, Number(el.dataset.count), el.dataset.suffix || '');
+                                });
+                                statsObserver.disconnect();
+                            });
+                        },
+                        { threshold: 0.3 }
+                    );
+
+                    const statsCol = document.querySelector('.hero-stats-col');
+                    if (statsCol) statsObserver.observe(statsCol);
+
+                    /* — Custom cursor (red square) — */
+                    const cursor = document.getElementById('cursor-square');
+
+                    if (!prefersReducedMotion && isFinePointer && cursor) {
+                        document.body.classList.add('has-custom-cursor');
+                        let mx = 0;
+                        let my = 0;
+
+                        document.addEventListener('mousemove', (e) => {
+                            mx = e.clientX;
+                            my = e.clientY;
+                            cursor.style.left = mx + 'px';
+                            cursor.style.top = my + 'px';
+                        }, { passive: true });
+
+                        document.addEventListener('mousedown', () => cursor.classList.add('is-pressed'));
+                        document.addEventListener('mouseup', () => cursor.classList.remove('is-pressed'));
+
+                        const interactive = 'a, button, .project-row, .method-item, .contact-cta-big, .nav-links a';
+                        document.querySelectorAll(interactive).forEach((el) => {
+                            el.addEventListener('mouseenter', () => cursor.classList.add('is-hover'));
+                            el.addEventListener('mouseleave', () => cursor.classList.remove('is-hover'));
+                        });
+                    } else {
+                        cursor?.remove();
+                    }
+                })();
+            </script>
 </body>
 
 </html>
