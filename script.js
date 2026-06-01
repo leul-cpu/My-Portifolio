@@ -1,164 +1,161 @@
-/* ===================================================
-   LEUL — Premium Developer Portfolio Scripts
-   =================================================== */
+(function () {
+    'use strict';
 
-document.addEventListener('DOMContentLoaded', () => {
+    const body = document.body;
+    const toggle = document.getElementById('mode-toggle');
+    const caption = document.getElementById('toggle-caption');
+    const heroTag = document.getElementById('hero-tag');
+    const heroRole = document.getElementById('hero-role');
+    const footerBadge = document.getElementById('footer-mode-badge');
+    const cursor = document.getElementById('cursor-dot');
+    const menuBtn = document.getElementById('nav-menu-btn');
+    const mobileOverlay = document.getElementById('nav-mobile-overlay');
 
-    // ── Scroll Reveal Animation ──
-    const revealElements = document.querySelectorAll('.reveal');
+    const SW_ROLE = 'Architecting high-performance distributed backend systems, logic pipelines, and sleek frontend interfaces — turning complex problems into elegant running code.';
+    const HW_ROLE = 'Designing custom microcontroller firmware, motorized mechanical systems, and PCB layouts — bridging raw physical electronics with real-world control systems.';
+    const SW_TAG = '[ System.mode = SOFTWARE ]';
+    const HW_TAG = '[ System.mode = HARDWARE ]';
 
-    const revealObserver = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('active');
-                revealObserver.unobserve(entry.target); // Only reveal once
-            }
-        });
-    }, {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-    });
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isFinePointer = window.matchMedia('(pointer: fine) and (hover: hover)').matches;
+    const savedMode = localStorage.getItem('portfolio-mode') || 'sw';
 
-    revealElements.forEach(el => revealObserver.observe(el));
+    function applyMode(mode, animate) {
+        const isSW = mode === 'sw';
+        body.classList.remove('sw', 'hw');
+        body.classList.add(mode);
+        toggle.checked = !isSW;
+        toggle.setAttribute('aria-checked', String(!isSW));
+        caption.textContent = isSW ? 'Viewing: Software Mode' : 'Viewing: Hardware Mode';
+        footerBadge.textContent = isSW ? '// SW_MODE' : '// HW_MODE';
 
-    // ── Navbar Stickiness ──
-    const navbar = document.getElementById('navbar');
-
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            navbar.classList.add('scrolled');
+        if (animate && !prefersReducedMotion) {
+            [heroTag, heroRole].forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(10px)';
+            });
+            setTimeout(() => {
+                heroTag.textContent = isSW ? SW_TAG : HW_TAG;
+                heroRole.textContent = isSW ? SW_ROLE : HW_ROLE;
+                [heroTag, heroRole].forEach(el => {
+                    el.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                });
+            }, 180);
         } else {
-            navbar.classList.remove('scrolled');
+            heroTag.textContent = isSW ? SW_TAG : HW_TAG;
+            heroRole.textContent = isSW ? SW_ROLE : HW_ROLE;
         }
+
+        localStorage.setItem('portfolio-mode', mode);
+        document.querySelector('meta[name="theme-color"]').setAttribute('content', isSW ? '#070a09' : '#f7f4eb');
+    }
+
+    applyMode(savedMode, false);
+
+    toggle.addEventListener('change', () => {
+        applyMode(toggle.checked ? 'hw' : 'sw', true);
     });
 
-    // ── Mobile Menu Toggle ──
-    const navToggle = document.getElementById('navToggle');
-    const navLinks = document.querySelector('.nav-links');
+    const setMenuOpen = (open) => {
+        menuBtn.classList.toggle('open', open);
+        mobileOverlay.classList.toggle('open', open);
+        menuBtn.setAttribute('aria-expanded', String(open));
+        mobileOverlay.setAttribute('aria-hidden', String(!open));
+        document.body.style.overflow = open ? 'hidden' : '';
+    };
 
-        }
+    menuBtn.addEventListener('click', () => setMenuOpen(!mobileOverlay.classList.contains('open')));
+
+    mobileOverlay.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => setMenuOpen(false));
     });
 
-    // ── Project Bento Card Hover Glow ──
-    const projectCards = document.querySelectorAll('.itsvg-card');
-
-    projectCards.forEach(card => {
-        card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            // Calculate mouse position relative to the card
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-
-            // Set CSS variables for the radial gradient center
-            card.style.setProperty('--mouse-x', `${x}px`);
-            card.style.setProperty('--mouse-y', `${y}px`);
-        });
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') setMenuOpen(false);
     });
 
-    // ── Stats Count-up Animation ──
-    const stats = document.querySelectorAll('.stat-num');
+    const revealEls = document.querySelectorAll('.reveal');
+    let staggerCount = 0;
 
-    const animateValue = (obj, start, end, duration) => {
-        let startTimestamp = null;
-        const suffix = obj.getAttribute('data-suffix') || obj.innerText.replace(/[0-9]/g, '');
-        const step = (timestamp) => {
-            if (!startTimestamp) startTimestamp = timestamp;
-            const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-            const currentCount = Math.floor(progress * (end - start) + start);
-            obj.textContent = currentCount + suffix;
-            if (progress < 1) {
-                window.requestAnimationFrame(step);
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            const el = entry.target;
+            if (!el.dataset.staggerSet) {
+                el.style.transitionDelay = (staggerCount++ % 6) * 70 + 'ms';
+                el.dataset.staggerSet = '1';
             }
+            el.classList.add('visible');
+            observer.unobserve(el);
+        });
+    }, { threshold: 0.12, rootMargin: '0px 0px -32px 0px' });
+
+    revealEls.forEach(el => observer.observe(el));
+
+    const heroSection = document.getElementById('home');
+    if (heroSection) {
+        if (prefersReducedMotion) {
+            heroSection.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+        } else {
+            requestAnimationFrame(() => {
+                heroSection.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+            });
+        }
+    }
+
+    const statEls = document.querySelectorAll('.stat-val[data-count]');
+    let statsDone = false;
+
+    const animateStat = (el, end, suffix) => {
+        if (prefersReducedMotion) { el.textContent = end + suffix; return; }
+        const start = performance.now();
+        const duration = 1400;
+        const step = (now) => {
+            const t = Math.min((now - start) / duration, 1);
+            const eased = 1 - Math.pow(1 - t, 3);
+            el.textContent = Math.round(end * eased) + suffix;
+            if (t < 1) requestAnimationFrame(step);
         };
-        window.requestAnimationFrame(step);
+        requestAnimationFrame(step);
     };
 
     const statsObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const target = entry.target;
-                const endValue = parseInt(target.getAttribute('data-target') || target.innerText.replace(/[^0-9]/g, ''));
-                if (!isNaN(endValue)) {
-                    animateValue(target, 0, endValue, 2000);
-                }
-                statsObserver.unobserve(target);
-            }
+            if (!entry.isIntersecting || statsDone) return;
+            statsDone = true;
+            statEls.forEach(el => animateStat(el, Number(el.dataset.count), el.dataset.suffix || ''));
+            statsObserver.disconnect();
         });
-    }, { threshold: 0.5 });
+    }, { threshold: 0.3 });
 
-    stats.forEach(stat => statsObserver.observe(stat));
+    const statsEl = document.querySelector('.hero-stats');
+    if (statsEl) statsObserver.observe(statsEl);
 
-    // ── Magnetic Buttons ──
-    const magneticBtns = document.querySelectorAll('.btn-nav, .btn-primary');
-
-    magneticBtns.forEach(btn => {
-        btn.addEventListener('mousemove', (e) => {
-            const rect = btn.getBoundingClientRect();
-            const x = e.clientX - rect.left - rect.width / 2;
-            const y = e.clientY - rect.top - rect.height / 2;
-
-            btn.style.transform = `translate(${x * 0.3}px, ${y * 0.5}px)`;
-        });
-
-        btn.addEventListener('mouseleave', () => {
-            btn.style.transform = '';
-        });
-    });
-
-    // ── Custom Cursor ──
-    const cursor = document.querySelector('.custom-cursor');
-    const cursorDot = document.querySelector('.custom-cursor-dot');
-    const links = document.querySelectorAll('a, button, .itsvg-card');
-
-    if (cursor && cursorDot && window.innerWidth > 768) {
-        document.body.classList.add('custom-cursor-active');
-
-        document.addEventListener('mousemove', (e) => {
-            const { clientX: x, clientY: y } = e;
-            cursor.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%)`;
-            cursorDot.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%)`;
-        });
-    }
-
-    links.forEach(link => {
-        link.addEventListener('mouseenter', () => {
-            cursor.classList.add('hover');
-        });
-        link.addEventListener('mouseleave', () => {
-            cursor.classList.remove('hover');
-        });
-    });
-
-    // ── Parallax Background ──
-    window.addEventListener('scroll', () => {
-        const scrolled = window.scrollY;
-        const grid = document.querySelector('.hero-bg-grid');
-        const glow1 = document.querySelector('.hero-glow-1');
-        const glow2 = document.querySelector('.hero-glow-2');
-
-        if (grid) grid.style.transform = `translateY(${scrolled * 0.3}px)`;
-        if (glow1) glow1.style.transform = `translateY(${scrolled * 0.15}px)`;
-        if (glow2) glow2.style.transform = `translateY(${scrolled * 0.1}px)`;
-    });
-
-    // ── Smooth Scroll for Anchor Links ──
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            const targetId = this.getAttribute('href');
-            if (targetId === '#') return;
-
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                e.preventDefault();
-                targetElement.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-                
-                // Close mobile menu on click
-
-            }
+        anchor.addEventListener('click', e => {
+            const id = anchor.getAttribute('href');
+            if (!id || id === '#') return;
+            const target = document.querySelector(id);
+            if (!target) return;
+            e.preventDefault();
+            setMenuOpen(false);
+            target.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth', block: 'start' });
         });
     });
 
-});
+    if (!prefersReducedMotion && isFinePointer && cursor) {
+        document.addEventListener('mousemove', e => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        }, { passive: true });
+
+        document.querySelectorAll('a, button, label, .project-row').forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('big'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('big'));
+        });
+    } else if (cursor) {
+        cursor.remove();
+    }
+})();
