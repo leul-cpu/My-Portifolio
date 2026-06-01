@@ -49,6 +49,11 @@ body {
         radial-gradient(circle at 85% 30%, rgba(20, 184, 166, 0.04) 0%, transparent 50%);
 }
 
+.custom-cursor-active,
+.custom-cursor-active * {
+    cursor: none !important;
+}
+
 a {
     text-decoration: none;
     color: inherit;
@@ -679,6 +684,46 @@ h1, h2, h3, .nav-logo {
     text-align: center;
     color: var(--text-muted);
     font-size: 0.9rem;
+}
+
+/* ── Custom Cursor ── */
+.custom-cursor {
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 9999;
+    transition: width 0.3s, height 0.3s, background-color 0.3s, border-color 0.3s;
+    transform: translate3d(-50%, -50%, 0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    will-change: transform;
+}
+
+.custom-cursor-dot {
+    width: 6px;
+    height: 6px;
+    background-color: #fff;
+    border-radius: 50%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 10000;
+    transform: translate3d(-50%, -50%, 0);
+    will-change: transform;
+}
+
+.custom-cursor.hover {
+    width: 80px;
+    height: 80px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: transparent;
 }
 
 /* ── Responsive ── */
