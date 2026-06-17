@@ -638,6 +638,8 @@ body.hw .label-hw { color: var(--accent); }
 }
 
 .proj-tech {
+    display: block;
+    margin-bottom: 6px;
     font-family: var(--heading-font);
     font-size: 10px;
     font-weight: 700;
@@ -645,6 +647,20 @@ body.hw .label-hw { color: var(--accent); }
     text-transform: uppercase;
     color: var(--tag-text);
     transition: color var(--transition-speed) ease;
+}
+
+.proj-category {
+    display: inline-block;
+    font-family: var(--heading-font);
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    border: 1px solid var(--border);
+    padding: 2px 8px;
+    border-radius: 4px;
+    transition: color var(--transition-speed) ease, border-color var(--transition-speed) ease;
 }
 
 .proj-arrow {
@@ -682,7 +698,7 @@ body.hw .label-hw { color: var(--accent); }
     gap: 2px;
 }
 
-@media (max-width: 640px) { .method-grid { grid-template-columns: 1fr; gap: 1px; } }
+@media (max-width: 640px) { .method-grid { gap: 1px; } }
 
 .method-card {
     background: var(--bg-card);
@@ -690,7 +706,13 @@ body.hw .label-hw { color: var(--accent); }
     transition: background var(--transition-speed) ease;
 }
 
-@media (max-width: 480px) { .method-card { padding: 24px 20px; } }
+@media (max-width: 480px) {
+    .method-card { padding: 18px 14px; }
+    .method-num { margin-bottom: 8px; }
+    .method-title { font-size: 15px; margin-bottom: 8px; }
+    .method-body { font-size: 12px; }
+    .skill-tools { font-size: 9px; margin-top: 8px; }
+}
 
 .method-card:hover { background: var(--bg-card-hover); }
 
@@ -718,6 +740,17 @@ body.hw .label-hw { color: var(--accent); }
     font-size: 14px;
     color: var(--text-secondary);
     line-height: 1.7;
+    transition: color var(--transition-speed) ease;
+}
+
+.skill-tools {
+    font-family: var(--heading-font);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-top: 12px;
     transition: color var(--transition-speed) ease;
 }
 

@@ -11,7 +11,7 @@
     const menuBtn = document.getElementById('nav-menu-btn');
     const mobileOverlay = document.getElementById('nav-mobile-overlay');
 
-    const SW_ROLE = 'Architecting high-performance distributed backend systems, logic pipelines, and sleek frontend interfaces — turning complex problems into elegant running code.';
+    const SW_ROLE = 'Building software, designing hardware, editing video, and drafting contracts turning ideas into complete, finished products.';
     const HW_ROLE = 'Designing custom microcontroller firmware, motorized mechanical systems, and PCB layouts — bridging raw physical electronics with real-world control systems.';
     const SW_TAG = '[ System.mode = SOFTWARE ]';
     const HW_TAG = '[ System.mode = HARDWARE ]';
@@ -106,7 +106,6 @@
     }
 
     const statEls = document.querySelectorAll('.stat-val[data-count]');
-    let statsDone = false;
 
     const animateStat = (el, end, suffix) => {
         if (prefersReducedMotion) { el.textContent = end + suffix; return; }
@@ -123,15 +122,15 @@
 
     const statsObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            if (!entry.isIntersecting || statsDone) return;
-            statsDone = true;
-            statEls.forEach(el => animateStat(el, Number(el.dataset.count), el.dataset.suffix || ''));
-            statsObserver.disconnect();
+            if (entry.isIntersecting) {
+                const el = entry.target;
+                animateStat(el, Number(el.dataset.count), el.dataset.suffix || '');
+                statsObserver.unobserve(el);
+            }
         });
-    }, { threshold: 0.3 });
+    }, { threshold: 0.1 });
 
-    const statsEl = document.querySelector('.hero-stats');
-    if (statsEl) statsObserver.observe(statsEl);
+    statEls.forEach(el => statsObserver.observe(el));
 
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', e => {
