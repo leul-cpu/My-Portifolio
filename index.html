@@ -1,33 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <meta name="theme-color" content="#070a09">
-    <title>Leul Abiti — Software & Hardware Engineer</title>
-    <meta name="description" content="Leul Abiti — Full-stack software developer and hardware electronics engineer. Addis Ababa.">
+    <meta name="theme-color" content="#FAFAFA">
+    <title>Leul Abiti — Full-Stack Developer & Hardware Engineer</title>
+    <meta name="description"
+        content="Leul Abiti — Full-stack software developer and hardware electronics engineer based in Addis Ababa.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500;700&family=Roboto+Slab:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' font-family='sans-serif'>LA</text></svg>">
 </head>
 
-<body class="sw">
+<body>
     <a href="#main" class="skip-link">Skip to main content</a>
-    <div id="cursor-dot" aria-hidden="true"></div>
 
     <nav class="navbar" role="banner">
         <div class="container nav-inner">
-            <a href="#home" class="nav-brand">LEUL<span>//</span>ARCHITECT</a>
+            <a href="#home" class="nav-brand">Leul Abiti</a>
             <div class="nav-right">
                 <ul class="nav-links" role="list">
-                    <li><a href="#projects">Work</a></li>
+                    <li><a href="#about">About</a></li>
                     <li><a href="#skills">Skills</a></li>
-                    <li><a href="#method">Method</a></li>
+                    <li><a href="#projects">Projects</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
-                <a href="mailto:leulabiti98@gmail.com" class="nav-cta">Hire Me →</a>
-                <button class="nav-menu-btn" id="nav-menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="nav-mobile-overlay">
+                <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">
+                    <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                    <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+                <button class="nav-menu-btn" id="nav-menu-btn" aria-label="Open menu" aria-expanded="false"
+                    aria-controls="nav-mobile-overlay">
                     <span></span><span></span><span></span>
                 </button>
             </div>
@@ -35,255 +56,229 @@
     </nav>
 
     <div class="nav-mobile-overlay" id="nav-mobile-overlay" aria-hidden="true">
-        <a href="#projects">Work</a>
+        <a href="#about">About</a>
         <a href="#skills">Skills</a>
-        <a href="#method">Method</a>
+        <a href="#projects">Projects</a>
         <a href="#contact">Contact</a>
-        <a href="mailto:leulabiti98@gmail.com" class="mob-cta">Hire Me →</a>
     </div>
 
     <main id="main">
-        <section id="home" aria-label="Introduction">
-            <div class="container">
-                <div class="toggle-section">
-                    <div class="toggle-label-row">
-                        <span class="label-sw">Software Dev</span>
-                        <label class="toggle-wrap" for="mode-toggle" aria-label="Switch between Software and Hardware mode">
-                            <input type="checkbox" id="mode-toggle" class="toggle-input" role="switch" aria-checked="false">
-                            <span class="toggle-track">
-                                <span class="toggle-thumb"></span>
-                            </span>
-                        </label>
-                        <span class="label-hw">Hardware Eng</span>
-                    </div>
-                    <p class="toggle-caption" id="toggle-caption">Viewing: Software Mode</p>
-                </div>
-
-                <div class="hero">
-                    <div class="hero-inner">
-                        <div class="hero-content">
-                            <span class="hero-tag reveal" id="hero-tag">[ System.mode = SOFTWARE ]</span>
-                            <h1 class="hero-name reveal">
-                                LEUL
-                                <span class="accent-line">ABITI.</span>
-                            </h1>
-                            <p class="hero-role reveal" id="hero-role">
-                                Building software, designing hardware, editing video, and drafting contracts — turning ideas into complete, finished products.
-                            </p>
-                            <div class="hero-ctas reveal">
-                                <a href="#projects" class="btn-primary">View My Work</a>
-                                <a href="#contact" class="btn-ghost">Let's Talk →</a>
-                            </div>
-                        </div>
-                        <aside class="hero-stats" aria-label="Statistics">
-                            <div class="stat-item reveal">
-                                <span class="stat-val" data-count="7" data-suffix="+">0+</span>
-                                <span class="stat-lbl">Projects Shipped</span>
-                            </div>
-                            <div class="stat-item reveal">
-                                <span class="stat-val" data-count="4" data-suffix="+">0+</span>
-                                <span class="stat-lbl">Skills Mastered</span>
-                            </div>
-                            <div class="stat-item reveal">
-                                <span class="stat-val" data-count="100" data-suffix="%">0%</span>
-                                <span class="stat-lbl">Client Satisfaction</span>
-                            </div>
-                        </aside>
-                    </div>
+        <section id="home" class="hero section" aria-label="Introduction">
+            <div class="container hero-container">
+                <span class="eyebrow fade-in">Available for Work</span>
+                <h1 class="hero-name fade-in">Leul Abiti</h1>
+                <h2 class="hero-role fade-in">Full-Stack Software Developer &amp; Hardware Engineer</h2>
+                <p class="hero-desc fade-in">
+                    I build software, design hardware/embedded systems, edit video content, and write client agreements
+                    turning ideas into finished, working products.
+                </p>
+                <p class="hero-location fade-in">Based in Addis Ababa, Ethiopia</p>
+                <div class="hero-ctas fade-in">
+                    <a href="#projects" class="btn btn-primary">View My Work</a>
+                    <a href="#contact" class="btn btn-outline">Get In Touch</a>
                 </div>
             </div>
         </section>
 
-        <div class="divider"></div>
+        <section id="about" class="section" aria-labelledby="about-heading">
+            <div class="container">
+                <h2 id="about-heading" class="section-title fade-in">About</h2>
+                <div class="about-content fade-in">
+                    <p>
+                        I am a full-stack developer and hardware/electronics engineer based in Addis Ababa. I also edit
+                        video and draft client contracts I am someone comfortable owning a project end-to-end, from code
+                        to hardware to delivery paperwork.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="section bg-light" aria-labelledby="skills-heading">
+            <div class="container">
+                <h2 id="skills-heading" class="section-title fade-in">Skills</h2>
+                <div class="grid-4">
+                    <article class="card fade-in">
+                        <h3 class="card-title">Software Development</h3>
+                        <p class="card-desc">Full-stack web development across frontend and backend, from interface
+                            design to scalable APIs.</p>
+                    </article>
+                    <article class="card fade-in">
+                        <h3 class="card-title">Hardware Engineering</h3>
+                        <p class="card-desc">Electronics design, embedded systems, and logic pipelines bridging software
+                            and hardware.</p>
+                    </article>
+                    <article class="card fade-in">
+                        <h3 class="card-title">Video Editing</h3>
+                        <p class="card-desc">Post-production for client promos, reels, and content cuts, color grading,
+                            and pacing. Tools: CapCut, Canva.</p>
+                    </article>
+                    <article class="card fade-in">
+                        <h3 class="card-title">Contract Writing</h3>
+                        <p class="card-desc">Drafting freelance agreements, NDAs, and service contracts with clear,
+                            professional terms.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
 
         <section id="projects" class="section" aria-labelledby="projects-heading">
             <div class="container">
-                <div class="section-header">
-                    <div>
-                        <p class="section-label reveal">Selected Work</p>
-                        <h2 id="projects-heading" class="section-title reveal">Code Repositories</h2>
-                    </div>
-                    <span class="section-count reveal">07 Projects</span>
-                </div>
-                <div class="projects-list">
-                    <a href="https://github.com/leul-cpu/MED-CHAIN" target="_blank" rel="noopener noreferrer" class="project-row reveal">
-                        <span class="proj-num">01</span>
-                        <div class="proj-body">
-                            <h3 class="proj-name">MED-CHAIN</h3>
-                            <p class="proj-desc">Blockchain-backed medical records system — school capstone exploring secure patient data exchange with distributed ledger integrity.</p>
-                            <span class="proj-tech">Java · Spring Boot · JavaScript</span>
-                            <div class="proj-category">Web Blockchain</div>
+                <h2 id="projects-heading" class="section-title fade-in">Selected Work</h2>
+                <div class="grid-2">
+                    <article class="project-card fade-in">
+                        <div class="project-content">
+                            <h3 class="project-title">MED-CHAIN</h3>
+                            <p class="project-desc">Blockchain-backed medical records system built as a school capstone,
+                                exploring secure patient data exchange with distributed ledger integrity.</p>
+                            <div class="project-tags">
+                                <span>Java</span><span>Spring Boot</span><span>JavaScript</span>
+                            </div>
+                            <a href="https://github.com/leul-cpu/MED-CHAIN" target="_blank" rel="noopener noreferrer"
+                                class="project-link">View Repository &rarr;</a>
                         </div>
-                        <span class="proj-arrow" aria-hidden="true">→</span>
-                    </a>
-                    <a href="https://mohsquare1.netlify.app/" target="_blank" rel="noopener noreferrer" class="project-row reveal">
-                        <span class="proj-num">02</span>
-                        <div class="proj-body">
-                            <h3 class="proj-name">Mohsquare</h3>
-                            <p class="proj-desc">Client portfolio for a construction brand — editorial layout with live deployment on Netlify and a Python-powered thumbnail pipeline.</p>
-                            <span class="proj-tech">HTML/CSS · JavaScript · Python</span>
-                            <div class="proj-category">Web Client Work</div>
-                        </div>
-                        <span class="proj-arrow" aria-hidden="true">→</span>
-                    </a>
-                    <a href="https://leul-cpu.github.io/leulfit/" target="_blank" rel="noopener noreferrer" class="project-row reveal">
-                        <span class="proj-num">03</span>
-                        <div class="proj-body">
-                            <h3 class="proj-name">LeulFit</h3>
-                            <p class="proj-desc">Fitness tracking concept — workout logging UI built as a future-facing personal project with browser-native state management.</p>
-                            <span class="proj-tech">HTML · CSS</span>
-                            <div class="proj-category">Web</div>
-                        </div>
-                        <span class="proj-arrow" aria-hidden="true">→</span>
-                    </a>
-                    <a href="https://leul-cpu.github.io/Bellanawit/" target="_blank" rel="noopener noreferrer" class="project-row reveal">
-                        <span class="proj-num">04</span>
-                        <div class="proj-body">
-                            <h3 class="proj-name">Bellanawit</h3>
-                            <p class="proj-desc">Client portfolio for a personal brand — clean typographic system and responsive static pages delivered on deadline.</p>
-                            <span class="proj-tech">HTML · CSS</span>
-                            <div class="proj-category">Web Client Work</div>
-                        </div>
-                        <span class="proj-arrow" aria-hidden="true">→</span>
-                    </a>
-                    <a href="https://leul-cpu.github.io/Simple-Task-Manager/" target="_blank" rel="noopener noreferrer" class="project-row reveal">
-                        <span class="proj-num">05</span>
-                        <div class="proj-body">
-                            <h3 class="proj-name">Simple Task Manager</h3>
-                            <p class="proj-desc">Lightweight productivity app — add, complete, and filter tasks in the browser with zero backend and instant localStorage persistence.</p>
-                            <span class="proj-tech">JavaScript · HTML · CSS</span>
-                            <div class="proj-category">Web</div>
-                        </div>
-                        <span class="proj-arrow" aria-hidden="true">→</span>
-                    </a>
-                    <a href="https://leul-cpu.github.io/retro-login/" target="_blank" rel="noopener noreferrer" class="project-row reveal">
-                        <span class="proj-num">06</span>
-                        <div class="proj-body">
-                            <h3 class="proj-name">Retro Login UI</h3>
-                            <p class="proj-desc">CRT-inspired authentication screen — neon accents, scanlines, and keyboard-first interaction prototype for a retro aesthetic.</p>
-                            <span class="proj-tech">CSS · HTML</span>
-                            <div class="proj-category">Web</div>
-                        </div>
-                        <span class="proj-arrow" aria-hidden="true">→</span>
-                    </a>
-                    <a href="https://github.com/leul-cpu/restaurant-menu" target="_blank" rel="noopener noreferrer" class="project-row reveal">
-                        <span class="proj-num">07</span>
-                        <div class="proj-body">
-                            <h3 class="proj-name">Restaurant Menu</h3>
-                            <p class="proj-desc">QR-accessible digital menu for a local restaurant — built for mobile-first scanning with instant access and zero app install required.</p>
-                            <span class="proj-tech">HTML · CSS · QR Integration</span>
-                            <div class="proj-category">Web Client Work QR</div>
-                        </div>
-                        <span class="proj-arrow" aria-hidden="true">→</span>
-                    </a>
-                </div>
-                <p class="projects-footer reveal">
-                    All projects on <a href="https://github.com/leul-cpu" target="_blank" rel="noopener noreferrer">github.com/leul-cpu →</a>
-                </p>
-            </div>
-        </section>
+                    </article>
 
-        <div class="divider"></div>
+                    <article class="project-card fade-in">
+                        <div class="project-content">
+                            <h3 class="project-title">Mohsquare</h3>
+                            <p class="project-desc">Client portfolio site for a digital marketer and social media
+                                manager editorial layout with a Python-powered thumbnail pipeline, deployed on Netlify.
+                            </p>
+                            <div class="project-tags">
+                                <span>HTML/CSS</span><span>JavaScript</span><span>Python</span>
+                            </div>
+                            <a href="https://mohsquare1.netlify.app" target="_blank" rel="noopener noreferrer"
+                                class="project-link">View Live Site &rarr;</a>
+                        </div>
+                    </article>
 
-        <section id="skills" class="section" aria-labelledby="skills-heading">
-            <div class="container">
-                <div class="section-header">
-                    <div>
-                        <p class="section-label reveal">What I Do</p>
-                        <h2 id="skills-heading" class="section-title reveal">Skills</h2>
-                    </div>
+                    <article class="project-card fade-in">
+                        <div class="project-content">
+                            <h3 class="project-title">Bellanawit Portfolio</h3>
+                            <p class="project-desc">Client portfolio for a content-creator personal brand clean
+                                typographic system and responsive static pages, delivered on deadline.</p>
+                            <div class="project-tags">
+                                <span>HTML</span><span>CSS</span>
+                            </div>
+                            <a href="https://leul-cpu.github.io/Bellanawit/" target="_blank" rel="noopener noreferrer"
+                                class="project-link">View Live Site &rarr;</a>
+                        </div>
+                    </article>
+
+                    <article class="project-card fade-in">
+                        <div class="project-content">
+                            <h3 class="project-title">Bellamo</h3>
+                            <p class="project-desc">Portfolio site for Bellamo, a partner production team blending event
+                                promotion, trend-driven video editing, and digital strategy built with a custom
+                                black-and-gold luxury theme.</p>
+                            <div class="project-tags">
+                                <span>HTML</span><span>CSS</span>
+                            </div>
+                            <a href="https://github.com/leul-cpu/Bellamo" target="_blank" rel="noopener noreferrer"
+                                class="project-link">View Repository &rarr;</a>
+                        </div>
+                    </article>
+
+                    <article class="project-card fade-in">
+                        <div class="project-content">
+                            <h3 class="project-title">Simple Task Manager</h3>
+                            <p class="project-desc">Lightweight productivity app to add, complete, and filter tasks in
+                                the browser, zero backend, instant localStorage persistence.</p>
+                            <div class="project-tags">
+                                <span>JavaScript</span><span>HTML</span><span>CSS</span>
+                            </div>
+                            <a href="https://leul-cpu.github.io/Simple-Task-Manager/" target="_blank"
+                                rel="noopener noreferrer" class="project-link">View Live Site &rarr;</a>
+                        </div>
+                    </article>
+
+                    <article class="project-card fade-in">
+                        <div class="project-content">
+                            <h3 class="project-title">Restaurant Menu</h3>
+                            <p class="project-desc">QR-accessible digital menu for a local restaurant, built
+                                mobile-first for instant scan access with zero app install.</p>
+                            <div class="project-tags">
+                                <span>HTML</span><span>CSS</span><span>QR</span>
+                            </div>
+                            <a href="https://github.com/leul-cpu/restaurant-menu" target="_blank"
+                                rel="noopener noreferrer" class="project-link">View Repository &rarr;</a>
+                        </div>
+                    </article>
+
+                    <article class="project-card fade-in">
+                        <div class="project-content">
+                            <h3 class="project-title">Retro Login UI</h3>
+                            <p class="project-desc">A CRT-inspired authentication screen prototype exploring a retro
+                                visual style.</p>
+                            <div class="project-tags">
+                                <span>HTML</span><span>CSS</span>
+                            </div>
+                            <a href="https://leul-cpu.github.io/retro-login/" target="_blank" rel="noopener noreferrer"
+                                class="project-link">View Live Site &rarr;</a>
+                        </div>
+                    </article>
                 </div>
-                <div class="method-grid">
-                    <article class="method-card reveal">
-                        <span class="method-num">01</span>
-                        <h3 class="method-title">Software Development</h3>
-                        <p class="method-body">Full-stack web development across frontend and backend — from pixel-perfect UIs to scalable APIs.</p>
-                    </article>
-                    <article class="method-card reveal">
-                        <span class="method-num">02</span>
-                        <h3 class="method-title">Hardware Engineering</h3>
-                        <p class="method-body">Electronics design, embedded systems, and logic pipelines bridging software and hardware.</p>
-                    </article>
-                    <article class="method-card reveal">
-                        <span class="method-num">03</span>
-                        <h3 class="method-title">Video Editing</h3>
-                        <p class="method-body">Post-production editing for client promos, reels, and content — clean cuts, color grading, and motion flow.</p>
-                        <div class="skill-tools">Tools: CapCut · Canva</div>
-                    </article>
-                    <article class="method-card reveal">
-                        <span class="method-num">04</span>
-                        <h3 class="method-title">Contract & Agreement Writing</h3>
-                        <p class="method-body">Drafting freelance agreements, NDAs, and service contracts — clear, professional documentation that protects both parties.</p>
-                    </article>
+                <div class="projects-footer fade-in">
+                    <a href="https://github.com/leul-cpu" target="_blank" rel="noopener noreferrer"
+                        class="more-link">More projects on GitHub &rarr;</a>
                 </div>
             </div>
         </section>
 
-        <div class="divider"></div>
-
-        <section id="method" class="section" aria-labelledby="method-heading">
+        <section id="method" class="section bg-light" aria-labelledby="method-heading">
             <div class="container">
-                <div class="section-header">
-                    <div>
-                        <p class="section-label reveal">How I Work</p>
-                        <h2 id="method-heading" class="section-title reveal">Method</h2>
-                    </div>
-                </div>
-                <div class="method-grid">
-                    <article class="method-card reveal">
-                        <span class="method-num">01</span>
-                        <h3 class="method-title">Cutting-Edge Stack</h3>
-                        <p class="method-body">Stay ahead with modern frameworks and tooling — ship interfaces that feel current without chasing hype for its own sake.</p>
-                    </article>
-                    <article class="method-card reveal">
-                        <span class="method-num">02</span>
-                        <h3 class="method-title">Responsive by Design</h3>
-                        <p class="method-body">Mobile-first structure that adapts across every breakpoint — tested on real devices, never an afterthought or a patch job.</p>
-                    </article>
-                    <article class="method-card reveal">
-                        <span class="method-num">03</span>
-                        <h3 class="method-title">Obsessive Performance</h3>
-                        <p class="method-body">Optimized assets, minimal blocking scripts, and perceptual speed — fast pages that users actually notice and appreciate.</p>
-                    </article>
-                    <article class="method-card reveal">
-                        <span class="method-num">04</span>
-                        <h3 class="method-title">Intentional Aesthetics</h3>
-                        <p class="method-body">Typography, spacing, and visual hierarchy first — interfaces that are clear, considered, and genuinely enjoyable to use.</p>
-                    </article>
-                </div>
+                <h2 id="method-heading" class="section-title fade-in">How I Work</h2>
+                <ul class="method-list fade-in">
+                    <li>Modern, well-supported tools and frameworks</li>
+                    <li>Mobile-first, responsive by default</li>
+                    <li>Performance-conscious fast, lightweight pages</li>
+                    <li>Clear typography and visual hierarchy in every build</li>
+                </ul>
             </div>
         </section>
 
-        <section id="contact" class="contact-section" aria-labelledby="contact-heading">
+        <section id="contact" class="section" aria-labelledby="contact-heading">
             <div class="container">
-                <div class="contact-inner">
-                    <div>
-                        <p class="section-label reveal">Get In Touch</p>
-                        <h2 id="contact-heading" class="contact-headline reveal">
-                            Let's Build<br>Something<span class="accent-dot">.</span>
-                        </h2>
-                        <a href="mailto:leulabiti98@gmail.com" class="contact-cta reveal">leulabiti98@gmail.com →</a>
+                <div class="contact-grid">
+                    <div class="contact-info fade-in">
+                        <h2 id="contact-heading" class="section-title">Let's Work Together</h2>
+                        <p class="contact-desc">Feel free to reach out if you're looking for a developer, engineer, or
+                            just want to connect.</p>
+
+                        <div class="contact-links">
+                            <a href="mailto:leulabiti98@gmail.com" class="contact-link">Email: leulabiti98@gmail.com</a>
+                            <a href="https://github.com/leul-cpu" target="_blank" rel="noopener noreferrer"
+                                class="contact-link">GitHub: github.com/leul-cpu</a>
+                            <a href="https://linkedin.com/in/Leul" target="_blank" rel="noopener noreferrer"
+                                class="contact-link">LinkedIn: linkedin.com/in/Leul</a>
+                            <div class="social-links">
+                                <a href="https://x.com/leulleo8" target="_blank" rel="noopener noreferrer">X
+                                    (@leulleo8)</a>
+                                <a href="https://instagram.com/leul_my2" target="_blank"
+                                    rel="noopener noreferrer">Instagram (@leul_my2)</a>
+                                <a href="https://t.me/llEUlllll" target="_blank" rel="noopener noreferrer">Telegram
+                                    (@llEUlllll)</a>
+                            </div>
+                        </div>
                     </div>
-                    <aside class="contact-links reveal" aria-label="Contact links">
-                        <div class="contact-block">
-                            <p class="contact-block-label">Email</p>
-                            <a href="mailto:leulabiti98@gmail.com">leulabiti98@gmail.com</a>
-                        </div>
-                        <div class="contact-block">
-                            <p class="contact-block-label">GitHub</p>
-                            <a href="https://github.com/leul-cpu" target="_blank" rel="noopener noreferrer">github.com/leul-cpu</a>
-                        </div>
-                        <div class="contact-block">
-                            <p class="contact-block-label">LinkedIn</p>
-                            <a href="https://linkedin.com/in/Leul" target="_blank" rel="noopener noreferrer">linkedin.com/in/Leul</a>
-                        </div>
-                        <div class="contact-block">
-                            <p class="contact-block-label">Socials</p>
-                            <a href="https://x.com/leulleo8" target="_blank" rel="noopener noreferrer">X / @leulleo8</a>
-                            <a href="https://instagram.com/leul_my2" target="_blank" rel="noopener noreferrer">Instagram / @leul_my2</a>
-                            <a href="https://t.me/llEUlllll" target="_blank" rel="noopener noreferrer">Telegram / @llEUlllll</a>
-                        </div>
-                    </aside>
+
+                    <div class="contact-form-wrap fade-in">
+                        <form id="contact-form" class="contact-form">
+                            <div class="form-group">
+                                <label for="name">Name</label>
+                                <input type="text" id="name" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="message">Message</label>
+                                <textarea id="message" name="message" rows="5" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">Send Message</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </section>
@@ -291,12 +286,23 @@
 
     <footer class="footer" role="contentinfo">
         <div class="container footer-inner">
-            <span>Leul Abiti — Est. 2024</span>
-            <span class="mode-badge" id="footer-mode-badge">// SW_MODE</span>
-            <span>Crafted with focus. ✦</span>
+            <div class="footer-brand">
+                <span class="footer-name">Leul Abiti</span>
+                <span class="footer-tagline">Full-Stack Developer &amp; Hardware Engineer</span>
+            </div>
+            <div class="footer-nav">
+                <a href="#about">About</a>
+                <a href="#skills">Skills</a>
+                <a href="#projects">Projects</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="footer-copy">
+                &copy; <span id="year"></span> Leul Abiti
+            </div>
         </div>
     </footer>
 
     <script src="script.js"></script>
 </body>
+
 </html>
