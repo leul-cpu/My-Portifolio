@@ -553,9 +553,11 @@ p {
     border: 1px solid var(--card-border);
     height: 100%;
     box-shadow: 0 4px 24px rgba(0,0,0,0.02);
-    transition: var(--transition-smooth);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.4s ease;
     position: relative;
     overflow: hidden;
+    transform-style: preserve-3d;
+    will-change: transform;
 }
 
 .card::before, .project-card::before {
@@ -580,7 +582,7 @@ p {
 }
 
 .card:hover {
-    transform: translateY(-6px) scale(1.02);
+    transform: perspective(1000px) rotateX(var(--rotate-x, 0deg)) rotateY(var(--rotate-y, 0deg)) scale(1.02) translateY(-6px);
     box-shadow: 0 16px 40px var(--accent-glow);
     border-color: var(--accent-color);
 }
@@ -628,10 +630,25 @@ p {
     margin-bottom: var(--spacing-lg);
 }
 
+/* Bento Layout Mobile */
+@media (max-width: 767px) {
+    .project-card:nth-child(3n + 1) {
+        grid-column: span 2;
+    }
+}
+
 @media (min-width: 768px) {
     .grid-2 {
         grid-template-columns: repeat(3, 1fr);
         gap: 1.5rem;
+    }
+    .project-card:nth-child(4n + 1),
+    .project-card:nth-child(4n + 4) {
+        grid-column: span 2;
+    }
+    .project-card:nth-child(4n + 2),
+    .project-card:nth-child(4n + 3) {
+        grid-column: span 1;
     }
 }
 
@@ -639,6 +656,15 @@ p {
     .grid-2 {
         grid-template-columns: repeat(4, 1fr);
         gap: 2rem;
+    }
+    .project-card:nth-child(5n + 1),
+    .project-card:nth-child(5n + 4),
+    .project-card:nth-child(5n + 5) {
+        grid-column: span 2;
+    }
+    .project-card:nth-child(5n + 2),
+    .project-card:nth-child(5n + 3) {
+        grid-column: span 1;
     }
 }
 
@@ -649,19 +675,21 @@ p {
     border: 1px solid var(--card-border);
     border-radius: 16px;
     padding: 1.25rem;
-    transition: var(--transition-smooth);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.4s ease;
     display: flex;
     flex-direction: column;
     height: 100%;
     box-shadow: 0 4px 12px rgba(0,0,0,0.02);
     position: relative;
     overflow: hidden;
+    transform-style: preserve-3d;
+    will-change: transform;
 }
 
 .project-card:hover {
     border-color: var(--accent-color);
     box-shadow: 0 16px 40px var(--accent-glow);
-    transform: translateY(-6px) scale(1.02);
+    transform: perspective(1000px) rotateX(var(--rotate-x, 0deg)) rotateY(var(--rotate-y, 0deg)) scale(1.02) translateY(-6px);
 }
 
 .project-title {

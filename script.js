@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 7. Mouse-tracking glow for cards
+    // 7. Mouse-tracking glow and 3D Tilt for cards
     const cards = document.querySelectorAll('.card, .project-card');
     cards.forEach(card => {
         card.addEventListener('mousemove', e => {
@@ -117,6 +117,21 @@ document.addEventListener('DOMContentLoaded', () => {
             
             card.style.setProperty('--mouse-x', `${x}px`);
             card.style.setProperty('--mouse-y', `${y}px`);
+
+            // 3D Tilt Physics
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const rotateX = ((y - centerY) / centerY) * -6; // Max 6 deg
+            const rotateY = ((x - centerX) / centerX) * 6;
+            
+            card.style.setProperty('--rotate-x', `${rotateX}deg`);
+            card.style.setProperty('--rotate-y', `${rotateY}deg`);
+        });
+
+        // Reset on leave
+        card.addEventListener('mouseleave', () => {
+            card.style.setProperty('--rotate-x', '0deg');
+            card.style.setProperty('--rotate-y', '0deg');
         });
     });
 });
