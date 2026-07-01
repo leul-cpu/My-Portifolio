@@ -24,29 +24,31 @@ document.addEventListener('DOMContentLoaded', () => {
     // 2. Intersection Observer for fade-in animations
     const fadeElements = document.querySelectorAll('.fade-in');
     
-    // Add staggered delays based on sequence
-    fadeElements.forEach((el, index) => {
-        el.style.setProperty('--delay', `${(index % 5) * 0.1}s`);
-    });
-
-    const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.1
-    };
-
-    const fadeObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-                observer.unobserve(entry.target);
-            }
+    if (fadeElements.length > 0) {
+        // Add staggered delays based on sequence
+        fadeElements.forEach((el, index) => {
+            el.style.setProperty('--delay', `${(index % 5) * 0.1}s`);
         });
-    }, observerOptions);
 
-    fadeElements.forEach(el => {
-        fadeObserver.observe(el);
-    });
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const fadeObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        fadeElements.forEach(el => {
+            fadeObserver.observe(el);
+        });
+    }
 
     // 3. Current Year for Footer
     const yearSpan = document.getElementById('year');
@@ -115,31 +117,33 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 7. Mouse-tracking glow and 3D Tilt for cards
     const cards = document.querySelectorAll('.card, .project-card');
-    cards.forEach(card => {
-        card.addEventListener('mousemove', e => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            
-            card.style.setProperty('--mouse-x', `${x}px`);
-            card.style.setProperty('--mouse-y', `${y}px`);
+    if (cards.length > 0) {
+        cards.forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
 
-            // 3D Tilt Physics
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            const rotateX = ((y - centerY) / centerY) * -6; // Max 6 deg
-            const rotateY = ((x - centerX) / centerX) * 6;
-            
-            card.style.setProperty('--rotate-x', `${rotateX}deg`);
-            card.style.setProperty('--rotate-y', `${rotateY}deg`);
-        });
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
 
-        // Reset on leave
-        card.addEventListener('mouseleave', () => {
-            card.style.setProperty('--rotate-x', '0deg');
-            card.style.setProperty('--rotate-y', '0deg');
+                // 3D Tilt Physics
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotateX = ((y - centerY) / centerY) * -6; // Max 6 deg
+                const rotateY = ((x - centerX) / centerX) * 6;
+
+                card.style.setProperty('--rotate-x', `${rotateX}deg`);
+                card.style.setProperty('--rotate-y', `${rotateY}deg`);
+            });
+
+            // Reset on leave
+            card.addEventListener('mouseleave', () => {
+                card.style.setProperty('--rotate-x', '0deg');
+                card.style.setProperty('--rotate-y', '0deg');
+            });
         });
-    });
+    }
 
     // 8. Vanilla JS Live Preview Modal Engine
     const previewModal = document.getElementById('preview-modal');
