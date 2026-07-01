@@ -13,7 +13,9 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.style.overflow = isExpanded ? '' : 'hidden';
     }
 
-    navMenuBtn.addEventListener('click', toggleMenu);
+    if (navMenuBtn) {
+        navMenuBtn.addEventListener('click', toggleMenu);
+    }
 
     mobileLinks.forEach(link => {
         link.addEventListener('click', toggleMenu);
@@ -30,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const observerOptions = {
         root: null,
         rootMargin: '0px',
-        threshold: 0.15
+        threshold: 0.1
     };
 
     const fadeObserver = new IntersectionObserver((entries, observer) => {
@@ -78,13 +80,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 5. Navbar Scroll Effect
     const navbar = document.querySelector('.navbar');
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
-        }
-    });
+    if (navbar) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+    }
 
     // 6. Dark Mode Toggle
     const themeToggleBtn = document.getElementById('theme-toggle');
@@ -93,6 +97,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const currentTheme = localStorage.getItem('theme');
         if (currentTheme === 'dark') {
             document.documentElement.setAttribute('data-theme', 'dark');
+        } else {
+            document.documentElement.removeAttribute('data-theme');
         }
 
         themeToggleBtn.addEventListener('click', () => {
@@ -134,4 +140,94 @@ document.addEventListener('DOMContentLoaded', () => {
             card.style.setProperty('--rotate-y', '0deg');
         });
     });
+
+    // 8. Vanilla JS Live Preview Modal Engine
+    const previewModal = document.getElementById('preview-modal');
+    const modalIframe = document.getElementById('modal-iframe');
+    const modalLoader = document.getElementById('modal-loader');
+    const modalCloseBtn = document.getElementById('modal-close');
+    const modalExternalLink = document.getElementById('modal-external-link');
+    const modalDeviceDesktop = document.getElementById('modal-device-desktop');
+    const modalDeviceMobile = document.getElementById('modal-device-mobile');
+    const iframeViewport = document.querySelector('.iframe-viewport');
+    const previewButtons = document.querySelectorAll('.btn-preview');
+
+    if (previewModal && modalIframe && modalLoader) {
+        // Open Modal
+        previewButtons.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const previewUrl = btn.getAttribute('data-preview-url');
+                const projectTitle = btn.closest('.project-content').querySelector('.project-title').textContent;
+                
+                // Set modal title details
+                const modalTitle = document.getElementById('modal-title');
+                if (modalTitle) {
+                    modalTitle.textContent = `${projectTitle} — Live Preview`;
+                }
+
+                // Prepare iframe
+                modalLoader.classList.remove('hidden');
+                modalIframe.src = previewUrl;
+                modalExternalLink.href = previewUrl;
+
+                // Reset device view simulator to Desktop by default
+                iframeViewport.classList.remove('mobile');
+                modalDeviceDesktop.classList.add('active');
+                modalDeviceMobile.classList.remove('active');
+
+                // Display Modal
+                previewModal.classList.add('active');
+                previewModal.setAttribute('aria-hidden', 'false');
+                document.body.style.overflow = 'hidden'; // Block background scroll
+            });
+        });
+
+        // Iframe finish loading indicator trigger
+        modalIframe.addEventListener('load', () => {
+            modalLoader.classList.add('hidden');
+        });
+
+        // Close Modal function
+        const closeModal = () => {
+            previewModal.classList.remove('active');
+            previewModal.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = ''; // Restore scroll
+            
+            // Wipe source to stop audio/video/scripts running in background iframe
+            modalIframe.src = '';
+        };
+
+        // Click close triggers
+        modalCloseBtn.addEventListener('click', closeModal);
+
+        previewModal.addEventListener('click', (e) => {
+            // If clicking the blurred outer container directly, close modal
+            if (e.target === previewModal) {
+                closeModal();
+            }
+        });
+
+        // Keyboard close (ESC key)
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && previewModal.classList.contains('active')) {
+                closeModal();
+            }
+        });
+
+        // Device simulator controls
+        if (modalDeviceDesktop && modalDeviceMobile && iframeViewport) {
+            modalDeviceDesktop.addEventListener('click', () => {
+                iframeViewport.classList.remove('mobile');
+                modalDeviceDesktop.classList.add('active');
+                modalDeviceMobile.classList.remove('active');
+            });
+
+            modalDeviceMobile.addEventListener('click', () => {
+                iframeViewport.classList.add('mobile');
+                modalDeviceMobile.classList.add('active');
+                modalDeviceDesktop.classList.remove('active');
+            });
+        }
+    }
 });
