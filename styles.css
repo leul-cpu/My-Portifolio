@@ -480,8 +480,8 @@ p {
    Hero Section
    ========================================================================== */
 .hero {
-    padding-top: 100px;
-    padding-bottom: var(--spacing-md);
+    padding-top: 120px;
+    padding-bottom: var(--spacing-xl);
     min-height: auto;
     display: flex;
     align-items: center;
@@ -491,8 +491,7 @@ p {
 
 @media (min-width: 900px) {
     .hero {
-        padding-top: 18vh;
-        padding-bottom: var(--spacing-xl);
+        padding-top: 140px;
         min-height: 100vh;
     }
 }
@@ -522,37 +521,84 @@ p {
     z-index: 1;
 }
 
-.hero-container {
+.hero-container-new {
     position: relative;
     z-index: 2;
-    display: grid;
-    grid-template-columns: 1.3fr 0.7fr;
-    gap: var(--spacing-sm);
-    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    width: 100%;
 }
 
-@media (min-width: 900px) {
-    .hero-container {
-        grid-template-columns: 1fr 420px;
+@media (min-width: 768px) {
+    .hero-container-new {
+        gap: var(--spacing-lg);
+    }
+}
+
+.hero-top {
+    text-align: center;
+    width: 100%;
+}
+
+.hero-mid {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+    align-items: center;
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+    .hero-mid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: var(--spacing-lg);
+        align-items: center;
+    }
+}
+
+@media (min-width: 1024px) {
+    .hero-mid {
+        grid-template-columns: 1.2fr 0.8fr;
         gap: var(--spacing-xxl);
     }
 }
 
-.hero-text {
+.hero-mid-content {
     display: flex;
     flex-direction: column;
+    text-align: center;
+}
+
+@media (min-width: 768px) {
+    .hero-mid-content {
+        text-align: left;
+        grid-column: 1;
+        grid-row: 1;
+    }
 }
 
 /* ---- Portrait ---- */
-.hero-portrait {
+.hero-mid-portrait {
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
+    width: 100%;
 }
 
-@media (min-width: 900px) {
-    .hero-portrait {
+@media (min-width: 768px) {
+    .hero-mid-portrait {
         justify-content: flex-end;
+        grid-column: 2;
+        grid-row: 1;
     }
+}
+
+.hero-bottom {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: var(--spacing-xl); /* Increased vertical breathing room */
 }
 
 .portrait-frame {
@@ -690,13 +736,15 @@ p {
 }
 
 .hero-name {
-    font-size: clamp(1.4rem, 8vw, 6.5rem);
+    font-size: clamp(1.4rem, 8vw, 4.5rem);
     font-family: var(--font-headings);
     font-weight: 800;
-    line-height: 0.95;
-    letter-spacing: -0.03em;
-    margin-bottom: var(--spacing-sm);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    margin-bottom: 0;
     color: var(--text-color);
+    text-transform: uppercase;
+    text-align: center;
 }
 
 .hero-role {
@@ -749,24 +797,17 @@ p {
     }
 }
 
-.hero-location::before {
-    content: '';
-    display: inline-block;
-    width: 6px;
-    height: 6px;
-    background-color: var(--text-color);
-    transform: rotate(45deg);
-}
 
 .hero-ctas {
     display: flex;
-    gap: var(--spacing-xs);
+    gap: var(--spacing-sm);
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 @media (min-width: 768px) {
     .hero-ctas {
-        gap: var(--spacing-sm);
+        gap: var(--spacing-md);
     }
 }
 
