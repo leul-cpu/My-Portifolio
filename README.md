@@ -25,7 +25,7 @@ This portfolio is designed to demonstrate expertise in delivering MVPs, scaling 
 - `index.html` — Main structure and content.
 - `styles.css` — Modern, modular styling with CSS variables.
 - `script.js` — Custom interaction logic and modal engine.
-- `IMG_0033.JPG` — Professional portrait.
+- `IMG_0033.webp` — Professional portrait.
 
 ## 💻 Local Development
 
