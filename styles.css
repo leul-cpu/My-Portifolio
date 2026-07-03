@@ -519,7 +519,7 @@ p {
     z-index: 2;
     display: grid;
     grid-template-columns: 1fr;
-    gap: var(--spacing-xl);
+    gap: var(--spacing-md);
     align-items: center;
 }
 
@@ -551,8 +551,14 @@ p {
 
 .portrait-frame {
     position: relative;
-    width: 340px;
+    width: 260px;
     max-width: 100%;
+}
+
+@media (min-width: 900px) {
+    .portrait-frame {
+        width: 340px;
+    }
 }
 
 /* Gold corner accent */
@@ -664,7 +670,7 @@ p {
 }
 
 .hero-name {
-    font-size: clamp(3.2rem, 8vw, 6.5rem);
+    font-size: clamp(2.5rem, 8vw, 6.5rem);
     font-family: var(--font-headings);
     font-weight: 800;
     line-height: 0.95;
@@ -730,23 +736,16 @@ p {
 
 .stats-grid {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--spacing-lg);
-    text-align: center;
-}
-
-@media (min-width: 768px) {
-    .stats-grid {
-        grid-template-columns: repeat(3, 1fr);
-        text-align: left;
-    }
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-sm);
+    text-align: left;
 }
 
 .stat-item {
     display: flex;
     flex-direction: column;
     border-left: 2px solid var(--border-color);
-    padding-left: 2rem;
+    padding-left: 1rem;
     transition: border-color 0.3s ease;
 }
 
@@ -754,21 +753,18 @@ p {
     border-color: var(--accent-highlight);
 }
 
-@media (max-width: 767px) {
-    .stat-item {
-        border-left: none;
-        border-top: 2px solid var(--border-color);
-        padding-left: 0;
-        padding-top: 2rem;
+@media (min-width: 768px) {
+    .stats-grid {
+        gap: var(--spacing-lg);
     }
-    .stat-item:hover {
-        border-color: var(--accent-highlight);
+    .stat-item {
+        padding-left: 2rem;
     }
 }
 
 .stat-number {
     font-family: var(--font-headings);
-    font-size: clamp(4rem, 7vw, 6.5rem);
+    font-size: clamp(2.2rem, 7vw, 6.5rem);
     font-weight: 800;
     line-height: 1;
     color: var(--text-color);
@@ -806,19 +802,20 @@ p {
    ========================================================================== */
 .grid-3 {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--spacing-md);
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-sm);
 }
 
 @media (min-width: 768px) {
     .grid-3 {
         grid-template-columns: repeat(3, 1fr);
+        gap: var(--spacing-md);
     }
 }
 
 .card {
     background-color: var(--card-bg);
-    padding: 3rem 2rem;
+    padding: 1.5rem 1rem;
     border-radius: var(--border-radius);
     border: 1px solid var(--card-border);
     height: 100%;
@@ -839,10 +836,10 @@ p {
 }
 
 .service-icon {
-    width: 48px;
-    height: 48px;
+    width: 32px;
+    height: 32px;
     color: var(--accent-highlight);
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
 }
 
 .service-icon svg {
@@ -852,9 +849,9 @@ p {
 
 .card-title {
     font-family: var(--font-headings);
-    font-size: 1.4rem;
+    font-size: 0.9rem;
     font-weight: 700;
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
     color: var(--text-color);
     text-transform: uppercase;
     letter-spacing: 0.02em;
@@ -862,10 +859,10 @@ p {
 
 .card-desc {
     color: var(--text-muted);
-    font-size: 0.95rem;
-    line-height: 1.6;
+    font-size: 0.85rem;
+    line-height: 1.5;
     font-weight: 400;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.25rem;
 }
 
 .service-features {
@@ -879,7 +876,7 @@ p {
 }
 
 .service-features li {
-    font-size: 0.85rem;
+    font-size: 0.7rem;
     font-weight: 600;
     color: var(--text-color);
     text-transform: uppercase;
@@ -898,8 +895,8 @@ p {
    ========================================================================== */
 .bento-grid {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--spacing-md);
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-sm);
 }
 
 @media (min-width: 768px) {
@@ -927,7 +924,7 @@ p {
     background-color: var(--card-bg);
     border: 1px solid var(--card-border);
     border-radius: var(--border-radius);
-    padding: 2.5rem;
+    padding: 1rem 0.75rem;
     transition: var(--transition-smooth);
     display: flex;
     flex-direction: column;
@@ -955,8 +952,8 @@ p {
 
 .project-title {
     font-family: var(--font-headings);
-    font-size: 1.8rem;
-    margin-bottom: 1rem;
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
     font-weight: 700;
     color: var(--text-color);
     text-transform: uppercase;
@@ -1005,11 +1002,11 @@ p {
     background-color: var(--accent-color);
     color: var(--bg-color);
     border: 1px solid var(--accent-color);
-    padding: 0.6rem 1.25rem;
+    padding: 0.5rem 0.8rem;
     font-family: var(--font-headings);
     font-weight: 700;
     text-transform: uppercase;
-    font-size: 0.75rem;
+    font-size: 0.65rem;
     letter-spacing: 0.08em;
     border-radius: 4px;
     cursor: pointer;
@@ -1089,28 +1086,21 @@ p {
    ========================================================================== */
 .testimonials-grid {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--spacing-lg);
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-sm);
 }
 
-@media (min-width: 992px) {
+@media (min-width: 768px) {
     .testimonials-grid {
-        grid-template-columns: 1fr; /* Stack vertically if wider, or keep split side-by-side */
+        gap: var(--spacing-lg);
     }
 }
 
 .testimonial-card {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
-    padding: 2.5rem;
-}
-
-@media (min-width: 600px) {
-    .testimonial-card {
-        flex-direction: row;
-        align-items: flex-start;
-    }
+    gap: 1rem;
+    padding: 1.5rem 1rem;
 }
 
 .testimonial-body {
@@ -1121,8 +1111,8 @@ p {
 }
 
 .testimonial-quote {
-    font-size: 1.2rem;
-    line-height: 1.7;
+    font-size: 0.9rem;
+    line-height: 1.5;
     font-weight: 300;
     font-style: italic;
     color: var(--text-color);
@@ -1133,12 +1123,12 @@ p {
 .testimonial-quote::before {
     content: '\201C';
     font-family: var(--font-headings);
-    font-size: 4rem;
+    font-size: 2.5rem;
     line-height: 1;
     color: var(--accent-highlight);
     position: absolute;
-    top: -2rem;
-    left: -1rem;
+    top: -1.2rem;
+    left: -0.5rem;
     opacity: 0.15;
 }
 
@@ -1147,8 +1137,8 @@ p {
 }
 
 .author-avatar {
-    width: 88px;
-    height: 88px;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     object-fit: cover;
     border: 2px solid var(--accent-highlight);
