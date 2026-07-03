@@ -234,4 +234,18 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     }
+
+    // 9. Read More Toggle for Mobile
+    const readMoreButtons = document.querySelectorAll('.read-more-btn');
+    readMoreButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const container = btn.parentElement;
+            const desc = container.querySelector('.card-desc, .project-desc, .testimonial-quote');
+
+            if (desc) {
+                const isExpanded = desc.classList.toggle('expanded');
+                btn.textContent = isExpanded ? 'Read Less -' : 'Read More +';
+            }
+        });
+    });
 });
