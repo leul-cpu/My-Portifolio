@@ -237,15 +237,73 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 9. Read More Toggle for Mobile
     const readMoreButtons = document.querySelectorAll('.read-more-btn');
-    readMoreButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const container = btn.parentElement;
-            const desc = container.querySelector('.card-desc, .project-desc, .testimonial-quote');
+    readMoreButtons.forEach((btn, index) => {
+        const container = btn.parentElement;
+        const desc = container.querySelector('.card-desc, .project-desc, .testimonial-quote');
 
-            if (desc) {
-                const isExpanded = desc.classList.toggle('expanded');
-                btn.textContent = isExpanded ? 'Read Less -' : 'Read More +';
-            }
-        });
+        if (desc) {
+            // Assign unique ID for accessibility mapping
+            const descId = `desc-expand-${index}`;
+            desc.id = descId;
+            btn.setAttribute('aria-expanded', 'false');
+            btn.setAttribute('aria-controls', descId);
+
+            btn.addEventListener('click', () => {
+                const isExpandedNow = desc.classList.toggle('expanded');
+                btn.textContent = isExpandedNow ? 'Read Less -' : 'Read More +';
+                btn.setAttribute('aria-expanded', isExpandedNow);
+            });
+        }
     });
+
+    // 10. Scroll Spy functionality
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    const navBrand = document.querySelector('.nav-brand');
+
+    if (sections.length > 0 && navLinks.length > 0) {
+        const spyObserverOptions = {
+            root: null,
+            rootMargin: '-20% 0px -70% 0px',
+            threshold: 0
+        };
+
+        const spyObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+
+                    // Update main nav links
+                    navLinks.forEach(link => {
+                        const href = link.getAttribute('href');
+                        if (href === `#${id}`) {
+                            link.classList.add('active');
+                            link.setAttribute('aria-current', 'location');
+                        } else {
+                            // Only remove if it's not a generic link
+                            if (href.startsWith('#')) {
+                                link.classList.remove('active');
+                                link.removeAttribute('aria-current');
+                            }
+                        }
+                    });
+
+                    // Special case for brand logo (home)
+                    if (navBrand) {
+                        if (id === 'home') {
+                            navBrand.classList.add('active');
+                            navBrand.setAttribute('aria-current', 'location');
+                        } else {
+                            navBrand.classList.remove('active');
+                            navBrand.removeAttribute('aria-current');
+                        }
+                    }
+                }
+            });
+        }, spyObserverOptions);
+
+        sections.forEach(section => {
+            spyObserver.observe(section);
+        });
+    }
 });
