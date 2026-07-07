@@ -248,4 +248,63 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    // 10. TikTok Thumbnail Loader via oEmbed API
+    const editThumbnailWraps = document.querySelectorAll('.edit-thumbnail-wrap');
+
+    async function loadTikTokThumbnail(wrap) {
+        const tiktokUrl = wrap.getAttribute('data-tiktok-url');
+        const thumbId = wrap.querySelector('.edit-thumbnail-img').id;
+        const thumbEl = document.getElementById(thumbId);
+
+        if (!tiktokUrl || !thumbEl) return;
+
+        try {
+            const oEmbedUrl = `https://www.tiktok.com/oembed?url=${encodeURIComponent(tiktokUrl)}`;
+            const response = await fetch(oEmbedUrl);
+
+            if (response.ok) {
+                const data = await response.json();
+                if (data.thumbnail_url) {
+                    const img = new Image();
+                    img.onload = () => {
+                        thumbEl.style.backgroundImage = `url('${data.thumbnail_url}')`;
+                        thumbEl.classList.add('loaded');
+                    };
+                    img.onerror = () => applyFallbackGradient(thumbEl);
+                    img.src = data.thumbnail_url;
+                } else {
+                    applyFallbackGradient(thumbEl);
+                }
+            } else {
+                applyFallbackGradient(thumbEl);
+            }
+        } catch (err) {
+            applyFallbackGradient(thumbEl);
+        }
+    }
+
+    function applyFallbackGradient(el) {
+        el.style.backgroundImage = 'linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 40%, #0d0d0d 100%)';
+        el.classList.add('loaded');
+    }
+
+    editThumbnailWraps.forEach(wrap => {
+        // Load thumbnail
+        loadTikTokThumbnail(wrap);
+
+        // Click/keyboard opens TikTok in new tab
+        const openTikTok = () => {
+            const url = wrap.getAttribute('data-tiktok-url');
+            if (url) window.open(url, '_blank', 'noopener,noreferrer');
+        };
+
+        wrap.addEventListener('click', openTikTok);
+        wrap.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                openTikTok();
+            }
+        });
+    });
 });
