@@ -543,48 +543,51 @@ p {
 
 .hero-mid {
     display: flex;
-    flex-direction: row;
-    gap: 1.5rem;
+    flex-direction: column;
+    gap: 2.5rem;
     align-items: center;
     width: 100%;
-    margin: 1.5rem 0;
+    margin: 0.5rem 0;
 }
 
 @media (min-width: 768px) {
     .hero-mid {
         display: grid;
         grid-template-columns: 1.1fr 0.9fr;
-        gap: var(--spacing-lg);
+        gap: var(--spacing-md);
         align-items: center;
-        margin: var(--spacing-lg) 0;
+        margin: var(--spacing-md) 0;
+        flex-direction: row;
     }
 }
 
 .hero-mid-content {
-    flex: 1.2;
+    width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    text-align: left;
+    align-items: center;
+    text-align: center;
 }
 
 @media (min-width: 768px) {
     .hero-mid-content {
-        flex: none;
+        width: auto;
+        align-items: flex-start;
+        text-align: left;
     }
 }
 
 /* ---- Portrait ---- */
 .hero-mid-portrait {
-    flex: 0.8;
+    width: 100%;
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
 }
 
 @media (min-width: 768px) {
     .hero-mid-portrait {
-        flex: none;
-        width: 100%;
+        width: auto;
+        justify-content: flex-end;
     }
 }
 
@@ -592,13 +595,19 @@ p {
     display: flex;
     justify-content: center;
     width: 100%;
-    margin-top: var(--spacing-xl); /* Increased vertical breathing room */
+    margin-top: 2rem; /* Tighter spacing on mobile */
+}
+
+@media (min-width: 768px) {
+    .hero-bottom {
+        margin-top: var(--spacing-xl); /* Desktop breathing room */
+    }
 }
 
 .portrait-frame {
     position: relative;
     width: 100%;
-    max-width: 150px;
+    max-width: 240px; /* Fits beautifully on mobile screen widths */
 }
 
 @media (min-width: 768px) {
@@ -894,13 +903,13 @@ p {
    About Section
    ========================================================================== */
 .highlight-text {
-    font-weight: 600;
-    color: var(--text-color);
-    background: linear-gradient(120deg, rgba(197, 168, 128, 0.15) 0%, rgba(197, 168, 128, 0.05) 100%);
-    padding: 2px 6px;
-    border-radius: 4px;
-    border-bottom: 1.5px solid var(--accent-highlight);
-    display: inline-block;
+    font-weight: 700;
+    color: var(--accent-highlight);
+    background: none;
+    padding: 0;
+    border-radius: 0;
+    border: none;
+    display: inline;
 }
 
 .about-content {
