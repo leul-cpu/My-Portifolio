@@ -1098,9 +1098,96 @@ p {
     border-radius: 100px;
 }
 
-/* The edits bento grid reuses .bento-grid rules; just constrain to 2 cols max */
+/* The edits bento grid reuses .bento-grid rules; just constrain to 2 cols max and tight mobile gaps */
 .edits-bento {
     grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0.5rem !important;
+}
+
+/* Make creative edits cards smaller on mobile to fit iPhone viewports */
+.edits-bento .project-card {
+    padding: 0.5rem;
+}
+
+.edits-bento .project-card .project-category {
+    font-size: 0.52rem;
+    margin-bottom: 0.2rem;
+}
+
+.edits-bento .project-card .project-title {
+    font-size: 0.7rem;
+    line-height: 1.15;
+}
+
+.edits-bento .project-card .project-desc {
+    display: none; /* Hide on mobile to keep cards compact and small */
+}
+
+.edits-bento .project-card .btn-repo-alone {
+    padding: 0.35rem 0.5rem;
+    font-size: 0.55rem;
+    width: 100%;
+    justify-content: center;
+}
+
+/* Title row container to align inline thumbnail with title */
+.project-title-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 0.5rem;
+}
+
+.project-title-row .project-title {
+    margin-bottom: 0; /* Align with layout */
+    flex-grow: 1;
+}
+
+/* Rounded-square inline thumbnail (48px on mobile, 56px on desktop) */
+.edit-thumbnail-wrap {
+    position: relative;
+    width: 48px;
+    height: 48px;
+    background: #0a0a0a;
+    cursor: pointer;
+    overflow: hidden;
+    border-radius: 6px;
+    flex-shrink: 0;
+}
+
+@media (min-width: 768px) {
+    .edits-bento {
+        gap: var(--spacing-md) !important;
+    }
+    .edits-bento .project-card {
+        padding: 1.25rem;
+    }
+    .edits-bento .project-card .project-category {
+        font-size: 0.75rem;
+        margin-bottom: 0.5rem;
+    }
+    .edits-bento .project-card .project-title {
+        font-size: 1rem;
+    }
+    .edits-bento .project-card .project-desc {
+        font-size: 0.9rem;
+        line-height: 1.5;
+        margin-bottom: 1.5rem;
+    }
+    .edits-bento .project-card .btn-repo-alone {
+        padding: 0.6rem 1.25rem;
+        font-size: 0.75rem;
+        width: auto;
+    }
+    .project-title-row {
+        gap: 12px;
+        margin-bottom: 0.75rem;
+    }
+    .edit-thumbnail-wrap {
+        width: 56px;
+        height: 56px;
+        border-radius: 8px;
+    }
 }
 
 @media (min-width: 1024px) {
@@ -1113,44 +1200,19 @@ p {
     }
 }
 
-/* Edit card = standard project-card; just add the thumbnail on top */
-.edit-bento-card {
-    padding: 0; /* thumbnail flush to top edge */
-    overflow: hidden;
-}
-
-.edit-bento-card .project-content {
-    padding: 1rem 0.75rem;
-}
-
-@media (min-width: 768px) {
-    .edit-bento-card .project-content {
-        padding: 1.5rem;
-    }
-}
-
-/* Thumbnail strip — 16:9, full width, compact */
-.edit-thumbnail-wrap {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    background: #0a0a0a;
-    cursor: pointer;
-    overflow: hidden;
-    flex-shrink: 0;
-}
-
 .edit-thumbnail-img {
     position: absolute;
     inset: 0;
     background-size: cover;
-    background-position: center top;
+    background-position: center;
     background-repeat: no-repeat;
-    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    filter: grayscale(50%) brightness(0.85);
+    transition: filter 0.3s ease, transform 0.3s ease;
 }
 
 .edit-thumbnail-wrap:hover .edit-thumbnail-img {
-    transform: scale(1.05);
+    transform: scale(1.08);
+    filter: grayscale(20%) brightness(0.95);
 }
 
 .thumb-loading {
@@ -1166,60 +1228,43 @@ p {
     display: none;
 }
 
-/* Play overlay */
+/* Play overlay - semi-transparent dark circle with play triangle */
 .edit-play-overlay {
     position: absolute;
     inset: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(0, 0, 0, 0.25);
-    opacity: 0;
-    transition: opacity 0.3s ease;
+    background: rgba(0, 0, 0, 0.45);
+    transition: background 0.3s ease;
 }
 
-.edit-thumbnail-wrap:hover .edit-play-overlay,
-.edit-thumbnail-wrap:focus .edit-play-overlay {
-    opacity: 1;
+.edit-thumbnail-wrap:hover .edit-play-overlay {
+    background: rgba(0, 0, 0, 0.25);
 }
 
 .edit-play-btn {
-    width: 40px;
-    height: 40px;
-    background: rgba(255, 255, 255, 0.18);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border: 1.5px solid rgba(255, 255, 255, 0.55);
+    width: 24px;
+    height: 24px;
+    background: rgba(255, 255, 255, 0.85);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #fff;
+    color: #000;
     transition: var(--transition-fast);
 }
 
 .edit-play-btn svg {
-    width: 14px;
-    height: 14px;
-    margin-left: 2px;
+    width: 10px;
+    height: 10px;
+    margin-left: 1px;
 }
 
 .edit-thumbnail-wrap:hover .edit-play-btn {
     background: var(--accent-highlight);
-    border-color: var(--accent-highlight);
+    color: #fff;
     transform: scale(1.1);
-}
-
-@media (min-width: 768px) {
-    .edit-play-btn {
-        width: 52px;
-        height: 52px;
-    }
-    .edit-play-btn svg {
-        width: 18px;
-        height: 18px;
-        margin-left: 3px;
-    }
 }
 
 /* ==========================================================================
