@@ -244,6 +244,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (desc) {
                 const isExpanded = desc.classList.toggle('expanded');
+                btn.setAttribute('aria-expanded', isExpanded);
                 btn.textContent = isExpanded ? 'Read Less -' : 'Read More +';
             }
         });
@@ -306,5 +307,37 @@ document.addEventListener('DOMContentLoaded', () => {
                 openTikTok();
             }
         });
+    });
+
+    // 11. Scroll Spy using IntersectionObserver
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a, .nav-brand');
+
+    const scrollSpyOptions = {
+        root: null,
+        rootMargin: '-20% 0px -70% 0px',
+        threshold: 0
+    };
+
+    const scrollSpyObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const id = entry.target.getAttribute('id');
+                navLinks.forEach(link => {
+                    const href = link.getAttribute('href');
+                    if (href === `#${id}`) {
+                        link.classList.add('active');
+                        link.setAttribute('aria-current', 'location');
+                    } else {
+                        link.classList.remove('active');
+                        link.removeAttribute('aria-current');
+                    }
+                });
+            }
+        });
+    }, scrollSpyOptions);
+
+    sections.forEach(section => {
+        scrollSpyObserver.observe(section);
     });
 });
