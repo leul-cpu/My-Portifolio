@@ -1,4 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // 0. Skeleton Loading State — full site
+    // body.page-loading hides real content behind skeleton bones across ALL sections.
+    // After 1.5 s (simulated load), remove the class to reveal real content.
+    setTimeout(() => {
+        document.body.classList.remove('page-loading');
+    }, 1500);
+
     // 1. Mobile Navigation Toggle
     const navMenuBtn = document.getElementById('nav-menu-btn');
     const navMobileOverlay = document.getElementById('nav-mobile-overlay');

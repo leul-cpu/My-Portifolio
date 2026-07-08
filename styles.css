@@ -1325,6 +1325,299 @@ p {
     box-shadow: 0 16px 40px var(--accent-glow);
 }
 
+
+/* ==========================================================================
+   Skeleton Loading State — Full Site
+   Applied via body.page-loading; removed after JS initialisation (1.5s)
+   ========================================================================== */
+
+/* Keyframe: subtle opacity pulse, ~1.3 s loop */
+@keyframes skeleton-pulse {
+    0%,
+    100% { opacity: 0.55; }
+    50%  { opacity: 1;    }
+}
+
+/* Shared mixin applied to every skeleton "bone" */
+.skeleton-bone {
+    background-color: var(--border-color) !important;
+    background-image: none !important;
+    color: transparent !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
+    border-radius: 4px !important;
+    animation: skeleton-pulse 1.3s ease-in-out infinite;
+    /* smooth fade-in when real content replaces the bone */
+    transition: opacity 0.4s ease, background-color 0.4s ease, color 0.4s ease;
+}
+
+/* Block all interaction while loading */
+body.page-loading main {
+    pointer-events: none;
+    user-select: none;
+}
+
+/* ---- Hero ---- */
+body.page-loading .hero-name,
+body.page-loading .hero-role {
+    background-color: var(--border-color) !important;
+    color: transparent !important;
+    border-radius: 4px !important;
+    animation: skeleton-pulse 1.3s ease-in-out infinite;
+}
+body.page-loading .portrait-img {
+    opacity: 0 !important;
+}
+body.page-loading .portrait-frame {
+    background-color: var(--border-color) !important;
+    animation: skeleton-pulse 1.3s ease-in-out infinite;
+}
+body.page-loading .hero-desc,
+body.page-loading .hero-location {
+    color: transparent !important;
+    background: linear-gradient(to bottom,
+        var(--border-color) 0%,   var(--border-color) 55%,
+        transparent 55%,          transparent 100%)
+        !important;
+    background-size: 100% 1.6em !important;
+    border-radius: 4px !important;
+    animation: skeleton-pulse 1.3s ease-in-out infinite;
+}
+body.page-loading .hero-location .diamond { display: none !important; }
+body.page-loading .hero-ctas .btn {
+    background-color: var(--border-color) !important;
+    background-image: none !important;
+    color: transparent !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
+    animation: skeleton-pulse 1.3s ease-in-out infinite;
+}
+
+/* ---- Stats ---- */
+body.page-loading .stat-number,
+body.page-loading .stat-label {
+    background-color: var(--border-color) !important;
+    color: transparent !important;
+    border-radius: 4px !important;
+    animation: skeleton-pulse 1.3s ease-in-out infinite;
+    display: inline-block !important;
+    min-width: 60px;
+}
+
+/* ---- About ---- */
+body.page-loading .about-lead,
+body.page-loading .about-body {
+    color: transparent !important;
+    background: linear-gradient(to bottom,
+        var(--border-color) 0%,   var(--border-color) 55%,
+        transparent 55%,          transparent 100%)
+        !important;
+    background-size: 100% 1.7em !important;
+    border-radius: 4px !important;
+    animation: skeleton-pulse 1.3s ease-in-out infinite;
+}
+body.page-loading .highlight-text { color: transparent !important; }
+
+/* ---- Services ---- */
+body.page-loading .service-icon svg { opacity: 0 !important; }
+body.page-loading .service-icon {
+    background-color: var(--border-color) !important;
+    border-radius: 4px !important;
+    animation: skeleton-pulse 1.3s ease-in-out infinite;
+}
+body.page-loading .card-title {
+    background-color: var(--border-color) !important;
+    color: transparent !important;
+    border-radius: 4px !important;
+    animation: skeleton-pulse 1.3s ease-in-out infinite;
+}
+body.page-loading .card-desc {
+    color: transparent !important;
+    background: linear-gradient(to bottom,
+        var(--border-color) 0%,   var(--border-color) 55%,
+        transparent 55%,          transparent 100%)
+        !important;
+    background-size: 100% 1.5em !important;
+    border-radius: 4px !important;
+    animation: skeleton-pulse 1.3s ease-in-out infinite;
+}
+body.page-loading .service-features { opacity: 0 !important; }
+body.page-loading .read-more-btn    { opacity: 0 !important; }
+
+/* ---- Projects (Bento Grid) ---- */
+body.page-loading .project-category,
+body.page-loading .project-title {
+    background-color: var(--border-color) !important;
+    color: transparent !important;
+    border-radius: 4px !important;
+    animation: skeleton-pulse 1.3s ease-in-out infinite;
+}
+body.page-loading .project-desc {
+    color: transparent !important;
+    background: linear-gradient(to bottom,
+        var(--border-color) 0%,   var(--border-color) 55%,
+        transparent 55%,          transparent 100%)
+        !important;
+    background-size: 100% 1.6em !important;
+    border-radius: 4px !important;
+    animation: skeleton-pulse 1.3s ease-in-out infinite;
+}
+body.page-loading .project-tags span {
+    background-color: var(--border-color) !important;
+    color: transparent !important;
+    border-color: transparent !important;
+    animation: skeleton-pulse 1.3s ease-in-out infinite;
+}
+body.page-loading .project-actions button,
+body.page-loading .project-actions a {
+    background-color: var(--border-color) !important;
+    color: transparent !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
+    animation: skeleton-pulse 1.3s ease-in-out infinite;
+}
+body.page-loading .edit-thumbnail-wrap {
+    background-color: var(--border-color) !important;
+    animation: skeleton-pulse 1.3s ease-in-out infinite;
+}
+body.page-loading .edit-thumbnail-wrap *,
+body.page-loading .projects-footer { opacity: 0 !important; }
+
+/* ---- Testimonials ---- */
+body.page-loading .author-avatar {
+    opacity: 0 !important;
+}
+body.page-loading .author-avatar-wrap {
+    background-color: var(--border-color) !important;
+    border-radius: 50% !important;
+    animation: skeleton-pulse 1.3s ease-in-out infinite;
+    width: 48px !important;
+    height: 48px !important;
+    overflow: hidden !important;
+}
+body.page-loading .testimonial-quote {
+    color: transparent !important;
+    background: linear-gradient(to bottom,
+        var(--border-color) 0%,   var(--border-color) 55%,
+        transparent 55%,          transparent 100%)
+        !important;
+    background-size: 100% 1.6em !important;
+    border-radius: 4px !important;
+    animation: skeleton-pulse 1.3s ease-in-out infinite;
+}
+body.page-loading .author-name,
+body.page-loading .author-role {
+    background-color: var(--border-color) !important;
+    color: transparent !important;
+    border-radius: 4px !important;
+    animation: skeleton-pulse 1.3s ease-in-out infinite;
+    display: block !important;
+}
+body.page-loading .author-name a { color: transparent !important; }
+
+/* ---- Method (How I Work) ---- */
+body.page-loading .method-list li {
+    background-color: var(--border-color) !important;
+    color: transparent !important;
+    border-radius: 4px !important;
+    animation: skeleton-pulse 1.3s ease-in-out infinite;
+    padding: 0.8rem 1rem !important;
+    margin-bottom: 0.5rem !important;
+}
+
+/* ---- Contact ---- */
+body.page-loading .contact-desc {
+    color: transparent !important;
+    background: linear-gradient(to bottom,
+        var(--border-color) 0%,   var(--border-color) 55%,
+        transparent 55%,          transparent 100%)
+        !important;
+    background-size: 100% 1.6em !important;
+    border-radius: 4px !important;
+    animation: skeleton-pulse 1.3s ease-in-out infinite;
+}
+body.page-loading .contact-links { opacity: 0 !important; }
+body.page-loading .contact-form label {
+    background-color: var(--border-color) !important;
+    color: transparent !important;
+    border-radius: 4px !important;
+    animation: skeleton-pulse 1.3s ease-in-out infinite;
+    display: block !important;
+    height: 1em !important;
+    width: 60% !important;
+    margin-bottom: 0.5rem !important;
+}
+body.page-loading .contact-form input,
+body.page-loading .contact-form textarea {
+    background-color: var(--border-color) !important;
+    color: transparent !important;
+    border-color: transparent !important;
+    animation: skeleton-pulse 1.3s ease-in-out infinite;
+}
+body.page-loading .btn-block {
+    background-color: var(--border-color) !important;
+    color: transparent !important;
+    border-color: transparent !important;
+    animation: skeleton-pulse 1.3s ease-in-out infinite;
+}
+
+/* ---- Section titles (all) ---- */
+body.page-loading .section-title {
+    background-color: var(--border-color) !important;
+    color: transparent !important;
+    border-radius: 4px !important;
+    animation: skeleton-pulse 1.3s ease-in-out infinite;
+    width: 40% !important;
+}
+body.page-loading .section-title::after { display: none !important; }
+
+/* Prevent hover effects while loading */
+body.page-loading .project-card:hover,
+body.page-loading .card:hover {
+    transform: none !important;
+    box-shadow: none !important;
+    border-color: var(--card-border) !important;
+}
+
+/* ---- prefers-reduced-motion ---- */
+@media (prefers-reduced-motion: reduce) {
+    body.page-loading .hero-name,
+    body.page-loading .hero-role,
+    body.page-loading .portrait-frame,
+    body.page-loading .hero-desc,
+    body.page-loading .hero-location,
+    body.page-loading .hero-ctas .btn,
+    body.page-loading .stat-number,
+    body.page-loading .stat-label,
+    body.page-loading .about-lead,
+    body.page-loading .about-body,
+    body.page-loading .service-icon,
+    body.page-loading .card-title,
+    body.page-loading .card-desc,
+    body.page-loading .project-category,
+    body.page-loading .project-title,
+    body.page-loading .project-desc,
+    body.page-loading .project-tags span,
+    body.page-loading .project-actions button,
+    body.page-loading .project-actions a,
+    body.page-loading .edit-thumbnail-wrap,
+    body.page-loading .author-avatar-wrap,
+    body.page-loading .testimonial-quote,
+    body.page-loading .author-name,
+    body.page-loading .author-role,
+    body.page-loading .method-list li,
+    body.page-loading .contact-desc,
+    body.page-loading .contact-form label,
+    body.page-loading .contact-form input,
+    body.page-loading .contact-form textarea,
+    body.page-loading .btn-block,
+    body.page-loading .section-title {
+        animation: none !important;
+        opacity: 0.75 !important;
+    }
+}
+
+
 .project-category {
     font-family: var(--font-headings);
     font-size: 0.75rem;
