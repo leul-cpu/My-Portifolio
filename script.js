@@ -65,25 +65,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 4. Contact Form Submission Handling
     const contactForm = document.getElementById('contact-form');
-    if (contactForm) {
+    const contactStatus = document.getElementById('contact-status');
+    if (contactForm && contactStatus) {
+        const btn = contactForm.querySelector('button[type="submit"]');
+        const originalText = btn.textContent;
         contactForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            const btn = contactForm.querySelector('button[type="submit"]');
-            const originalText = btn.textContent;
-
-            btn.textContent = 'Message Sent!';
-            btn.style.backgroundColor = '#2ecc71';
-            btn.style.borderColor = '#2ecc71';
-            btn.style.color = '#fff';
-
-            contactForm.reset();
-
+            if (btn.classList.contains('btn-loading') || btn.classList.contains('btn-success')) return;
+            btn.classList.add('btn-loading');
+            contactStatus.textContent = 'Sending message...';
             setTimeout(() => {
-                btn.textContent = originalText;
-                btn.style.backgroundColor = '';
-                btn.style.borderColor = '';
-                btn.style.color = '';
-            }, 3000);
+                btn.classList.remove('btn-loading');
+                btn.classList.add('btn-success');
+                btn.textContent = 'Message Sent!';
+                contactStatus.textContent = 'Message successfully sent to Leul.';
+                contactForm.reset();
+                setTimeout(() => {
+                    btn.classList.remove('btn-success');
+                    btn.textContent = originalText;
+                    contactStatus.textContent = '';
+                }, 4000);
+            }, 800);
         });
     }
 
