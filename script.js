@@ -104,12 +104,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // 6. Dark Mode Toggle
     const themeToggleBtn = document.getElementById('theme-toggle');
     if (themeToggleBtn) {
-        // Check for saved theme
+        // Check for saved theme, default to dark mode
         const currentTheme = localStorage.getItem('theme');
-        if (currentTheme === 'dark') {
-            document.documentElement.setAttribute('data-theme', 'dark');
-        } else {
+        if (currentTheme === 'light') {
             document.documentElement.removeAttribute('data-theme');
+        } else {
+            document.documentElement.setAttribute('data-theme', 'dark');
         }
 
         themeToggleBtn.addEventListener('click', () => {

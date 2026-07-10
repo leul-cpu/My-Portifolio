@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 
 <head>
     <meta charset="UTF-8">
@@ -33,6 +33,7 @@
         rel="stylesheet">
 
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="proposal.css">
     <link rel="icon" type="image/svg+xml"
         href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90' font-family='sans-serif'>LA</text></svg>">
 </head>
@@ -689,6 +690,25 @@
         </div>
     </div>
 
+    <!-- Proposal Modal -->
+    <div id="proposal-modal" class="modal-wrapper" aria-hidden="true" role="dialog" aria-modal="true"
+        aria-labelledby="proposal-modal-title">
+        <div class="modal-container proposal-modal-container">
+            <header class="modal-header">
+                <h3 id="proposal-modal-title" class="modal-project-title">Project Proposal</h3>
+                <div class="modal-controls">
+                    <button id="proposal-modal-close" class="modal-close-btn" title="Close Proposal"
+                        aria-label="Close proposal">&times;</button>
+                </div>
+            </header>
+            <div class="modal-body proposal-modal-body">
+                <!-- Proposal document injected dynamically here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="proposals.js"></script>
+    <script src="proposal.js"></script>
     <script src="script.js"></script>
 </body>
 
