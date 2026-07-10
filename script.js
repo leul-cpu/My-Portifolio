@@ -318,7 +318,60 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 11. Scroll Spy using IntersectionObserver
+    // 11. Custom Cursor Engine
+    const cursorDot = document.querySelector('.cursor-dot');
+    const cursorOutline = document.querySelector('.cursor-outline');
+
+    if (cursorDot && cursorOutline && window.matchMedia('(pointer: fine)').matches) {
+        let mouseX = 0;
+        let mouseY = 0;
+        let outlineX = 0;
+        let outlineY = 0;
+        let isHovering = false;
+
+        window.addEventListener('mousemove', (e) => {
+            if (!document.body.classList.contains('cursor-active')) {
+                document.body.classList.add('cursor-active');
+            }
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+
+            // Immediate position for dot (centered: -3px offset for 6px dot)
+            cursorDot.style.transform = `translate3d(${mouseX - 3}px, ${mouseY - 3}px, 0)`;
+        });
+
+        const animateCursor = () => {
+            // Smoothly follow for outline (lerp)
+            const lerp = 0.15;
+            outlineX += (mouseX - outlineX) * lerp;
+            outlineY += (mouseY - outlineY) * lerp;
+
+            const scale = isHovering ? 1.5 : 1;
+            cursorOutline.style.transform = `translate3d(${outlineX - 15}px, ${outlineY - 15}px, 0) scale(${scale})`;
+
+            requestAnimationFrame(animateCursor);
+        };
+        requestAnimationFrame(animateCursor);
+
+        // Hover effect for interactive elements (Event Delegation)
+        document.addEventListener('mouseover', (e) => {
+            const target = e.target.closest('a, button, [role="button"], .edit-thumbnail-wrap');
+            if (target) {
+                isHovering = true;
+                document.body.classList.add('cursor-hover');
+            }
+        });
+
+        document.addEventListener('mouseout', (e) => {
+            const target = e.target.closest('a, button, [role="button"], .edit-thumbnail-wrap');
+            if (target) {
+                isHovering = false;
+                document.body.classList.remove('cursor-hover');
+            }
+        });
+    }
+
+    // 12. Scroll Spy using IntersectionObserver
     const sections = document.querySelectorAll('section[id]');
     const navLinks = document.querySelectorAll('.nav-links a, .nav-brand');
 
