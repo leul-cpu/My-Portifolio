@@ -965,10 +965,12 @@ p {
     transition: var(--transition-smooth);
     position: relative;
     overflow: hidden;
+    transform: perspective(1000px) rotateX(var(--rotate-x, 0deg)) rotateY(var(--rotate-y, 0deg));
+    will-change: transform;
 }
 
 .card:hover {
-    transform: translateY(-6px);
+    transform: perspective(1000px) rotateX(var(--rotate-x, 0deg)) rotateY(var(--rotate-y, 0deg)) translateY(-6px);
     border-color: var(--accent-highlight);
     box-shadow: 0 12px 30px var(--accent-glow);
 }
@@ -1317,11 +1319,13 @@ p {
     height: 100%;
     position: relative;
     overflow: hidden;
+    transform: perspective(1000px) rotateX(var(--rotate-x, 0deg)) rotateY(var(--rotate-y, 0deg));
+    will-change: transform;
 }
 
 .project-card:hover {
     border-color: var(--accent-highlight);
-    transform: translateY(-4px);
+    transform: perspective(1000px) rotateX(var(--rotate-x, 0deg)) rotateY(var(--rotate-y, 0deg)) translateY(-4px);
     box-shadow: 0 16px 40px var(--accent-glow);
 }
 
@@ -2168,6 +2172,66 @@ body.page-loading .card:hover {
 .fade-in.visible {
     opacity: 1;
     transform: translateY(0);
+}
+
+/* ==========================================================================
+   Custom Interactive Cursor
+   ========================================================================== */
+.cursor-dot,
+.cursor-outline {
+    pointer-events: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    border-radius: 50%;
+    z-index: 9999;
+    opacity: 0;
+}
+
+.cursor-dot {
+    width: 6px;
+    height: 6px;
+    background-color: var(--accent-highlight);
+    transition: opacity 0.3s ease; /* Dot follows mouse immediately */
+}
+
+.cursor-outline {
+    transition: opacity 0.3s ease, transform 0.2s ease-out; /* Outline has smooth lag */
+}
+
+.cursor-outline {
+    width: 30px;
+    height: 30px;
+    border: 1.5px solid var(--accent-highlight);
+}
+
+/* Show only when active and on fine-pointer devices */
+@media (pointer: fine) {
+    body.cursor-active .cursor-dot,
+    body.cursor-active .cursor-outline {
+        opacity: 1;
+    }
+}
+
+body.cursor-hover .cursor-outline {
+    background-color: rgba(197, 168, 128, 0.1);
+    border-color: var(--accent-highlight);
+}
+
+/* Hide on mobile/touch */
+@media (pointer: coarse) {
+    .cursor-dot,
+    .cursor-outline {
+        display: none;
+    }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .cursor-dot,
+    .cursor-outline {
+        display: none;
+    }
 }
 
 /* ==========================================================================
