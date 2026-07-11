@@ -14,10 +14,23 @@ document.addEventListener('DOMContentLoaded', () => {
     function toggleMenu() {
         const isExpanded = navMenuBtn.getAttribute('aria-expanded') === 'true';
         navMenuBtn.setAttribute('aria-expanded', !isExpanded);
+        navMenuBtn.setAttribute('aria-label', isExpanded ? 'Open menu' : 'Close menu');
         navMenuBtn.classList.toggle('active');
         navMobileOverlay.classList.toggle('active');
+        navMobileOverlay.setAttribute('aria-hidden', isExpanded);
 
         document.body.style.overflow = isExpanded ? '' : 'hidden';
+
+        if (!isExpanded) {
+            // Focus the first link when opening
+            setTimeout(() => {
+                const firstLink = navMobileOverlay.querySelector('a');
+                if (firstLink) firstLink.focus();
+            }, 300);
+        } else {
+            // Return focus to button when closing
+            navMenuBtn.focus();
+        }
     }
 
     if (navMenuBtn) {
@@ -164,12 +177,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalDeviceMobile = document.getElementById('modal-device-mobile');
     const iframeViewport = document.querySelector('.iframe-viewport');
     const previewButtons = document.querySelectorAll('.btn-preview');
+    let lastFocusedElement = null;
 
     if (previewModal && modalIframe && modalLoader) {
         // Open Modal
         previewButtons.forEach(btn => {
             btn.addEventListener('click', (e) => {
                 e.preventDefault();
+                lastFocusedElement = document.activeElement;
                 const previewUrl = btn.getAttribute('data-preview-url');
                 const projectTitle = btn.closest('.project-content').querySelector('.project-title').textContent;
 
@@ -193,6 +208,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 previewModal.classList.add('active');
                 previewModal.setAttribute('aria-hidden', 'false');
                 document.body.style.overflow = 'hidden'; // Block background scroll
+
+                // Focus the close button
+                setTimeout(() => {
+                    modalCloseBtn.focus();
+                }, 100);
             });
         });
 
@@ -209,6 +229,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Wipe source to stop audio/video/scripts running in background iframe
             modalIframe.src = '';
+
+            // Return focus to the trigger button
+            if (lastFocusedElement) {
+                lastFocusedElement.focus();
+            }
         };
 
         // Click close triggers

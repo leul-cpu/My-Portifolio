@@ -411,6 +411,7 @@ p {
     align-items: center;
     gap: 1.5rem;
     opacity: 0;
+    visibility: hidden;
     pointer-events: none;
     transform: translateY(-20px);
     transition: var(--transition-smooth);
@@ -418,6 +419,7 @@ p {
 
 .nav-mobile-overlay.active {
     opacity: 1;
+    visibility: visible;
     pointer-events: all;
     transform: translateY(0);
 }
@@ -2251,13 +2253,15 @@ body.cursor-hover .cursor-outline {
     align-items: center;
     justify-content: center;
     opacity: 0;
+    visibility: hidden;
     pointer-events: none;
-    transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     padding: 1.5rem;
 }
 
 .modal-wrapper.active {
     opacity: 1;
+    visibility: visible;
     pointer-events: all;
 }
 
