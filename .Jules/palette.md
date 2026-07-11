@@ -9,3 +9,7 @@
 ## 2025-05-25 - [Dynamic ARIA Feedback for Async Forms]
 **Learning:** Visual-only state changes (like "Message Sent") in async forms are invisible to screen readers if not paired with `aria-live` regions. Adding a loading state also prevents duplicate submissions and manages user expectations during simulated or real network latency.
 **Action:** Always pair visual form feedback with an `aria-live="polite"` region to announce status updates to assistive technologies.
+
+## 2025-06-05 - [Overlay Visibility & Focus Management]
+**Learning:** Overlays like mobile menus and modals that only use `opacity: 0` for transitions remain in the tab order and are accessible to screen readers while invisible. Combining `opacity` with `visibility: hidden/visible` effectively removes them from the accessibility tree. Furthermore, programmatic focus management (focusing the first link on open and returning to the trigger on close) is essential to prevent focus loss.
+**Action:** Always use `visibility` for overlay components and implement programmatic focus management for all modal/drawer interactions.
