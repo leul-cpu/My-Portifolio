@@ -6,6 +6,22 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.classList.remove('page-loading');
     }, 1500);
 
+    // Utility: Focus Trapping
+    function handleFocusTrap(container, e) {
+        if (e.key !== 'Tab') return;
+        const focusable = container.querySelectorAll('a[href], button, textarea, input, select, [tabindex]:not([tabindex="-1"])');
+        if (focusable.length === 0) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+            last.focus();
+            e.preventDefault();
+        } else if (!e.shiftKey && document.activeElement === last) {
+            first.focus();
+            e.preventDefault();
+        }
+    }
+
     // 1. Mobile Navigation Toggle
     const navMenuBtn = document.getElementById('nav-menu-btn');
     const navMobileOverlay = document.getElementById('nav-mobile-overlay');
@@ -35,6 +51,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (navMenuBtn) {
         navMenuBtn.addEventListener('click', toggleMenu);
+        document.addEventListener('keydown', (e) => {
+            if (navMobileOverlay.classList.contains('active')) {
+                handleFocusTrap(navMobileOverlay, e);
+                if (e.key === 'Escape') toggleMenu();
+            }
+        });
     }
 
     mobileLinks.forEach(link => {
@@ -117,6 +139,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // 6. Dark Mode Toggle
     const themeToggleBtn = document.getElementById('theme-toggle');
     if (themeToggleBtn) {
+        const updateThemeLabel = () => {
+            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+            themeToggleBtn.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
+        };
+
         // Check for saved theme, default to dark mode
         const currentTheme = localStorage.getItem('theme');
         if (currentTheme === 'light') {
@@ -124,6 +151,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             document.documentElement.setAttribute('data-theme', 'dark');
         }
+        updateThemeLabel();
 
         themeToggleBtn.addEventListener('click', () => {
             let theme = document.documentElement.getAttribute('data-theme');
@@ -134,6 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.documentElement.setAttribute('data-theme', 'dark');
                 localStorage.setItem('theme', 'dark');
             }
+            updateThemeLabel();
         });
     }
 
@@ -246,10 +275,11 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Keyboard close (ESC key)
+        // Keyboard: Focus trap & Escape close
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && previewModal.classList.contains('active')) {
-                closeModal();
+            if (previewModal.classList.contains('active')) {
+                handleFocusTrap(previewModal, e);
+                if (e.key === 'Escape') closeModal();
             }
         });
 
