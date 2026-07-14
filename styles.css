@@ -221,6 +221,24 @@ p {
 /* ==========================================================================
    Navigation
    ========================================================================== */
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background-color: var(--accent-highlight);
+    z-index: 2001;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.1s linear;
+    will-change: transform;
+}
+
+body.page-loading .scroll-progress {
+    display: none;
+}
+
 .navbar {
     position: fixed;
     top: 0;
@@ -462,7 +480,8 @@ p {
 .nav-mobile-overlay.active a:nth-child(5) { transition-delay: 0.3s; }
 .nav-mobile-overlay.active a:nth-child(6) { transition-delay: 0.35s; }
 
-.nav-mobile-overlay a:hover {
+.nav-mobile-overlay a:hover,
+.nav-mobile-overlay a.active {
     color: var(--accent-highlight);
 }
 
