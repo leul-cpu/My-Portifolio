@@ -2475,6 +2475,8 @@ body.cursor-hover .cursor-outline {
     background-color: #FFFFFF;
     transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     box-shadow: 0 0 50px rgba(0,0,0,0.3);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .iframe-viewport.mobile {
@@ -2492,6 +2494,19 @@ body.cursor-hover .cursor-outline {
 /* ==========================================================================
    Tactile / Mobile-Specific Tweaks
    ========================================================================== */
+@media (max-width: 767px) {
+    .modal-wrapper {
+        padding: 0.5rem;
+    }
+    .modal-container {
+        height: 95vh;
+        border-radius: 8px;
+    }
+    .modal-header {
+        padding: 0.75rem 1rem;
+    }
+}
+
 @media (pointer: coarse) {
     a:active, button:active, .card:active, .project-card:active {
         transform: scale(0.98) !important;
