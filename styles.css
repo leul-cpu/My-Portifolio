@@ -9,14 +9,14 @@
     --text-color: #0A0A0A;
     --text-muted: #666666;
     --accent-color: #0A0A0A;
-    --accent-highlight: #C5A880; /* Refined Muted Gold */
+    --accent-highlight: #1E4F2B; /* Deep Logo Green */
     --border-color: rgba(0, 0, 0, 0.08);
     
     --nav-bg: rgba(255, 255, 255, 0.8);
     --nav-mobile-bg: rgba(255, 255, 255, 0.98);
     --card-bg: #FFFFFF;
     --card-border: rgba(0, 0, 0, 0.08);
-    --accent-glow: rgba(197, 168, 128, 0.1);
+    --accent-glow: rgba(30, 79, 43, 0.1);
     
     --font-primary: 'Inter', sans-serif;
     --font-headings: 'Outfit', sans-serif;
@@ -41,14 +41,14 @@
     --text-color: #FAFAFA;
     --text-muted: #8E8E93;
     --accent-color: #FAFAFA;
-    --accent-highlight: #C5A880; /* Muted Gold */
+    --accent-highlight: #3FB970; /* Brighter Emerald for Dark Mode */
     --border-color: rgba(255, 255, 255, 0.08);
     
     --nav-bg: rgba(5, 5, 5, 0.85);
     --nav-mobile-bg: rgba(5, 5, 5, 0.98);
     --card-bg: #0D0D0D;
     --card-border: rgba(255, 255, 255, 0.08);
-    --accent-glow: rgba(197, 168, 128, 0.15);
+    --accent-glow: rgba(63, 185, 112, 0.15);
 }
 
 *, *::before, *::after {
@@ -248,11 +248,19 @@ p {
 }
 
 .nav-brand {
-    font-family: var(--font-headings);
-    font-size: 1.2rem;
-    font-weight: 800;
-    color: var(--text-color);
-    letter-spacing: 0.1em;
+    display: flex;
+    align-items: center;
+}
+
+.nav-logo {
+    height: 38px;
+    width: auto;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+}
+
+.nav-brand:hover .nav-logo {
+    transform: scale(1.05);
 }
 
 .nav-right {
