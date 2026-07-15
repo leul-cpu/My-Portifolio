@@ -14,6 +14,3 @@
 **Learning:** Overlays like mobile menus and modals that only use `opacity: 0` for transitions remain in the tab order and are accessible to screen readers while invisible. Combining `opacity` with `visibility: hidden/visible` effectively removes them from the accessibility tree. Furthermore, programmatic focus management (focusing the first link on open and returning to the trigger on close) is essential to prevent focus loss.
 **Action:** Always use `visibility` for overlay components and implement programmatic focus management for all modal/drawer interactions.
 
-## 2025-06-10 - [Scroll Progress & Enhanced Mobile Navigation Feedback]
-**Learning:** A hardware-accelerated scroll progress bar (using `transform: scaleX`) provides valuable reading context with minimal performance overhead. For mobile-heavy sites, extending Scroll Spy logic to include the mobile overlay menu ensures consistent visual orientation across all navigation states. Including a safety guard for zero-height scrollable areas prevents calculation errors.
-**Action:** Implement `transform: scaleX` based scroll progress indicators and ensure Scroll Spy observers track both desktop and mobile navigation targets.
