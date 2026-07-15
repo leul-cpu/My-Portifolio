@@ -125,7 +125,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const navbar = document.querySelector('.navbar');
-    const scrollProgress = document.getElementById('scroll-progress');
 
     window.addEventListener('scroll', () => {
         // Navbar scrolled state
@@ -136,7 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 navbar.classList.remove('scrolled');
             }
         }
-
+    });
 
     // 6. Dark Mode Toggle
     const themeToggleBtn = document.getElementById('theme-toggle');
