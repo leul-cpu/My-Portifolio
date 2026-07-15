@@ -221,6 +221,19 @@ p {
 /* ==========================================================================
    Navigation
    ========================================================================== */
+#scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: var(--accent-highlight);
+    transform: scaleX(0);
+    transform-origin: left;
+    z-index: 2001;
+    transition: transform 0.1s ease-out;
+}
+
 .navbar {
     position: fixed;
     top: 0;

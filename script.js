@@ -457,4 +457,17 @@ document.addEventListener('DOMContentLoaded', () => {
     sections.forEach(section => {
         scrollSpyObserver.observe(section);
     });
+
+    // 13. Scroll Progress Bar
+    const scrollProgress = document.getElementById('scroll-progress');
+    if (scrollProgress) {
+        window.addEventListener('scroll', () => {
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = height > 0 ? (window.scrollY / height) : 0;
+            const percentage = Math.round(scrolled * 100);
+
+            scrollProgress.style.transform = `scaleX(${scrolled})`;
+            scrollProgress.setAttribute('aria-valuenow', percentage);
+        });
+    }
 });
