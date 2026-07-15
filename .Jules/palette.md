@@ -13,3 +13,4 @@
 ## 2025-06-05 - [Overlay Visibility & Focus Management]
 **Learning:** Overlays like mobile menus and modals that only use `opacity: 0` for transitions remain in the tab order and are accessible to screen readers while invisible. Combining `opacity` with `visibility: hidden/visible` effectively removes them from the accessibility tree. Furthermore, programmatic focus management (focusing the first link on open and returning to the trigger on close) is essential to prevent focus loss.
 **Action:** Always use `visibility` for overlay components and implement programmatic focus management for all modal/drawer interactions.
+

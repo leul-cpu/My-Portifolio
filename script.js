@@ -124,17 +124,19 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 5. Navbar Scroll Effect
     const navbar = document.querySelector('.navbar');
-    if (navbar) {
-        window.addEventListener('scroll', () => {
+    const scrollProgress = document.getElementById('scroll-progress');
+
+    window.addEventListener('scroll', () => {
+        // Navbar scrolled state
+        if (navbar) {
             if (window.scrollY > 50) {
                 navbar.classList.add('scrolled');
             } else {
                 navbar.classList.remove('scrolled');
             }
-        });
-    }
+        }
+
 
     // 6. Dark Mode Toggle
     const themeToggleBtn = document.getElementById('theme-toggle');
@@ -428,7 +430,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 12. Scroll Spy using IntersectionObserver
     const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('.nav-links a, .nav-brand');
+    const navLinks = document.querySelectorAll('.nav-links a, .nav-brand, .nav-mobile-overlay a');
 
     const scrollSpyOptions = {
         root: null,
