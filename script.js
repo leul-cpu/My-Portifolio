@@ -124,7 +124,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 5. Navbar & Scroll Progress Effect
     const navbar = document.querySelector('.navbar');
     const scrollProgress = document.getElementById('scroll-progress');
 
@@ -138,17 +137,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        // Scroll Progress Bar calculation
-        if (scrollProgress) {
-            const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
-            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrolled = height > 0 ? (winScroll / height) : 0;
-            const percentage = Math.round(scrolled * 100);
-
-            scrollProgress.style.transform = `scaleX(${scrolled})`;
-            scrollProgress.setAttribute('aria-valuenow', percentage);
-        }
-    }, { passive: true });
 
     // 6. Dark Mode Toggle
     const themeToggleBtn = document.getElementById('theme-toggle');
