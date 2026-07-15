@@ -2177,6 +2177,29 @@ body.page-loading .card:hover {
 }
 
 /* ==========================================================================
+   Scroll Progress Bar
+   ========================================================================== */
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: var(--accent-highlight);
+    z-index: 2001;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.1s linear;
+    pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .scroll-progress {
+        transition: none;
+    }
+}
+
+/* ==========================================================================
    Custom Interactive Cursor
    ========================================================================== */
 .cursor-dot,
