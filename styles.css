@@ -9,14 +9,14 @@
     --text-color: #0A0A0A;
     --text-muted: #666666;
     --accent-color: #0A0A0A;
-    --accent-highlight: #1E4F2B; /* Deep Logo Green */
+    --accent-highlight: #0F3318; /* Dark Green */
     --border-color: rgba(0, 0, 0, 0.08);
     
     --nav-bg: rgba(255, 255, 255, 0.8);
     --nav-mobile-bg: rgba(255, 255, 255, 0.98);
     --card-bg: #FFFFFF;
     --card-border: rgba(0, 0, 0, 0.08);
-    --accent-glow: rgba(30, 79, 43, 0.1);
+    --accent-glow: rgba(15, 51, 24, 0.1);
     
     --font-primary: 'Inter', sans-serif;
     --font-headings: 'Outfit', sans-serif;
@@ -41,14 +41,14 @@
     --text-color: #FAFAFA;
     --text-muted: #8E8E93;
     --accent-color: #FAFAFA;
-    --accent-highlight: #3FB970; /* Brighter Emerald for Dark Mode */
+    --accent-highlight: #1A6B35; /* Dark Green for Dark Mode */
     --border-color: rgba(255, 255, 255, 0.08);
     
     --nav-bg: rgba(5, 5, 5, 0.85);
     --nav-mobile-bg: rgba(5, 5, 5, 0.98);
     --card-bg: #0D0D0D;
     --card-border: rgba(255, 255, 255, 0.08);
-    --accent-glow: rgba(63, 185, 112, 0.15);
+    --accent-glow: rgba(26, 107, 53, 0.15);
 }
 
 *, *::before, *::after {
