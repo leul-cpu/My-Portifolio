@@ -14,3 +14,7 @@
 **Learning:** Overlays like mobile menus and modals that only use `opacity: 0` for transitions remain in the tab order and are accessible to screen readers while invisible. Combining `opacity` with `visibility: hidden/visible` effectively removes them from the accessibility tree. Furthermore, programmatic focus management (focusing the first link on open and returning to the trigger on close) is essential to prevent focus loss.
 **Action:** Always use `visibility` for overlay components and implement programmatic focus management for all modal/drawer interactions.
 
+
+## 2026-07-16 - [Contextual Accessibility & Browser UI Integration]
+**Learning:** Repetitive "Read More" buttons are a major accessibility hurdle for screen reader users as they lack context when navigated out of sequence. Deriving descriptive labels from nearby headings (e.g., "Read more about Full-Stack MVP Development") restores that context. Furthermore, dynamically synchronizing the 'theme-color' meta tag provides a premium feel by matching the mobile browser's UI with the site's dark/light modes.
+**Action:** Always provide descriptive, unique aria-labels for generic repetitive toggles and synchronize meta theme colors with runtime theme changes.
