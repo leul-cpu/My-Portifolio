@@ -140,9 +140,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // 6. Dark Mode Toggle
     const themeToggleBtn = document.getElementById('theme-toggle');
     if (themeToggleBtn) {
-        const updateThemeLabel = () => {
+        const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+
+        const updateThemeUI = () => {
             const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
             themeToggleBtn.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
+            if (themeColorMeta) {
+                themeColorMeta.setAttribute('content', isDark ? '#050505' : '#FFFFFF');
+            }
         };
 
         // Check for saved theme, default to dark mode
@@ -152,7 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             document.documentElement.setAttribute('data-theme', 'dark');
         }
-        updateThemeLabel();
+        updateThemeUI();
 
         themeToggleBtn.addEventListener('click', () => {
             let theme = document.documentElement.getAttribute('data-theme');
@@ -163,7 +168,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.documentElement.setAttribute('data-theme', 'dark');
                 localStorage.setItem('theme', 'dark');
             }
-            updateThemeLabel();
+            updateThemeUI();
         });
     }
 
@@ -303,14 +308,24 @@ document.addEventListener('DOMContentLoaded', () => {
     // 9. Read More Toggle for Mobile
     const readMoreButtons = document.querySelectorAll('.read-more-btn');
     readMoreButtons.forEach(btn => {
+        const container = btn.parentElement;
+        const titleEl = container.querySelector('.card-title, .project-title, .author-name');
+        const titleText = titleEl ? titleEl.textContent.replace(' →', '').trim() : '';
+
+        if (titleText) {
+            btn.setAttribute('aria-label', `Read more about ${titleText}`);
+        }
+
         btn.addEventListener('click', () => {
-            const container = btn.parentElement;
             const desc = container.querySelector('.card-desc, .project-desc, .testimonial-quote');
 
             if (desc) {
                 const isExpanded = desc.classList.toggle('expanded');
                 btn.setAttribute('aria-expanded', isExpanded);
                 btn.textContent = isExpanded ? 'Read Less -' : 'Read More +';
+                if (titleText) {
+                    btn.setAttribute('aria-label', isExpanded ? `Read less about ${titleText}` : `Read more about ${titleText}`);
+                }
             }
         });
     });
