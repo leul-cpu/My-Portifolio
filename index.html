@@ -599,16 +599,16 @@
                     <div class="contact-form-wrap fade-in">
                         <form id="contact-form" class="contact-form">
                             <div class="form-group">
-                                <label for="name">Name</label>
-                                <input type="text" id="name" name="name" required>
+                                <label for="name">Name <span class="required-asterisk" aria-hidden="true">*</span></label>
+                                <input type="text" id="name" name="name" placeholder="Your name" aria-required="true" required>
                             </div>
                             <div class="form-group">
-                                <label for="email">Email</label>
-                                <input type="email" id="email" name="email" required>
+                                <label for="email">Email <span class="required-asterisk" aria-hidden="true">*</span></label>
+                                <input type="email" id="email" name="email" placeholder="your.email@example.com" aria-required="true" required>
                             </div>
                             <div class="form-group">
-                                <label for="message">Message</label>
-                                <textarea id="message" name="message" rows="5" required></textarea>
+                                <label for="message">Message <span class="required-asterisk" aria-hidden="true">*</span></label>
+                                <textarea id="message" name="message" rows="5" placeholder="Tell me about your project..." aria-required="true" required></textarea>
                             </div>
                             <button type="submit" class="btn btn-primary btn-block">Send Message</button>
                             <div id="contact-status" class="sr-only" aria-live="polite"></div>
