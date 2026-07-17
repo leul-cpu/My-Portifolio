@@ -2049,6 +2049,11 @@ body.page-loading .card:hover {
     color: var(--text-color);
 }
 
+.required-asterisk {
+    color: var(--accent-highlight);
+    margin-left: 2px;
+}
+
 .form-group input,
 .form-group textarea {
     width: 100%;
