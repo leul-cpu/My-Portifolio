@@ -124,6 +124,32 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // 4.1 Contact Form Textarea Character Counter
+    const messageTextarea = document.getElementById('message');
+    const charCountEl = document.getElementById('message-char-count');
+    if (messageTextarea && charCountEl) {
+        const updateCharCount = () => {
+            const currentLength = messageTextarea.value.length;
+            const maxLength = parseInt(messageTextarea.getAttribute('maxlength') || '1000', 10);
+            charCountEl.textContent = `${currentLength} / ${maxLength} characters`;
+
+            // Add warn state if approaching 90% of max capacity
+            if (currentLength >= maxLength * 0.9) {
+                charCountEl.classList.add('near-limit');
+            } else {
+                charCountEl.classList.remove('near-limit');
+            }
+        };
+
+        messageTextarea.addEventListener('input', updateCharCount);
+
+        if (contactForm) {
+            contactForm.addEventListener('reset', () => {
+                setTimeout(updateCharCount, 0);
+            });
+        }
+    }
+
     const navbar = document.querySelector('.navbar');
 
     window.addEventListener('scroll', () => {
@@ -409,6 +435,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Immediate position for dot (centered: -3px offset for 6px dot)
             cursorDot.style.transform = `translate3d(${mouseX - 3}px, ${mouseY - 3}px, 0)`;
+        });
+
+        document.addEventListener('mouseleave', () => {
+            document.body.classList.remove('cursor-active');
+        });
+
+        document.addEventListener('mouseenter', () => {
+            document.body.classList.add('cursor-active');
         });
 
         const animateCursor = () => {

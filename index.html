@@ -608,7 +608,8 @@
                             </div>
                             <div class="form-group">
                                 <label for="message">Message <span class="required-asterisk" aria-hidden="true">*</span></label>
-                                <textarea id="message" name="message" rows="5" placeholder="Tell me about your project..." aria-required="true" required></textarea>
+                                <textarea id="message" name="message" rows="5" maxlength="1000" placeholder="Tell me about your project..." aria-required="true" required></textarea>
+                                <div class="char-count" id="message-char-count" aria-live="polite" aria-atomic="true">0 / 1000 characters</div>
                             </div>
                             <button type="submit" class="btn btn-primary btn-block">Send Message</button>
                             <div id="contact-status" class="sr-only" aria-live="polite"></div>
