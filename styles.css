@@ -2075,6 +2075,23 @@ body.page-loading .card:hover {
     background-color: var(--bg-color);
 }
 
+.char-count {
+    font-family: var(--font-headings);
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-align: right;
+    margin-top: 0.4rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    transition: color 0.3s ease, font-weight 0.3s ease;
+}
+
+.char-count.near-limit {
+    color: #e67e22; /* Warm warning amber */
+    font-weight: 700;
+}
+
 /* ==========================================================================
    Footer
    ========================================================================== */
