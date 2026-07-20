@@ -22,3 +22,7 @@
 ## 2026-07-18 - [Dynamic Character Counters & Custom Cursor Lifecycles]
 **Learning:** Text areas with character limits need both visual and auditory cues to be highly usable. Adding an inline character counter with `aria-live="polite"` and `aria-atomic="true"` provides screen readers with gentle, non-disruptive feedback on form entry progression. Pairing this with a premium color-changing threshold warning (e.g., changing text to warm warning amber at 90% capacity) delights users with clear visual feedback before they hit native truncation limits. Furthermore, custom cursors require explicit window lifecycle listeners (`mouseleave` and `mouseenter`) to prevent them from freezing awkwardly at boundaries when the mouse leaves the browser viewport.
 **Action:** Always implement ARIA-live dynamic counters for character-constrained inputs and handle document boundary events for high-fidelity custom cursors.
+
+## 2026-07-20 - [Self-Dismissing Toast Notifications & Clipboard Accessibility]
+**Learning:** Toast notifications provide vital feedback for screen reader users when performing async actions or clipboard operations, especially when using dynamic ARIA regions (`role="status"`, `aria-live="polite"`). Adding a beautifully-designed, micro-animated toast notification next to form success buttons or copy buttons elevates the professional polish of a premium editorial brand.
+**Action:** Always implement dynamic and accessible toast notifications for high-impact async user interactions like copying content or submitting contact forms.

@@ -114,6 +114,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 btn.classList.add('btn-success');
                 btn.textContent = 'Message Sent!';
                 contactStatus.textContent = 'Message successfully sent to Leul.';
+                if (typeof window.showToast === 'function') {
+                    window.showToast('Message sent successfully!');
+                }
                 contactForm.reset();
                 setTimeout(() => {
                     btn.classList.remove('btn-success');
@@ -122,6 +125,47 @@ document.addEventListener('DOMContentLoaded', () => {
                 }, 4000);
             }, 800);
         });
+    }
+
+    // 4.05 Copy Email to Clipboard Feature
+    const copyEmailBtn = document.getElementById('btn-copy-email');
+    if (copyEmailBtn) {
+        copyEmailBtn.addEventListener('click', () => {
+            const emailAddress = 'leulabiti98@gmail.com';
+
+            // Modern copy API with fallback
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(emailAddress)
+                    .then(() => {
+                        if (typeof window.showToast === 'function') {
+                            window.showToast('Email copied to clipboard!');
+                        }
+                    })
+                    .catch(() => {
+                        fallbackCopyText(emailAddress);
+                    });
+            } else {
+                fallbackCopyText(emailAddress);
+            }
+        });
+    }
+
+    function fallbackCopyText(text) {
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        textArea.style.position = 'fixed'; // Avoid scrolling to bottom
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        try {
+            document.execCommand('copy');
+            if (typeof window.showToast === 'function') {
+                window.showToast('Email copied to clipboard!');
+            }
+        } catch (err) {
+            console.error('Failed to copy text', err);
+        }
+        document.body.removeChild(textArea);
     }
 
     // 4.1 Contact Form Textarea Character Counter
@@ -520,4 +564,35 @@ document.addEventListener('DOMContentLoaded', () => {
             scrollProgress.setAttribute('aria-valuenow', percentage);
         });
     }
+
+    // 14. Premium self-dismissing Toast Notification System
+    let toastContainer = document.getElementById('toast-container');
+    if (!toastContainer) {
+        toastContainer = document.createElement('div');
+        toastContainer.id = 'toast-container';
+        document.body.appendChild(toastContainer);
+    }
+
+    window.showToast = (message) => {
+        const toast = document.createElement('div');
+        toast.className = 'toast-notification';
+        toast.setAttribute('role', 'status');
+        toast.setAttribute('aria-live', 'polite');
+        toast.textContent = message;
+
+        toastContainer.appendChild(toast);
+
+        // Force a reflow to trigger the active transition
+        void toast.offsetWidth;
+        toast.classList.add('active');
+
+        // Self-dismiss after 3 seconds
+        setTimeout(() => {
+            toast.classList.remove('active');
+            // Wait for transition to complete before removing from DOM
+            toast.addEventListener('transitionend', () => {
+                toast.remove();
+            }, { once: true });
+        }, 3000);
+    };
 });
