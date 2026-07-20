@@ -114,6 +114,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 btn.classList.add('btn-success');
                 btn.textContent = 'Message Sent!';
                 contactStatus.textContent = 'Message successfully sent to Leul.';
+                if (window.showToast) {
+                    window.showToast('Message successfully sent to Leul.');
+                }
                 contactForm.reset();
                 setTimeout(() => {
                     btn.classList.remove('btn-success');
@@ -520,4 +523,51 @@ document.addEventListener('DOMContentLoaded', () => {
             scrollProgress.setAttribute('aria-valuenow', percentage);
         });
     }
+
+    // 14. Toast Notification System
+    const toastContainer = document.createElement('div');
+    toastContainer.className = 'toast-container';
+    document.body.appendChild(toastContainer);
+
+    // 14.1 Copy to Clipboard click handler
+    const copyEmailBtn = document.getElementById('copy-email-btn');
+    if (copyEmailBtn) {
+        copyEmailBtn.addEventListener('click', () => {
+            navigator.clipboard.writeText('leulabiti98@gmail.com').then(() => {
+                window.showToast('Email address copied to clipboard!');
+            }).catch(() => {
+                window.showToast('Failed to copy email address.');
+            });
+        });
+    }
+
+    window.showToast = function(message) {
+        const toast = document.createElement('div');
+        toast.className = 'toast-notification';
+        toast.setAttribute('role', 'status');
+        toast.setAttribute('aria-live', 'polite');
+
+        // Add minimalist success checkmark SVG
+        toast.innerHTML = `
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 16px; height: 16px; color: var(--accent-highlight);" aria-hidden="true">
+                <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            <span>${message}</span>
+        `;
+
+        toastContainer.appendChild(toast);
+
+        // Force a reflow to trigger transition
+        setTimeout(() => {
+            toast.classList.add('active');
+        }, 10);
+
+        // Automatically hide and remove the toast
+        setTimeout(() => {
+            toast.classList.remove('active');
+            setTimeout(() => {
+                toast.remove();
+            }, 300);
+        }, 3000);
+    };
 });
