@@ -114,8 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 btn.classList.add('btn-success');
                 btn.textContent = 'Message Sent!';
                 contactStatus.textContent = 'Message successfully sent to Leul.';
-                if (typeof window.showToast === 'function') {
-                    window.showToast('Message sent successfully!');
+
                 }
                 contactForm.reset();
                 setTimeout(() => {
@@ -565,34 +564,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 14. Premium self-dismissing Toast Notification System
-    let toastContainer = document.getElementById('toast-container');
-    if (!toastContainer) {
-        toastContainer = document.createElement('div');
-        toastContainer.id = 'toast-container';
-        document.body.appendChild(toastContainer);
-    }
 
-    window.showToast = (message) => {
         const toast = document.createElement('div');
         toast.className = 'toast-notification';
         toast.setAttribute('role', 'status');
         toast.setAttribute('aria-live', 'polite');
-        toast.textContent = message;
 
-        toastContainer.appendChild(toast);
-
-        // Force a reflow to trigger the active transition
-        void toast.offsetWidth;
-        toast.classList.add('active');
-
-        // Self-dismiss after 3 seconds
-        setTimeout(() => {
-            toast.classList.remove('active');
-            // Wait for transition to complete before removing from DOM
-            toast.addEventListener('transitionend', () => {
-                toast.remove();
-            }, { once: true });
         }, 3000);
     };
 });
