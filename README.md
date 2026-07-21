@@ -1,6 +1,6 @@
 # Leul Abiti — Professional Portfolio
 
-A high-performance, premium editorial-style portfolio showcasing the work of Leul Abiti, a Full-Stack Developer and Hardware Engineer based in Addis Ababa, Ethiopia.
+A high-performance, premium editorial-style portfolio showcasing My works, a Full-Stack Developer and Hardware Engineer based in Addis Ababa, Ethiopia.
 
 ## 🚀 Overview
 
