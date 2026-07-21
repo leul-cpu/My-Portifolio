@@ -115,7 +115,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 btn.textContent = 'Message Sent!';
                 contactStatus.textContent = 'Message successfully sent to Leul.';
 
-                }
                 contactForm.reset();
                 setTimeout(() => {
                     btn.classList.remove('btn-success');
@@ -584,13 +583,22 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-
-
+    // 14. Toast Notification
+    window.showToast = function(message) {
         const toast = document.createElement('div');
         toast.className = 'toast-notification';
         toast.setAttribute('role', 'status');
         toast.setAttribute('aria-live', 'polite');
+        toast.textContent = message;
+        document.body.appendChild(toast);
+        
+        // Trigger reflow for animation
+        void toast.offsetWidth;
+        toast.classList.add('visible');
 
+        setTimeout(() => {
+            toast.classList.remove('visible');
+            setTimeout(() => toast.remove(), 300);
         }, 3000);
     };
 });
