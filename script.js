@@ -166,17 +166,31 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // 6. Dark Mode Toggle
+    // 6. Dark Mode Toggle & Keyboard Shortcut Support
     const themeToggleBtn = document.getElementById('theme-toggle');
     if (themeToggleBtn) {
         const themeColorMeta = document.querySelector('meta[name="theme-color"]');
 
         const updateThemeUI = () => {
             const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-            themeToggleBtn.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
+            const label = isDark ? 'Switch to light mode (Press T)' : 'Switch to dark mode (Press T)';
+            themeToggleBtn.setAttribute('aria-label', label);
+            themeToggleBtn.setAttribute('title', label);
             if (themeColorMeta) {
                 themeColorMeta.setAttribute('content', isDark ? '#050505' : '#FFFFFF');
             }
+        };
+
+        const toggleTheme = () => {
+            let theme = document.documentElement.getAttribute('data-theme');
+            if (theme === 'dark') {
+                document.documentElement.removeAttribute('data-theme');
+                localStorage.setItem('theme', 'light');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+            }
+            updateThemeUI();
         };
 
         // Check for saved theme, default to dark mode
@@ -188,16 +202,22 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         updateThemeUI();
 
-        themeToggleBtn.addEventListener('click', () => {
-            let theme = document.documentElement.getAttribute('data-theme');
-            if (theme === 'dark') {
-                document.documentElement.removeAttribute('data-theme');
-                localStorage.setItem('theme', 'light');
-            } else {
-                document.documentElement.setAttribute('data-theme', 'dark');
-                localStorage.setItem('theme', 'dark');
+        themeToggleBtn.addEventListener('click', toggleTheme);
+
+        // Global Keyboard Shortcut: Press 'T' to toggle theme
+        document.addEventListener('keydown', (e) => {
+            if (!e.target) return;
+            const targetTag = e.target.tagName ? e.target.tagName.toLowerCase() : '';
+            const isEditable = e.target.isContentEditable || e.target.getAttribute('contenteditable') === 'true';
+
+            // Do not toggle theme if the user is currently typing in an input, textarea, or contenteditable element
+            if (targetTag === 'input' || targetTag === 'textarea' || isEditable) {
+                return;
             }
-            updateThemeUI();
+
+            if (e.key === 't' || e.key === 'T') {
+                toggleTheme();
+            }
         });
     }
 
@@ -529,12 +549,25 @@ document.addEventListener('DOMContentLoaded', () => {
     toastContainer.className = 'toast-container';
     document.body.appendChild(toastContainer);
 
-    // 14.1 Copy to Clipboard click handler
+    // 14.1 Copy to Clipboard click handler with Dynamic ARIA States & Tooltips
     const copyEmailBtn = document.getElementById('copy-email-btn');
     if (copyEmailBtn) {
+        let copyFeedbackTimeout = null;
         copyEmailBtn.addEventListener('click', () => {
             navigator.clipboard.writeText('leulabiti98@gmail.com').then(() => {
                 window.showToast('Email address copied to clipboard!');
+
+                // Dynamic feedback update
+                copyEmailBtn.setAttribute('aria-label', 'Email address copied!');
+                copyEmailBtn.setAttribute('title', 'Email address copied!');
+                copyEmailBtn.classList.add('copied');
+
+                if (copyFeedbackTimeout) clearTimeout(copyFeedbackTimeout);
+                copyFeedbackTimeout = setTimeout(() => {
+                    copyEmailBtn.setAttribute('aria-label', 'Copy email address');
+                    copyEmailBtn.setAttribute('title', 'Copy email address');
+                    copyEmailBtn.classList.remove('copied');
+                }, 3000);
             }).catch(() => {
                 window.showToast('Failed to copy email address.');
             });
