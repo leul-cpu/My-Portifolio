@@ -23,4 +23,7 @@
 **Learning:** Text areas with character limits need both visual and auditory cues to be highly usable. Adding an inline character counter with `aria-live="polite"` and `aria-atomic="true"` provides screen readers with gentle, non-disruptive feedback on form entry progression. Pairing this with a premium color-changing threshold warning (e.g., changing text to warm warning amber at 90% capacity) delights users with clear visual feedback before they hit native truncation limits. Furthermore, custom cursors require explicit window lifecycle listeners (`mouseleave` and `mouseenter`) to prevent them from freezing awkwardly at boundaries when the mouse leaves the browser viewport.
 **Action:** Always implement ARIA-live dynamic counters for character-constrained inputs and handle document boundary events for high-fidelity custom cursors.
 
+## 2026-07-22 - [Temporary Copy Success States & Toast Accessibility]
+**Learning:** Copy-to-clipboard buttons can leave users confused if there is no immediate visual and non-visual feedback. Using temporary success states that dynamically alter `aria-label` and `title` to "Email address copied!" ensures screen readers receive explicit, real-time auditory confirmation of the action. Coupling this with custom CSS classes like `.copied` to change colors to a positive theme accent for exactly 3 seconds prevents visual clutter while remaining intuitive.
+**Action:** Always pair clipboard success states with dynamic ARIA label updates and temporary visual styling indicators that revert gracefully.
 
