@@ -125,6 +125,27 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Helper to handle copy success UI state changes
+    function triggerCopySuccess(button) {
+        if (typeof window.showToast === 'function') {
+            window.showToast('Email copied to clipboard!');
+        }
+
+        if (!button) return;
+        const originalLabel = button.getAttribute('aria-label') || 'Copy email address';
+        const originalTitle = button.getAttribute('title') || 'Copy to clipboard';
+
+        button.setAttribute('aria-label', 'Email address copied!');
+        button.setAttribute('title', 'Email address copied!');
+        button.classList.add('copied');
+
+        setTimeout(() => {
+            button.setAttribute('aria-label', originalLabel);
+            button.setAttribute('title', originalTitle);
+            button.classList.remove('copied');
+        }, 3000);
+    }
+
     // 4.05 Copy Email to Clipboard Feature
     const copyEmailBtn = document.getElementById('btn-copy-email');
     if (copyEmailBtn) {
@@ -135,20 +156,18 @@ document.addEventListener('DOMContentLoaded', () => {
             if (navigator.clipboard && navigator.clipboard.writeText) {
                 navigator.clipboard.writeText(emailAddress)
                     .then(() => {
-                        if (typeof window.showToast === 'function') {
-                            window.showToast('Email copied to clipboard!');
-                        }
+                        triggerCopySuccess(copyEmailBtn);
                     })
                     .catch(() => {
-                        fallbackCopyText(emailAddress);
+                        fallbackCopyText(emailAddress, copyEmailBtn);
                     });
             } else {
-                fallbackCopyText(emailAddress);
+                fallbackCopyText(emailAddress, copyEmailBtn);
             }
         });
     }
 
-    function fallbackCopyText(text) {
+    function fallbackCopyText(text, button) {
         const textArea = document.createElement('textarea');
         textArea.value = text;
         textArea.style.position = 'fixed'; // Avoid scrolling to bottom
@@ -157,9 +176,7 @@ document.addEventListener('DOMContentLoaded', () => {
         textArea.select();
         try {
             document.execCommand('copy');
-            if (typeof window.showToast === 'function') {
-                window.showToast('Email copied to clipboard!');
-            }
+            triggerCopySuccess(button);
         } catch (err) {
             console.error('Failed to copy text', err);
         }
