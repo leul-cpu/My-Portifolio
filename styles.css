@@ -464,6 +464,85 @@ p {
     transform: translateY(0);
 }
 
+/* ==========================================================================
+   Back to Top Button
+   ========================================================================== */
+.back-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 48px;
+    height: 48px;
+    background-color: var(--bg-card);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(15px);
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease, background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.back-to-top svg {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.back-to-top:hover {
+    background-color: var(--bg-light);
+    border-color: var(--accent-highlight);
+}
+
+.back-to-top:hover svg {
+    transform: translateY(-2px);
+}
+
+.back-to-top:focus-visible {
+    outline: 2px solid var(--accent-highlight);
+    outline-offset: 4px;
+}
+
+/* Ensure toast notifications slide above back-to-top if both are active on mobile */
+@media (max-width: 576px) {
+    .back-to-top {
+        bottom: 1.5rem;
+        right: 1.5rem;
+        width: 42px;
+        height: 42px;
+    }
+
+    .toast-notification {
+        bottom: 5.5rem; /* Elevate toast so it doesn't overlap the back-to-top button */
+        right: 1.5rem;
+        left: 1.5rem;
+        text-align: center;
+    }
+}
+
+/* Respect user preferences for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    .back-to-top {
+        transition: opacity 0.15s ease, visibility 0.15s ease;
+        transform: none !important;
+    }
+    .back-to-top:hover svg {
+        transform: none !important;
+    }
+}
+
 .nav-mobile-overlay.active a:nth-child(1) { transition-delay: 0.1s; }
 .nav-mobile-overlay.active a:nth-child(2) { transition-delay: 0.15s; }
 .nav-mobile-overlay.active a:nth-child(3) { transition-delay: 0.2s; }
