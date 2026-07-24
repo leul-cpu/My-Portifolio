@@ -27,3 +27,6 @@
 **Learning:** Copy-to-clipboard buttons can leave users confused if there is no immediate visual and non-visual feedback. Using temporary success states that dynamically alter `aria-label` and `title` to "Email address copied!" ensures screen readers receive explicit, real-time auditory confirmation of the action. Coupling this with custom CSS classes like `.copied` to change colors to a positive theme accent for exactly 3 seconds prevents visual clutter while remaining intuitive.
 **Action:** Always pair clipboard success states with dynamic ARIA label updates and temporary visual styling indicators that revert gracefully.
 
+## 2026-07-24 - [Accessible Floating Controls & Keyboard Redirection]
+**Learning:** Floating "Back to Top" buttons can cause focus loss or keyboard trap states if hidden dynamically on scroll while active. Synchronizing visibility classes with strict dynamic `tabindex` and `aria-hidden` updates ensures keyboard users don't interact with invisible components. Furthermore, programmatically shifting focus to the top skip-link (`.skip-link`) upon clicking prevents active focus from being lost on a suddenly hidden element.
+**Action:** Always bind dynamic ARIA/tabindex attributes to scroll visibility toggles and redirect keyboard focus to skip links when destroying or hiding interactive elements on active clicks.
