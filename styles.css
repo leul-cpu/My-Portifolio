@@ -2586,7 +2586,7 @@ body.cursor-hover .cursor-outline {
 
 .toast-notification {
     position: fixed;
-    bottom: 2rem;
+    bottom: 6rem;
     right: 2rem;
     background-color: var(--bg-card);
     color: var(--text-color);
@@ -2612,3 +2612,68 @@ body.cursor-hover .cursor-outline {
     transform: translateY(0);
 }
 
+/* ==========================================================================
+   Back to Top Button
+   ========================================================================== */
+#back-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 48px;
+    height: 48px;
+    background-color: var(--bg-card);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(15px);
+    transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                visibility 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                background-color 0.2s ease,
+                color 0.2s ease,
+                border-color 0.2s ease;
+}
+
+#back-to-top svg {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.2s ease;
+}
+
+#back-to-top:hover {
+    background-color: var(--accent-highlight);
+    color: #FFFFFF;
+    border-color: var(--accent-highlight);
+    transform: translateY(-2px);
+}
+
+#back-to-top:hover svg {
+    transform: translateY(-2px);
+}
+
+#back-to-top:active {
+    transform: scale(0.95);
+}
+
+#back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #back-to-top {
+        transition: none !important;
+    }
+    #back-to-top svg {
+        transition: none !important;
+    }
+}
