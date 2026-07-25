@@ -618,4 +618,46 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => toast.remove(), 300);
         }, 3000);
     };
+
+    // 15. Back to Top Button
+    const backToTopBtn = document.getElementById('back-to-top');
+    const skipLink = document.querySelector('.skip-link');
+
+    if (backToTopBtn) {
+        let isScrollThrottled = false;
+
+        const toggleBackToTop = () => {
+            if (isScrollThrottled) return;
+            isScrollThrottled = true;
+
+            requestAnimationFrame(() => {
+                if (window.scrollY > 400) {
+                    backToTopBtn.classList.add('visible');
+                    backToTopBtn.setAttribute('aria-hidden', 'false');
+                    backToTopBtn.setAttribute('tabindex', '0');
+                } else {
+                    backToTopBtn.classList.remove('visible');
+                    backToTopBtn.setAttribute('aria-hidden', 'true');
+                    backToTopBtn.setAttribute('tabindex', '-1');
+                }
+                isScrollThrottled = false;
+            });
+        };
+
+        window.addEventListener('scroll', toggleBackToTop);
+
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+
+            // Redirect focus to top skip-link to prevent focus loss
+            if (skipLink) {
+                setTimeout(() => {
+                    skipLink.focus();
+                }, 100);
+            }
+        });
+    }
 });
