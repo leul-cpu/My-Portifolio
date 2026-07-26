@@ -2586,7 +2586,7 @@ body.cursor-hover .cursor-outline {
 
 .toast-notification {
     position: fixed;
-    bottom: 2rem;
+    bottom: 6rem;
     right: 2rem;
     background-color: var(--bg-card);
     color: var(--text-color);
@@ -2604,6 +2604,62 @@ body.cursor-hover .cursor-outline {
     transform: translateY(10px);
     transition: opacity 0.3s ease, transform 0.3s ease;
     pointer-events: none;
+}
+
+/* ==========================================================================
+   Back to Top Floating Button Styling
+   ========================================================================== */
+.back-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 48px;
+    height: 48px;
+    background-color: var(--bg-card);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s, background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.back-to-top:hover {
+    background-color: var(--bg-light);
+    border-color: var(--accent-highlight);
+    color: var(--accent-highlight);
+}
+
+.back-to-top svg {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.2s ease;
+}
+
+.back-to-top:hover svg {
+    transform: translateY(-2px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .back-to-top {
+        transition: none;
+    }
+    .back-to-top:hover svg {
+        transform: none;
+    }
 }
 
 .toast-notification.visible,
