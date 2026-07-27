@@ -652,35 +652,4 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 3000);
     };
 
-    // 15. Back to Top Button
-    const backToTopBtn = document.getElementById('back-to-top');
-    const skipLink = document.querySelector('.skip-link');
-
-    if (backToTopBtn) {
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 400) {
-                backToTopBtn.classList.add('visible');
-                backToTopBtn.setAttribute('aria-hidden', 'false');
-                backToTopBtn.setAttribute('tabindex', '0');
-            } else {
-                backToTopBtn.classList.remove('visible');
-                backToTopBtn.setAttribute('aria-hidden', 'true');
-                backToTopBtn.setAttribute('tabindex', '-1');
-            }
-        });
-
-        backToTopBtn.addEventListener('click', () => {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-
-            // Redirect keyboard focus to top skip-link
-            if (skipLink) {
-                setTimeout(() => {
-                    skipLink.focus({ preventScroll: true });
-                }, 100);
-            }
-        });
-    }
 });
