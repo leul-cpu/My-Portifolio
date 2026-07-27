@@ -652,24 +652,20 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 3000);
     };
 
-    // 15. Floating Back to Top Button Interactions
+    // 15. Back to Top Button
     const backToTopBtn = document.getElementById('back-to-top');
     const skipLink = document.querySelector('.skip-link');
 
     if (backToTopBtn) {
         window.addEventListener('scroll', () => {
             if (window.scrollY > 400) {
-                if (!backToTopBtn.classList.contains('visible')) {
-                    backToTopBtn.classList.add('visible');
-                    backToTopBtn.setAttribute('aria-hidden', 'false');
-                    backToTopBtn.setAttribute('tabindex', '0');
-                }
+                backToTopBtn.classList.add('visible');
+                backToTopBtn.setAttribute('aria-hidden', 'false');
+                backToTopBtn.setAttribute('tabindex', '0');
             } else {
-                if (backToTopBtn.classList.contains('visible')) {
-                    backToTopBtn.classList.remove('visible');
-                    backToTopBtn.setAttribute('aria-hidden', 'true');
-                    backToTopBtn.setAttribute('tabindex', '-1');
-                }
+                backToTopBtn.classList.remove('visible');
+                backToTopBtn.setAttribute('aria-hidden', 'true');
+                backToTopBtn.setAttribute('tabindex', '-1');
             }
         });
 
@@ -679,10 +675,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 behavior: 'smooth'
             });
 
-            // Redirect keyboard focus to the skip-to-content link to avoid keyboard trap or lost active elements
+            // Redirect keyboard focus to top skip-link
             if (skipLink) {
                 setTimeout(() => {
-                    skipLink.focus();
+                    skipLink.focus({ preventScroll: true });
                 }, 100);
             }
         });
