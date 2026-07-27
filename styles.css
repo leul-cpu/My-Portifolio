@@ -2586,7 +2586,7 @@ body.cursor-hover .cursor-outline {
 
 .toast-notification {
     position: fixed;
-    bottom: 2rem;
+    bottom: 6rem; /* Prevent overlap with the floating back-to-top button at bottom: 2rem */
     right: 2rem;
     background-color: var(--bg-card);
     color: var(--text-color);
@@ -2612,3 +2612,44 @@ body.cursor-hover .cursor-outline {
     transform: translateY(0);
 }
 
+/* ==========================================================================
+   Back to Top Button
+   ========================================================================== */
+#back-to-top {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 44px;
+    height: 44px;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 1999; /* Just below modal overlay (2000), above standard elements */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+#back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+#back-to-top:hover {
+    background-color: var(--bg-light);
+    border-color: var(--accent-highlight);
+    color: var(--accent-highlight);
+}
+
+#back-to-top svg {
+    width: 20px;
+    height: 20px;
+}
