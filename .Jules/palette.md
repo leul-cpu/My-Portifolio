@@ -27,3 +27,6 @@
 **Learning:** Copy-to-clipboard buttons can leave users confused if there is no immediate visual and non-visual feedback. Using temporary success states that dynamically alter `aria-label` and `title` to "Email address copied!" ensures screen readers receive explicit, real-time auditory confirmation of the action. Coupling this with custom CSS classes like `.copied` to change colors to a positive theme accent for exactly 3 seconds prevents visual clutter while remaining intuitive.
 **Action:** Always pair clipboard success states with dynamic ARIA label updates and temporary visual styling indicators that revert gracefully.
 
+## 2026-07-23 - [Keyboard Focus Trapping & Redirection on Back-to-Top]
+**Learning:** Adding a "Back to Top" button is excellent for micro-UX, but clicking it typically causes screen reader and keyboard focus loss as the user is returned to the top of the viewport while active focus remains trapped on the now-invisible button. Programmatically redirecting keyboard focus to a logical skip-to-content link or primary header restores navigation sequence seamlessly.
+**Action:** Always pair back-to-top buttons with programmatic focus redirection to a high-level skipped element or skip-link at the top of the page.

@@ -618,4 +618,39 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => toast.remove(), 300);
         }, 3000);
     };
+
+    // 15. Back to Top Button Interaction & Accessibility
+    const backToTopBtn = document.getElementById('back-to-top');
+    if (backToTopBtn) {
+        const toggleBackToTop = () => {
+            if (window.scrollY > 400) {
+                backToTopBtn.classList.add('visible');
+                backToTopBtn.removeAttribute('aria-hidden');
+                backToTopBtn.setAttribute('tabindex', '0');
+            } else {
+                backToTopBtn.classList.remove('visible');
+                backToTopBtn.setAttribute('aria-hidden', 'true');
+                backToTopBtn.setAttribute('tabindex', '-1');
+            }
+        };
+
+        window.addEventListener('scroll', toggleBackToTop);
+
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+
+            // After scrolling to top, gracefully redirect keyboard focus to the skip-link
+            // to avoid focus loss or keeping focus on an invisible button.
+            const skipLink = document.querySelector('.skip-link');
+            if (skipLink) {
+                // Wait briefly for scroll animation to initiate/finish so focus transition feels natural
+                setTimeout(() => {
+                    skipLink.focus();
+                }, 100);
+            }
+        });
+    }
 });
