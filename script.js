@@ -386,11 +386,33 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Keyboard: Focus trap & Escape close
+        // Keyboard: Focus trap, Escape close, and View simulation shortcuts (D for Desktop, M for Mobile)
         document.addEventListener('keydown', (e) => {
             if (previewModal.classList.contains('active')) {
                 handleFocusTrap(previewModal, e);
-                if (e.key === 'Escape') closeModal();
+                if (e.key === 'Escape') {
+                    closeModal();
+                    return;
+                }
+
+                // Safety checks before intercepting keyboard shortcuts
+                if (e.target) {
+                    const targetTag = e.target.tagName ? e.target.tagName.toLowerCase() : '';
+                    const isEditable = e.target.isContentEditable || e.target.getAttribute('contenteditable') === 'true';
+                    if (targetTag === 'input' || targetTag === 'textarea' || isEditable) {
+                        return;
+                    }
+                }
+
+                if (e.key === 'd' || e.key === 'D') {
+                    if (modalDeviceDesktop) {
+                        modalDeviceDesktop.click();
+                    }
+                } else if (e.key === 'm' || e.key === 'M') {
+                    if (modalDeviceMobile) {
+                        modalDeviceMobile.click();
+                    }
+                }
             }
         });
 
