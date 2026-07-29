@@ -34,3 +34,7 @@
 ## 2026-07-28 - [Interactive Device Simulator Keyboard Accessibility]
 **Learning:** Device simulator triggers that only support mouse clicks restrict control flow options for keyboard and screen reader users. Adding intuitive, single-key global keyboard shortcuts (like D for Desktop and M for Mobile) combined with explicit ARIA label updates inside the active modal container offers seamless and efficient viewport simulations. Incorporating non-disruptive target editable checks ensures these shortcuts do not collide with any embedded form field interactions.
 **Action:** Always complement interactive tool overlays with custom, single-key accessibility shortcuts advertised via aria-labels and titles to provide a high-fidelity control experience for keyboard navigators.
+
+## 2026-07-29 - [Real-Time Assistive Email Validation]
+**Learning:** Standard browser-native form validation is aggressive and breaks the design flow. Implementing a debounced real-time validation handler prevents annoying the user while they are actively typing for the first time. Linking the text feedback to the input via `aria-describedby` ensures screen reader compatibility, and applying theme-based color states (warm amber vs. accent green borders) elevates the premium visual feel.
+**Action:** Always use debounced, blur-triggered validation states with ARIA-describedby elements to handle input validation cleanly and accessibly.

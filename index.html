@@ -615,7 +615,8 @@
                             </div>
                             <div class="form-group">
                                 <label for="email">Email <span class="required-asterisk" aria-hidden="true">*</span></label>
-                                <input type="email" id="email" name="email" placeholder="your.email@example.com" aria-required="true" required>
+                                <input type="email" id="email" name="email" placeholder="your.email@example.com" aria-required="true" aria-describedby="email-validation-message" required>
+                                <div class="field-feedback" id="email-validation-message" aria-live="polite"></div>
                             </div>
                             <div class="form-group">
                                 <label for="message">Message <span class="required-asterisk" aria-hidden="true">*</span></label>

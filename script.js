@@ -209,6 +209,62 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // 4.2 Real-time Email validation with assistive live feedback
+    const emailInput = document.getElementById('email');
+    const emailFeedback = document.getElementById('email-validation-message');
+    if (emailInput && emailFeedback) {
+        let debounceTimer;
+        let hasBeenBlurred = false;
+
+        const validateEmail = (isBlur = false) => {
+            const value = emailInput.value.trim();
+            if (!value) {
+                emailFeedback.textContent = '';
+                emailFeedback.className = 'field-feedback';
+                emailInput.classList.remove('is-valid', 'is-invalid');
+                return;
+            }
+
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const isValid = emailRegex.test(value);
+
+            if (isValid) {
+                emailFeedback.textContent = '✓ Valid email format';
+                emailFeedback.className = 'field-feedback active valid';
+                emailInput.classList.remove('is-invalid');
+                emailInput.classList.add('is-valid');
+            } else if (isBlur || hasBeenBlurred) {
+                emailFeedback.textContent = '⚠ Please enter a valid email format';
+                emailFeedback.className = 'field-feedback active invalid';
+                emailInput.classList.remove('is-valid');
+                emailInput.classList.add('is-invalid');
+            }
+        };
+
+        emailInput.addEventListener('input', () => {
+            clearTimeout(debounceTimer);
+            const value = emailInput.value.trim();
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (emailRegex.test(value)) {
+                validateEmail();
+            } else {
+                debounceTimer = setTimeout(() => validateEmail(), 800);
+            }
+        });
+
+        emailInput.addEventListener('blur', () => {
+            hasBeenBlurred = true;
+            validateEmail(true);
+        });
+
+        if (contactForm) {
+            contactForm.addEventListener('reset', () => {
+                hasBeenBlurred = false;
+                setTimeout(() => validateEmail(), 0);
+            });
+        }
+    }
+
     const navbar = document.querySelector('.navbar');
 
     window.addEventListener('scroll', () => {
