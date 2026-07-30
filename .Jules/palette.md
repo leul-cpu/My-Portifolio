@@ -38,3 +38,7 @@
 ## 2026-07-29 - [Real-Time Assistive Email Validation]
 **Learning:** Standard browser-native form validation is aggressive and breaks the design flow. Implementing a debounced real-time validation handler prevents annoying the user while they are actively typing for the first time. Linking the text feedback to the input via `aria-describedby` ensures screen reader compatibility, and applying theme-based color states (warm amber vs. accent green borders) elevates the premium visual feel.
 **Action:** Always use debounced, blur-triggered validation states with ARIA-describedby elements to handle input validation cleanly and accessibly.
+
+## 2026-07-31 - [Contact Form Draft Persistence & Custom Event Synchronization]
+**Learning:** Users often lose long messages in contact forms if they accidentally navigate away or reload the page. Adding high-fidelity draft persistence via localStorage saves their inputs, but must also programmatically dispatch synthetic "input" events to synchronize adjacent reactive elements (such as character counters, debounced email validation indicators, and limit warnings). Providing a delayed status toast notification after skeleton loader completion guides user awareness without cluttering initial screen layouts.
+**Action:** Always pair draft persistence mechanisms with programmatic event dispatch to synchronize downstream UI validators, and delay notification toasts to avoid skeleton layout race conditions.
