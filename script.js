@@ -101,34 +101,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // 4. Contact Form Submission Handling
     const contactForm = document.getElementById('contact-form');
     const contactStatus = document.getElementById('contact-status');
-    if (contactForm && contactStatus) {
-        const btn = contactForm.querySelector('button[type="submit"]');
-        const originalText = btn.textContent;
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            if (btn.classList.contains('btn-loading') || btn.classList.contains('btn-success')) return;
-            btn.classList.add('btn-loading');
-            btn.setAttribute('aria-busy', 'true');
-            btn.setAttribute('aria-disabled', 'true');
-            contactStatus.textContent = 'Sending message...';
-            setTimeout(() => {
-                btn.classList.remove('btn-loading');
-                btn.classList.add('btn-success');
-                btn.textContent = 'Message Sent!';
-                btn.setAttribute('aria-busy', 'false');
-                contactStatus.textContent = 'Message successfully sent to Leul.';
-
-                contactForm.reset();
-                setTimeout(() => {
-                    btn.classList.remove('btn-success');
-                    btn.textContent = originalText;
-                    btn.removeAttribute('aria-busy');
-                    btn.removeAttribute('aria-disabled');
-                    contactStatus.textContent = '';
-                }, 4000);
-            }, 800);
-        });
-    }
 
     // Helper to handle copy success UI state changes
     function triggerCopySuccess(button) {
@@ -228,6 +200,7 @@ document.addEventListener('DOMContentLoaded', () => {
             emailFeedback.textContent = '';
             emailFeedback.className = 'field-feedback';
             emailInput.classList.remove('is-valid', 'is-invalid');
+            emailInput.removeAttribute('aria-invalid');
             return;
         }
 
@@ -239,11 +212,13 @@ document.addEventListener('DOMContentLoaded', () => {
             emailFeedback.className = 'field-feedback active valid';
             emailInput.classList.remove('is-invalid');
             emailInput.classList.add('is-valid');
+            emailInput.setAttribute('aria-invalid', 'false');
         } else if (isBlur || hasBeenBlurred) {
             emailFeedback.textContent = '⚠ Please enter a valid email format';
             emailFeedback.className = 'field-feedback active invalid';
             emailInput.classList.remove('is-valid');
             emailInput.classList.add('is-invalid');
+            emailInput.setAttribute('aria-invalid', 'true');
         }
     };
 
@@ -270,6 +245,54 @@ document.addEventListener('DOMContentLoaded', () => {
                 setTimeout(() => validateEmail(), 0);
             });
         }
+    }
+
+    // 4.25 Form Submission Handler with validation check
+    if (contactForm && contactStatus) {
+        const btn = contactForm.querySelector('button[type="submit"]');
+        const originalText = btn.textContent;
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            // Validate email before submitting
+            if (emailInput) {
+                const value = emailInput.value.trim();
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                const isValid = emailRegex.test(value);
+
+                if (!isValid) {
+                    hasBeenBlurred = true;
+                    validateEmail(true);
+                    emailInput.focus();
+                    if (typeof window.showToast === 'function') {
+                        window.showToast('Please enter a valid email address.');
+                    }
+                    return;
+                }
+            }
+
+            if (btn.classList.contains('btn-loading') || btn.classList.contains('btn-success')) return;
+            btn.classList.add('btn-loading');
+            btn.setAttribute('aria-busy', 'true');
+            btn.setAttribute('aria-disabled', 'true');
+            contactStatus.textContent = 'Sending message...';
+            setTimeout(() => {
+                btn.classList.remove('btn-loading');
+                btn.classList.add('btn-success');
+                btn.textContent = 'Message Sent!';
+                btn.setAttribute('aria-busy', 'false');
+                contactStatus.textContent = 'Message successfully sent to Leul.';
+
+                contactForm.reset();
+                setTimeout(() => {
+                    btn.classList.remove('btn-success');
+                    btn.textContent = originalText;
+                    btn.removeAttribute('aria-busy');
+                    btn.removeAttribute('aria-disabled');
+                    contactStatus.textContent = '';
+                }, 4000);
+            }, 800);
+        });
     }
 
     // 4.02 Contact Form Draft Persistence
