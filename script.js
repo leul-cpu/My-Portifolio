@@ -108,17 +108,22 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             if (btn.classList.contains('btn-loading') || btn.classList.contains('btn-success')) return;
             btn.classList.add('btn-loading');
+            btn.setAttribute('aria-busy', 'true');
+            btn.setAttribute('aria-disabled', 'true');
             contactStatus.textContent = 'Sending message...';
             setTimeout(() => {
                 btn.classList.remove('btn-loading');
                 btn.classList.add('btn-success');
                 btn.textContent = 'Message Sent!';
+                btn.setAttribute('aria-busy', 'false');
                 contactStatus.textContent = 'Message successfully sent to Leul.';
 
                 contactForm.reset();
                 setTimeout(() => {
                     btn.classList.remove('btn-success');
                     btn.textContent = originalText;
+                    btn.removeAttribute('aria-busy');
+                    btn.removeAttribute('aria-disabled');
                     contactStatus.textContent = '';
                 }, 4000);
             }, 800);
@@ -555,6 +560,26 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     }
+
+    // 8.5 Testimonial Avatar Fallback (ui-avatars.com)
+    const testimonialAvatars = document.querySelectorAll('.author-avatar');
+    testimonialAvatars.forEach(avatar => {
+        const handleAvatarError = () => {
+            const card = avatar.closest('.testimonial-card');
+            if (!card) return;
+            const nameEl = card.querySelector('.author-name');
+            const rawName = nameEl ? nameEl.textContent.replace(' →', '').trim() : 'Client';
+
+            // Clean up the name for the UI Avatar service URL
+            const nameParam = encodeURIComponent(rawName);
+            // Use premium-aligned colors (dark green theme fallback for light or dark mode)
+            avatar.src = `https://ui-avatars.com/api/?name=${nameParam}&background=0D0D0D&color=FAFAFA&size=128&bold=true`;
+
+            // Remove listener to prevent infinite loops if the fallback service itself fails
+            avatar.removeEventListener('error', handleAvatarError);
+        };
+        avatar.addEventListener('error', handleAvatarError);
+    });
 
     // 9. Read More Toggle for Mobile
     const readMoreButtons = document.querySelectorAll('.read-more-btn');
