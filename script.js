@@ -107,6 +107,22 @@ document.addEventListener('DOMContentLoaded', () => {
         contactForm.addEventListener('submit', (e) => {
             e.preventDefault();
             if (btn.classList.contains('btn-loading') || btn.classList.contains('btn-success')) return;
+
+            // Block submission if email fails custom validation
+            if (emailInput) {
+                const emailValue = emailInput.value.trim();
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(emailValue)) {
+                    hasBeenBlurred = true; // force error feedback to show
+                    validateEmail(true);
+                    emailInput.focus();
+                    if (typeof window.showToast === 'function') {
+                        window.showToast('Please enter a valid email address.');
+                    }
+                    return;
+                }
+            }
+
             btn.classList.add('btn-loading');
             btn.setAttribute('aria-busy', 'true');
             btn.setAttribute('aria-disabled', 'true');
@@ -228,6 +244,7 @@ document.addEventListener('DOMContentLoaded', () => {
             emailFeedback.textContent = '';
             emailFeedback.className = 'field-feedback';
             emailInput.classList.remove('is-valid', 'is-invalid');
+            emailInput.removeAttribute('aria-invalid');
             return;
         }
 
@@ -239,11 +256,13 @@ document.addEventListener('DOMContentLoaded', () => {
             emailFeedback.className = 'field-feedback active valid';
             emailInput.classList.remove('is-invalid');
             emailInput.classList.add('is-valid');
+            emailInput.setAttribute('aria-invalid', 'false');
         } else if (isBlur || hasBeenBlurred) {
             emailFeedback.textContent = '⚠ Please enter a valid email format';
             emailFeedback.className = 'field-feedback active invalid';
             emailInput.classList.remove('is-valid');
             emailInput.classList.add('is-invalid');
+            emailInput.setAttribute('aria-invalid', 'true');
         }
     };
 
@@ -267,6 +286,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (contactForm) {
             contactForm.addEventListener('reset', () => {
                 hasBeenBlurred = false;
+                emailInput.removeAttribute('aria-invalid');
                 setTimeout(() => validateEmail(), 0);
             });
         }
