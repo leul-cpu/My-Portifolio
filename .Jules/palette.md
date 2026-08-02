@@ -42,3 +42,7 @@
 ## 2026-07-31 - [Contact Form Draft Persistence & Custom Event Synchronization]
 **Learning:** Users often lose long messages in contact forms if they accidentally navigate away or reload the page. Adding high-fidelity draft persistence via localStorage saves their inputs, but must also programmatically dispatch synthetic "input" events to synchronize adjacent reactive elements (such as character counters, debounced email validation indicators, and limit warnings). Providing a delayed status toast notification after skeleton loader completion guides user awareness without cluttering initial screen layouts.
 **Action:** Always pair draft persistence mechanisms with programmatic event dispatch to synchronize downstream UI validators, and delay notification toasts to avoid skeleton layout race conditions.
+
+## 2026-08-02 - [Custom Email Validation & Accessibility Sync]
+**Learning:** Having client-side visual-only validation is not enough if the form can still be submitted with invalid email patterns. Intercepting the submit event to block sending, focusing the invalid field, showing an accessible toast, and synchronizing the `aria-invalid` attribute provides complete screen-reader validation and a high-fidelity micro-UX.
+**Action:** Always pair custom field-level validation with submit-time prevention, programmatic focus management, toast notifications, and dynamic `aria-invalid` state synchronization.

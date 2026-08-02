@@ -107,6 +107,42 @@ document.addEventListener('DOMContentLoaded', () => {
         contactForm.addEventListener('submit', (e) => {
             e.preventDefault();
             if (btn.classList.contains('btn-loading') || btn.classList.contains('btn-success')) return;
+
+            // Intercept submission to block sending if Name is invalid
+            const nameInput = document.getElementById('name');
+            if (nameInput && !nameInput.value.trim()) {
+                nameInput.focus();
+                if (typeof window.showToast === 'function') {
+                    window.showToast('Please enter your name.');
+                }
+                return;
+            }
+
+            // Intercept submission to block sending if Email is invalid
+            if (emailInput) {
+                const emailValue = emailInput.value.trim();
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(emailValue)) {
+                    hasBeenBlurred = true;
+                    validateEmail(true);
+                    emailInput.focus();
+                    if (typeof window.showToast === 'function') {
+                        window.showToast('Please enter a valid email address.');
+                    }
+                    return;
+                }
+            }
+
+            // Intercept submission to block sending if Message is invalid
+            const msgInput = document.getElementById('message');
+            if (msgInput && !msgInput.value.trim()) {
+                msgInput.focus();
+                if (typeof window.showToast === 'function') {
+                    window.showToast('Please enter your message.');
+                }
+                return;
+            }
+
             btn.classList.add('btn-loading');
             btn.setAttribute('aria-busy', 'true');
             btn.setAttribute('aria-disabled', 'true');
@@ -239,11 +275,13 @@ document.addEventListener('DOMContentLoaded', () => {
             emailFeedback.className = 'field-feedback active valid';
             emailInput.classList.remove('is-invalid');
             emailInput.classList.add('is-valid');
+            emailInput.setAttribute('aria-invalid', 'false');
         } else if (isBlur || hasBeenBlurred) {
             emailFeedback.textContent = '⚠ Please enter a valid email format';
             emailFeedback.className = 'field-feedback active invalid';
             emailInput.classList.remove('is-valid');
             emailInput.classList.add('is-invalid');
+            emailInput.setAttribute('aria-invalid', 'true');
         }
     };
 
