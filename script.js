@@ -107,18 +107,59 @@ document.addEventListener('DOMContentLoaded', () => {
         contactForm.addEventListener('submit', (e) => {
             e.preventDefault();
             if (btn.classList.contains('btn-loading') || btn.classList.contains('btn-success')) return;
+
+            // Intercept submission to block sending if Name is invalid
+            const nameInput = document.getElementById('name');
+            if (nameInput && !nameInput.value.trim()) {
+                nameInput.focus();
+                if (typeof window.showToast === 'function') {
+                    window.showToast('Please enter your name.');
+                }
+                return;
+            }
+
+            // Intercept submission to block sending if Email is invalid
+            if (emailInput) {
+                const emailValue = emailInput.value.trim();
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(emailValue)) {
+                    hasBeenBlurred = true;
+                    validateEmail(true);
+                    emailInput.focus();
+                    if (typeof window.showToast === 'function') {
+                        window.showToast('Please enter a valid email address.');
+                    }
+                    return;
+                }
+            }
+
+            // Intercept submission to block sending if Message is invalid
+            const msgInput = document.getElementById('message');
+            if (msgInput && !msgInput.value.trim()) {
+                msgInput.focus();
+                if (typeof window.showToast === 'function') {
+                    window.showToast('Please enter your message.');
+                }
+                return;
+            }
+
             btn.classList.add('btn-loading');
+            btn.setAttribute('aria-busy', 'true');
+            btn.setAttribute('aria-disabled', 'true');
             contactStatus.textContent = 'Sending message...';
             setTimeout(() => {
                 btn.classList.remove('btn-loading');
                 btn.classList.add('btn-success');
                 btn.textContent = 'Message Sent!';
+                btn.setAttribute('aria-busy', 'false');
                 contactStatus.textContent = 'Message successfully sent to Leul.';
 
                 contactForm.reset();
                 setTimeout(() => {
                     btn.classList.remove('btn-success');
                     btn.textContent = originalText;
+                    btn.removeAttribute('aria-busy');
+                    btn.removeAttribute('aria-disabled');
                     contactStatus.textContent = '';
                 }, 4000);
             }, 800);
@@ -186,20 +227,21 @@ document.addEventListener('DOMContentLoaded', () => {
     // 4.1 Contact Form Textarea Character Counter
     const messageTextarea = document.getElementById('message');
     const charCountEl = document.getElementById('message-char-count');
+    const updateCharCount = () => {
+        if (!messageTextarea || !charCountEl) return;
+        const currentLength = messageTextarea.value.length;
+        const maxLength = parseInt(messageTextarea.getAttribute('maxlength') || '1000', 10);
+        charCountEl.textContent = `${currentLength} / ${maxLength} characters`;
+
+        // Add warn state if approaching 90% of max capacity
+        if (currentLength >= maxLength * 0.9) {
+            charCountEl.classList.add('near-limit');
+        } else {
+            charCountEl.classList.remove('near-limit');
+        }
+    };
+
     if (messageTextarea && charCountEl) {
-        const updateCharCount = () => {
-            const currentLength = messageTextarea.value.length;
-            const maxLength = parseInt(messageTextarea.getAttribute('maxlength') || '1000', 10);
-            charCountEl.textContent = `${currentLength} / ${maxLength} characters`;
-
-            // Add warn state if approaching 90% of max capacity
-            if (currentLength >= maxLength * 0.9) {
-                charCountEl.classList.add('near-limit');
-            } else {
-                charCountEl.classList.remove('near-limit');
-            }
-        };
-
         messageTextarea.addEventListener('input', updateCharCount);
 
         if (contactForm) {
@@ -207,6 +249,181 @@ document.addEventListener('DOMContentLoaded', () => {
                 setTimeout(updateCharCount, 0);
             });
         }
+    }
+
+    // 4.2 Real-time Email validation with assistive live feedback
+    const emailInput = document.getElementById('email');
+    const emailFeedback = document.getElementById('email-validation-message');
+    let debounceTimer;
+    let hasBeenBlurred = false;
+
+    const validateEmail = (isBlur = false) => {
+        if (!emailInput || !emailFeedback) return;
+        const value = emailInput.value.trim();
+        if (!value) {
+            emailFeedback.textContent = '';
+            emailFeedback.className = 'field-feedback';
+            emailInput.classList.remove('is-valid', 'is-invalid');
+            emailInput.removeAttribute('aria-invalid');
+            return;
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const isValid = emailRegex.test(value);
+
+        if (isValid) {
+            emailFeedback.textContent = '✓ Valid email format';
+            emailFeedback.className = 'field-feedback active valid';
+            emailInput.classList.remove('is-invalid');
+            emailInput.classList.add('is-valid');
+            emailInput.setAttribute('aria-invalid', 'false');
+        } else if (isBlur || hasBeenBlurred) {
+            emailFeedback.textContent = '⚠ Please enter a valid email format';
+            emailFeedback.className = 'field-feedback active invalid';
+            emailInput.classList.remove('is-valid');
+            emailInput.classList.add('is-invalid');
+            emailInput.setAttribute('aria-invalid', 'true');
+        }
+    };
+
+    if (emailInput && emailFeedback) {
+        emailInput.addEventListener('input', () => {
+            clearTimeout(debounceTimer);
+            const value = emailInput.value.trim();
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (emailRegex.test(value)) {
+                validateEmail();
+            } else {
+                debounceTimer = setTimeout(() => validateEmail(), 800);
+            }
+        });
+
+        emailInput.addEventListener('blur', () => {
+            hasBeenBlurred = true;
+            validateEmail(true);
+        });
+
+        if (contactForm) {
+            contactForm.addEventListener('reset', () => {
+                hasBeenBlurred = false;
+                emailInput.removeAttribute('aria-invalid');
+                setTimeout(() => validateEmail(), 0);
+            });
+        }
+    }
+
+    // 4.25 Form Submission Handler with validation check
+    if (contactForm && contactStatus) {
+        const btn = contactForm.querySelector('button[type="submit"]');
+        const originalText = btn.textContent;
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            // Validate email before submitting
+            if (emailInput) {
+                const value = emailInput.value.trim();
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                const isValid = emailRegex.test(value);
+
+                if (!isValid) {
+                    hasBeenBlurred = true;
+                    validateEmail(true);
+                    emailInput.focus();
+                    if (typeof window.showToast === 'function') {
+                        window.showToast('Please enter a valid email address.');
+                    }
+                    return;
+                }
+            }
+
+            if (btn.classList.contains('btn-loading') || btn.classList.contains('btn-success')) return;
+            btn.classList.add('btn-loading');
+            btn.setAttribute('aria-busy', 'true');
+            btn.setAttribute('aria-disabled', 'true');
+            contactStatus.textContent = 'Sending message...';
+            setTimeout(() => {
+                btn.classList.remove('btn-loading');
+                btn.classList.add('btn-success');
+                btn.textContent = 'Message Sent!';
+                btn.setAttribute('aria-busy', 'false');
+                contactStatus.textContent = 'Message successfully sent to Leul.';
+
+                contactForm.reset();
+                setTimeout(() => {
+                    btn.classList.remove('btn-success');
+                    btn.textContent = originalText;
+                    btn.removeAttribute('aria-busy');
+                    btn.removeAttribute('aria-disabled');
+                    contactStatus.textContent = '';
+                }, 4000);
+            }, 800);
+        });
+    }
+
+    // 4.02 Contact Form Draft Persistence
+    const formFields = {
+        name: document.getElementById('name'),
+        email: document.getElementById('email'),
+        message: document.getElementById('message')
+    };
+
+    const saveDraft = () => {
+        const draft = {};
+        let hasData = false;
+        for (const [key, field] of Object.entries(formFields)) {
+            if (field) {
+                draft[key] = field.value;
+                if (field.value.trim()) hasData = true;
+            }
+        }
+        if (hasData) {
+            localStorage.setItem('contact_form_draft', JSON.stringify(draft));
+        } else {
+            localStorage.removeItem('contact_form_draft');
+        }
+    };
+
+    const restoreDraft = () => {
+        try {
+            const saved = localStorage.getItem('contact_form_draft');
+            if (saved) {
+                const draft = JSON.parse(saved);
+                let restoredAny = false;
+                for (const [key, field] of Object.entries(formFields)) {
+                    if (field && draft[key]) {
+                        field.value = draft[key];
+                        restoredAny = true;
+
+                        // Manually trigger visual handlers to update UI instantly
+                        if (key === 'message') {
+                            updateCharCount();
+                        }
+                        if (key === 'email') {
+                            validateEmail();
+                        }
+                    }
+                }
+                if (restoredAny) {
+                    setTimeout(() => {
+                        if (typeof window.showToast === 'function') {
+                            window.showToast('Draft restored from your last visit!');
+                        }
+                    }, 1600);
+                }
+            }
+        } catch (e) {
+            console.error('Failed to restore draft', e);
+        }
+    };
+
+    if (contactForm && formFields.name && formFields.email && formFields.message) {
+        Object.values(formFields).forEach(field => {
+            field.addEventListener('input', saveDraft);
+        });
+        restoreDraft();
+        contactForm.addEventListener('reset', () => {
+            localStorage.removeItem('contact_form_draft');
+        });
     }
 
     const navbar = document.querySelector('.navbar');
@@ -431,6 +648,26 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     }
+
+    // 8.5 Testimonial Avatar Fallback (ui-avatars.com)
+    const testimonialAvatars = document.querySelectorAll('.author-avatar');
+    testimonialAvatars.forEach(avatar => {
+        const handleAvatarError = () => {
+            const card = avatar.closest('.testimonial-card');
+            if (!card) return;
+            const nameEl = card.querySelector('.author-name');
+            const rawName = nameEl ? nameEl.textContent.replace(' →', '').trim() : 'Client';
+
+            // Clean up the name for the UI Avatar service URL
+            const nameParam = encodeURIComponent(rawName);
+            // Use premium-aligned colors (dark green theme fallback for light or dark mode)
+            avatar.src = `https://ui-avatars.com/api/?name=${nameParam}&background=0D0D0D&color=FAFAFA&size=128&bold=true`;
+
+            // Remove listener to prevent infinite loops if the fallback service itself fails
+            avatar.removeEventListener('error', handleAvatarError);
+        };
+        avatar.addEventListener('error', handleAvatarError);
+    });
 
     // 9. Read More Toggle for Mobile
     const readMoreButtons = document.querySelectorAll('.read-more-btn');

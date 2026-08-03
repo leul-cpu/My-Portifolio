@@ -34,3 +34,15 @@
 ## 2026-07-28 - [Interactive Device Simulator Keyboard Accessibility]
 **Learning:** Device simulator triggers that only support mouse clicks restrict control flow options for keyboard and screen reader users. Adding intuitive, single-key global keyboard shortcuts (like D for Desktop and M for Mobile) combined with explicit ARIA label updates inside the active modal container offers seamless and efficient viewport simulations. Incorporating non-disruptive target editable checks ensures these shortcuts do not collide with any embedded form field interactions.
 **Action:** Always complement interactive tool overlays with custom, single-key accessibility shortcuts advertised via aria-labels and titles to provide a high-fidelity control experience for keyboard navigators.
+
+## 2026-07-29 - [Real-Time Assistive Email Validation]
+**Learning:** Standard browser-native form validation is aggressive and breaks the design flow. Implementing a debounced real-time validation handler prevents annoying the user while they are actively typing for the first time. Linking the text feedback to the input via `aria-describedby` ensures screen reader compatibility, and applying theme-based color states (warm amber vs. accent green borders) elevates the premium visual feel.
+**Action:** Always use debounced, blur-triggered validation states with ARIA-describedby elements to handle input validation cleanly and accessibly.
+
+## 2026-07-31 - [Contact Form Draft Persistence & Custom Event Synchronization]
+**Learning:** Users often lose long messages in contact forms if they accidentally navigate away or reload the page. Adding high-fidelity draft persistence via localStorage saves their inputs, but must also programmatically dispatch synthetic "input" events to synchronize adjacent reactive elements (such as character counters, debounced email validation indicators, and limit warnings). Providing a delayed status toast notification after skeleton loader completion guides user awareness without cluttering initial screen layouts.
+**Action:** Always pair draft persistence mechanisms with programmatic event dispatch to synchronize downstream UI validators, and delay notification toasts to avoid skeleton layout race conditions.
+
+## 2026-08-02 - [Custom Email Validation & Accessibility Sync]
+**Learning:** Having client-side visual-only validation is not enough if the form can still be submitted with invalid email patterns. Intercepting the submit event to block sending, focusing the invalid field, showing an accessible toast, and synchronizing the `aria-invalid` attribute provides complete screen-reader validation and a high-fidelity micro-UX.
+**Action:** Always pair custom field-level validation with submit-time prevention, programmatic focus management, toast notifications, and dynamic `aria-invalid` state synchronization.
