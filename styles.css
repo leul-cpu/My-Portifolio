@@ -2788,3 +2788,228 @@ body.cursor-hover .cursor-outline {
     width: 20px;
     height: 20px;
 }
+
+/* ==========================================================================
+   Engineering Rebranding Custom Styling
+   ========================================================================== */
+
+/* Hero Specialties */
+.hero-role {
+    font-size: clamp(1.4rem, 4vw, 2.5rem) !important;
+    text-transform: none !important;
+    letter-spacing: -0.01em !important;
+    margin-bottom: 1.5rem;
+    line-height: 1.25 !important;
+}
+
+.hero-specialties {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-primary);
+}
+
+@media (min-width: 768px) {
+    .hero-specialties {
+        flex-direction: row;
+        align-items: center;
+        gap: 1rem;
+    }
+}
+
+.specialties-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+}
+
+.specialties-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.specialties-list li {
+    font-size: 0.9rem;
+    color: var(--text-color);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+}
+
+.specialties-list li::before {
+    content: "•";
+    color: var(--accent-highlight);
+    margin-right: 0.5rem;
+    font-weight: bold;
+}
+
+/* Focus and Case Card Tags & Layout */
+.focus-tech-tags,
+.case-tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+}
+
+.focus-tech-tags span,
+.case-tech-tags span {
+    font-size: 0.7rem;
+    font-weight: 600;
+    background-color: var(--bg-light);
+    color: var(--text-muted);
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: var(--transition-fast);
+}
+
+.focus-card:hover .focus-tech-tags span,
+.case-card:hover .case-tech-tags span {
+    border-color: var(--accent-highlight);
+    color: var(--text-color);
+}
+
+/* Grid Layout for Cases (2 Column) */
+.grid-2 {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-sm);
+}
+
+@media (min-width: 768px) {
+    .grid-2 {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-md);
+    }
+}
+
+/* Case Card Styling */
+.case-card {
+    display: flex;
+    flex-direction: column;
+    padding: 2rem !important;
+}
+
+.case-badge {
+    align-self: flex-start;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent-highlight);
+    border: 1px solid var(--accent-highlight);
+    padding: 0.2rem 0.5rem;
+    border-radius: 3px;
+    margin-bottom: 1.25rem;
+}
+
+.case-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin-top: 0.75rem;
+    flex-grow: 1;
+}
+
+.case-block {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.case-label {
+    font-family: var(--font-headings);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-color);
+}
+
+.case-text {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--text-muted);
+    margin: 0;
+}
+
+/* Engineering Process Timeline styling */
+.process-timeline {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--spacing-md);
+    position: relative;
+    margin-top: var(--spacing-md);
+}
+
+@media (min-width: 768px) {
+    .process-timeline {
+        grid-template-columns: repeat(4, 1fr);
+        gap: var(--spacing-sm);
+    }
+}
+
+.process-step {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    position: relative;
+    transition: var(--transition-smooth);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.process-step:hover {
+    border-color: var(--accent-highlight);
+    box-shadow: 0 10px 25px var(--accent-glow);
+    transform: translateY(-4px);
+}
+
+.step-num {
+    font-family: var(--font-headings);
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--border-color);
+    line-height: 1;
+    transition: var(--transition-smooth);
+}
+
+.process-step:hover .step-num {
+    color: var(--accent-highlight);
+}
+
+.step-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.step-title {
+    font-family: var(--font-headings);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-color);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.step-desc {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--text-muted);
+    margin: 0;
+}
+
