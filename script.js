@@ -108,12 +108,22 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             if (btn.classList.contains('btn-loading') || btn.classList.contains('btn-success')) return;
 
-            // Block submission if email fails custom validation
+            // Intercept submission to block sending if Name is invalid
+            const nameInput = document.getElementById('name');
+            if (nameInput && !nameInput.value.trim()) {
+                nameInput.focus();
+                if (typeof window.showToast === 'function') {
+                    window.showToast('Please enter your name.');
+                }
+                return;
+            }
+
+            // Intercept submission to block sending if Email is invalid
             if (emailInput) {
                 const emailValue = emailInput.value.trim();
                 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                 if (!emailRegex.test(emailValue)) {
-                    hasBeenBlurred = true; // force error feedback to show
+                    hasBeenBlurred = true;
                     validateEmail(true);
                     emailInput.focus();
                     if (typeof window.showToast === 'function') {
@@ -121,6 +131,16 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                     return;
                 }
+            }
+
+            // Intercept submission to block sending if Message is invalid
+            const msgInput = document.getElementById('message');
+            if (msgInput && !msgInput.value.trim()) {
+                msgInput.focus();
+                if (typeof window.showToast === 'function') {
+                    window.showToast('Please enter your message.');
+                }
+                return;
             }
 
             btn.classList.add('btn-loading');
