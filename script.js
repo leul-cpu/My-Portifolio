@@ -560,6 +560,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 iframeViewport.classList.remove('mobile');
                 modalDeviceDesktop.classList.add('active');
                 modalDeviceMobile.classList.remove('active');
+                modalDeviceDesktop.setAttribute('aria-pressed', 'true');
+                modalDeviceMobile.setAttribute('aria-pressed', 'false');
 
                 // Display Modal
                 previewModal.classList.add('active');
@@ -639,12 +641,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 iframeViewport.classList.remove('mobile');
                 modalDeviceDesktop.classList.add('active');
                 modalDeviceMobile.classList.remove('active');
+                modalDeviceDesktop.setAttribute('aria-pressed', 'true');
+                modalDeviceMobile.setAttribute('aria-pressed', 'false');
             });
 
             modalDeviceMobile.addEventListener('click', () => {
                 iframeViewport.classList.add('mobile');
                 modalDeviceMobile.classList.add('active');
                 modalDeviceDesktop.classList.remove('active');
+                modalDeviceMobile.setAttribute('aria-pressed', 'true');
+                modalDeviceDesktop.setAttribute('aria-pressed', 'false');
             });
         }
     }

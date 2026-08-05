@@ -46,3 +46,7 @@
 ## 2026-08-02 - [Custom Email Validation & Accessibility Sync]
 **Learning:** Having client-side visual-only validation is not enough if the form can still be submitted with invalid email patterns. Intercepting the submit event to block sending, focusing the invalid field, showing an accessible toast, and synchronizing the `aria-invalid` attribute provides complete screen-reader validation and a high-fidelity micro-UX.
 **Action:** Always pair custom field-level validation with submit-time prevention, programmatic focus management, toast notifications, and dynamic `aria-invalid` state synchronization.
+
+## 2026-08-05 - [Interactive Device Simulator Accessibility Toggle States]
+**Learning:** Standard state visualization using active classes is not announced to screen-readers or keyboard navigators. Using dynamic `aria-pressed` states on viewport simulation toggles ensures assistive devices accurately perceive and declare the current active simulation context.
+**Action:** Always pair simulated toggle configurations with real-time `aria-pressed` state synchronization.
