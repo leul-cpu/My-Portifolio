@@ -561,6 +561,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 modalDeviceDesktop.classList.add('active');
                 modalDeviceDesktop.setAttribute('aria-pressed', 'true');
                 modalDeviceMobile.classList.remove('active');
+                modalDeviceDesktop.setAttribute('aria-pressed', 'true');
                 modalDeviceMobile.setAttribute('aria-pressed', 'false');
 
                 // Display Modal
@@ -642,6 +643,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 modalDeviceDesktop.classList.add('active');
                 modalDeviceDesktop.setAttribute('aria-pressed', 'true');
                 modalDeviceMobile.classList.remove('active');
+                modalDeviceDesktop.setAttribute('aria-pressed', 'true');
                 modalDeviceMobile.setAttribute('aria-pressed', 'false');
             });
 
@@ -650,6 +652,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 modalDeviceMobile.classList.add('active');
                 modalDeviceMobile.setAttribute('aria-pressed', 'true');
                 modalDeviceDesktop.classList.remove('active');
+                modalDeviceMobile.setAttribute('aria-pressed', 'true');
                 modalDeviceDesktop.setAttribute('aria-pressed', 'false');
             });
         }

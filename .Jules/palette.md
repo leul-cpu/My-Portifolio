@@ -47,6 +47,6 @@
 **Learning:** Having client-side visual-only validation is not enough if the form can still be submitted with invalid email patterns. Intercepting the submit event to block sending, focusing the invalid field, showing an accessible toast, and synchronizing the `aria-invalid` attribute provides complete screen-reader validation and a high-fidelity micro-UX.
 **Action:** Always pair custom field-level validation with submit-time prevention, programmatic focus management, toast notifications, and dynamic `aria-invalid` state synchronization.
 
-## 2026-08-04 - [Device Preview Simulator Toggle State Accessibility]
-**Learning:** Interactive selectors (like Desktop and Mobile simulator view switches) must declare their selection state programmatically to screen readers. Relying solely on visual CSS `.active` classes leaves non-sighted keyboard navigators unaware of the active simulation view. Adding `aria-pressed` state attributes provides a clear, standard way to communicate toggle/selection states in accordance with WCAG AA.
-**Action:** Always pair visual active class changes on toggle/state buttons with dynamic `aria-pressed` state synchronization in JavaScript.
+## 2026-08-05 - [Interactive Device Simulator Accessibility Toggle States]
+**Learning:** Standard state visualization using active classes is not announced to screen-readers or keyboard navigators. Using dynamic `aria-pressed` states on viewport simulation toggles ensures assistive devices accurately perceive and declare the current active simulation context.
+**Action:** Always pair simulated toggle configurations with real-time `aria-pressed` state synchronization.
