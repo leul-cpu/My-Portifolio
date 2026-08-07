@@ -50,3 +50,7 @@
 ## 2026-08-05 - [Interactive Device Simulator Accessibility Toggle States]
 **Learning:** Standard state visualization using active classes is not announced to screen-readers or keyboard navigators. Using dynamic `aria-pressed` states on viewport simulation toggles ensures assistive devices accurately perceive and declare the current active simulation context.
 **Action:** Always pair simulated toggle configurations with real-time `aria-pressed` state synchronization.
+
+## 2026-08-07 - [Skip-to-Content Focus Management & Keyboard Nav Wayfinding]
+**Learning:** Skip-to-content links are vital for keyboard users, but standard implementations often fail to shift focus programmatically because modern browsers do not naturally focus container elements (like `<main>`) without a `tabindex="-1"` attribute. By explicitly assigning `tabindex="-1"` and binding a helper click listener to force focus on the target container, we ensure seamless keyboard wayfinding without relying on browser-native focus-shifting inconsistencies.
+**Action:** Always pair layout target containers of skip navigation with a `tabindex="-1"` attribute, programmatically focus them via javascript click event listeners, and use CSS `outline: none` on the container's focus state to eliminate visual focus ring clutter.
