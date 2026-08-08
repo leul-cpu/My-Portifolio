@@ -901,6 +901,22 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // 13.7 Skip Link Click programmatic focus redirection
+    if (skipLink) {
+        skipLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            const mainContent = document.getElementById('main');
+            if (mainContent) {
+                mainContent.focus();
+                const topOffset = mainContent.getBoundingClientRect().top + window.pageYOffset - 80;
+                window.scrollTo({
+                    top: topOffset,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    }
+
     // 14. Toast Notification
     window.showToast = function(message) {
         const toast = document.createElement('div');
