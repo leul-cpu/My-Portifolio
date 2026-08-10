@@ -901,13 +901,18 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 13.6 Skip Link Focus Management
-    const skipLinkBtn = document.querySelector('.skip-link');
-    if (skipLinkBtn) {
-        skipLinkBtn.addEventListener('click', (e) => {
-            const mainContainer = document.getElementById('main');
-            if (mainContainer) {
-                mainContainer.focus();
+    // 13.7 Skip Link Click programmatic focus redirection
+    if (skipLink) {
+        skipLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            const mainContent = document.getElementById('main');
+            if (mainContent) {
+                mainContent.focus();
+                const topOffset = mainContent.getBoundingClientRect().top + window.pageYOffset - 80;
+                window.scrollTo({
+                    top: topOffset,
+                    behavior: 'smooth'
+                });
             }
         });
     }
