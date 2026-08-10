@@ -871,6 +871,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // 13.5 Floating Back to Top Button Logic
     const backToTopBtn = document.getElementById('back-to-top');
     const skipLink = document.querySelector('.skip-link');
+    const mainContent = document.getElementById('main');
+
+    if (skipLink && mainContent) {
+        skipLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            mainContent.focus();
+            mainContent.scrollIntoView({ behavior: 'smooth' });
+        });
+    }
 
     if (backToTopBtn) {
         window.addEventListener('scroll', () => {

@@ -67,6 +67,10 @@ html {
     outline-offset: 4px;
 }
 
+main#main:focus {
+    outline: none;
+}
+
 body {
     font-family: var(--font-primary);
     background-color: var(--bg-color);

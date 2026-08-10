@@ -51,6 +51,6 @@
 **Learning:** Standard state visualization using active classes is not announced to screen-readers or keyboard navigators. Using dynamic `aria-pressed` states on viewport simulation toggles ensures assistive devices accurately perceive and declare the current active simulation context.
 **Action:** Always pair simulated toggle configurations with real-time `aria-pressed` state synchronization.
 
-## 2026-08-08 - [Keyboard Skip Link Focus Trapping & Redirection]
-**Learning:** Standard anchor links for 'skip-to-content' actions often fail to shift actual keyboard and screen-reader focus to non-interactive containers like `<main>` in modern browsers. Adding `tabindex="-1"` to the target element and programmatically managing focus redirection upon click ensures a robust focus shift. Combining this with `position: fixed` ensures skip links remain highly visible regardless of the user's scroll position, and setting `outline: none` on focus resets default outlines cleanly.
-**Action:** Always pair skip-to-content anchors with `tabindex="-1"` target elements, custom click listeners to programmatically call `.focus()`, and fixed viewport positioning.
+## 2026-08-09 - [Programmatic Skip Link & Focus Redirection]
+**Learning:** Standard "Skip to main content" links can fail to move visual or sequential keyboard focus to the main container in some browsers unless the target has `tabindex="-1"` and focus is programmatically managed. Coupling this with smooth scroll behavior and hiding unnecessary outlines on the focused container elements guarantees complete keyboard navigability.
+**Action:** Always add `tabindex="-1"` to target layout landmarks when using skip links, programmatically redirect focus on click, and suppress focus outlines using `main#main:focus { outline: none; }` to maintain design system polish.
