@@ -2306,6 +2306,10 @@ body.page-loading .card:hover {
     top: 0;
 }
 
+main#main:focus {
+    outline: none;
+}
+
 .fade-in {
     opacity: 0;
     transform: translateY(30px);

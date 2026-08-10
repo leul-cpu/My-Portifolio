@@ -901,6 +901,17 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // 13.6 Skip Link Focus Management
+    const skipLinkBtn = document.querySelector('.skip-link');
+    if (skipLinkBtn) {
+        skipLinkBtn.addEventListener('click', (e) => {
+            const mainContainer = document.getElementById('main');
+            if (mainContainer) {
+                mainContainer.focus();
+            }
+        });
+    }
+
     // 14. Toast Notification
     window.showToast = function(message) {
         const toast = document.createElement('div');
