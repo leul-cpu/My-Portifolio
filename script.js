@@ -98,9 +98,14 @@ document.addEventListener('DOMContentLoaded', () => {
         yearSpan.textContent = new Date().getFullYear();
     }
 
-    // 4. Contact Form Submission Handling
+    // Contact Form Elements & State
     const contactForm = document.getElementById('contact-form');
     const contactStatus = document.getElementById('contact-status');
+    const nameInput = document.getElementById('name');
+    const emailInput = document.getElementById('email');
+    const msgInput = document.getElementById('message');
+
+    // 4. Contact Form Submission Handling
     if (contactForm && contactStatus) {
         const btn = contactForm.querySelector('button[type="submit"]');
         const originalText = btn.textContent;
@@ -109,13 +114,17 @@ document.addEventListener('DOMContentLoaded', () => {
             if (btn.classList.contains('btn-loading') || btn.classList.contains('btn-success')) return;
 
             // Intercept submission to block sending if Name is invalid
-            const nameInput = document.getElementById('name');
-            if (nameInput && !nameInput.value.trim()) {
-                nameInput.focus();
-                if (typeof window.showToast === 'function') {
-                    window.showToast('Please enter your name.');
+            if (nameInput) {
+                const nameValue = nameInput.value.trim();
+                if (!nameValue) {
+                    nameHasBeenBlurred = true;
+                    validateName(true);
+                    nameInput.focus();
+                    if (typeof window.showToast === 'function') {
+                        window.showToast('Please enter your name.');
+                    }
+                    return;
                 }
-                return;
             }
 
             // Intercept submission to block sending if Email is invalid
@@ -134,13 +143,17 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             // Intercept submission to block sending if Message is invalid
-            const msgInput = document.getElementById('message');
-            if (msgInput && !msgInput.value.trim()) {
-                msgInput.focus();
-                if (typeof window.showToast === 'function') {
-                    window.showToast('Please enter your message.');
+            if (msgInput) {
+                const msgValue = msgInput.value.trim();
+                if (!msgValue) {
+                    msgHasBeenBlurred = true;
+                    validateMsg(true);
+                    msgInput.focus();
+                    if (typeof window.showToast === 'function') {
+                        window.showToast('Please enter your message.');
+                    }
+                    return;
                 }
-                return;
             }
 
             btn.classList.add('btn-loading');
@@ -225,12 +238,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // 4.1 Contact Form Textarea Character Counter
-    const messageTextarea = document.getElementById('message');
     const charCountEl = document.getElementById('message-char-count');
     const updateCharCount = () => {
-        if (!messageTextarea || !charCountEl) return;
-        const currentLength = messageTextarea.value.length;
-        const maxLength = parseInt(messageTextarea.getAttribute('maxlength') || '1000', 10);
+        if (!msgInput || !charCountEl) return;
+        const currentLength = msgInput.value.length;
+        const maxLength = parseInt(msgInput.getAttribute('maxlength') || '1000', 10);
         charCountEl.textContent = `${currentLength} / ${maxLength} characters`;
 
         // Add warn state if approaching 90% of max capacity
@@ -241,8 +253,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    if (messageTextarea && charCountEl) {
-        messageTextarea.addEventListener('input', updateCharCount);
+    if (msgInput && charCountEl) {
+        msgInput.addEventListener('input', updateCharCount);
 
         if (contactForm) {
             contactForm.addEventListener('reset', () => {
@@ -251,11 +263,50 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // 4.2 Real-time Email validation with assistive live feedback
-    const emailInput = document.getElementById('email');
+    // 4.2 Real-time Form validations (Name, Email, Message) with assistive live feedback
     const emailFeedback = document.getElementById('email-validation-message');
     let debounceTimer;
     let hasBeenBlurred = false;
+    let nameHasBeenBlurred = false;
+    let msgHasBeenBlurred = false;
+
+    const validateName = (isBlur = false) => {
+        if (!nameInput) return;
+        const value = nameInput.value.trim();
+        if (!value) {
+            nameInput.classList.remove('is-valid');
+            if (isBlur || nameHasBeenBlurred) {
+                nameInput.classList.add('is-invalid');
+                nameInput.setAttribute('aria-invalid', 'true');
+            } else {
+                nameInput.classList.remove('is-invalid');
+                nameInput.removeAttribute('aria-invalid');
+            }
+            return;
+        }
+        nameInput.classList.remove('is-invalid');
+        nameInput.classList.add('is-valid');
+        nameInput.setAttribute('aria-invalid', 'false');
+    };
+
+    const validateMsg = (isBlur = false) => {
+        if (!msgInput) return;
+        const value = msgInput.value.trim();
+        if (!value) {
+            msgInput.classList.remove('is-valid');
+            if (isBlur || msgHasBeenBlurred) {
+                msgInput.classList.add('is-invalid');
+                msgInput.setAttribute('aria-invalid', 'true');
+            } else {
+                msgInput.classList.remove('is-invalid');
+                msgInput.removeAttribute('aria-invalid');
+            }
+            return;
+        }
+        msgInput.classList.remove('is-invalid');
+        msgInput.classList.add('is-valid');
+        msgInput.setAttribute('aria-invalid', 'false');
+    };
 
     const validateEmail = (isBlur = false) => {
         if (!emailInput || !emailFeedback) return;
@@ -286,6 +337,22 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    if (nameInput) {
+        nameInput.addEventListener('input', () => validateName());
+        nameInput.addEventListener('blur', () => {
+            nameHasBeenBlurred = true;
+            validateName(true);
+        });
+    }
+
+    if (msgInput) {
+        msgInput.addEventListener('input', () => validateMsg());
+        msgInput.addEventListener('blur', () => {
+            msgHasBeenBlurred = true;
+            validateMsg(true);
+        });
+    }
+
     if (emailInput && emailFeedback) {
         emailInput.addEventListener('input', () => {
             clearTimeout(debounceTimer);
@@ -302,69 +369,38 @@ document.addEventListener('DOMContentLoaded', () => {
             hasBeenBlurred = true;
             validateEmail(true);
         });
-
-        if (contactForm) {
-            contactForm.addEventListener('reset', () => {
-                hasBeenBlurred = false;
-                emailInput.removeAttribute('aria-invalid');
-                setTimeout(() => validateEmail(), 0);
-            });
-        }
     }
 
-    // 4.25 Form Submission Handler with validation check
-    if (contactForm && contactStatus) {
-        const btn = contactForm.querySelector('button[type="submit"]');
-        const originalText = btn.textContent;
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-
-            // Validate email before submitting
+    if (contactForm) {
+        contactForm.addEventListener('reset', () => {
+            hasBeenBlurred = false;
+            nameHasBeenBlurred = false;
+            msgHasBeenBlurred = false;
             if (emailInput) {
-                const value = emailInput.value.trim();
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                const isValid = emailRegex.test(value);
-
-                if (!isValid) {
-                    hasBeenBlurred = true;
-                    validateEmail(true);
-                    emailInput.focus();
-                    if (typeof window.showToast === 'function') {
-                        window.showToast('Please enter a valid email address.');
-                    }
-                    return;
-                }
+                emailInput.classList.remove('is-valid', 'is-invalid');
+                emailInput.removeAttribute('aria-invalid');
             }
-
-            if (btn.classList.contains('btn-loading') || btn.classList.contains('btn-success')) return;
-            btn.classList.add('btn-loading');
-            btn.setAttribute('aria-busy', 'true');
-            btn.setAttribute('aria-disabled', 'true');
-            contactStatus.textContent = 'Sending message...';
+            if (nameInput) {
+                nameInput.classList.remove('is-valid', 'is-invalid');
+                nameInput.removeAttribute('aria-invalid');
+            }
+            if (msgInput) {
+                msgInput.classList.remove('is-valid', 'is-invalid');
+                msgInput.removeAttribute('aria-invalid');
+            }
             setTimeout(() => {
-                btn.classList.remove('btn-loading');
-                btn.classList.add('btn-success');
-                btn.textContent = 'Message Sent!';
-                btn.setAttribute('aria-busy', 'false');
-                contactStatus.textContent = 'Message successfully sent to Leul.';
-
-                contactForm.reset();
-                setTimeout(() => {
-                    btn.classList.remove('btn-success');
-                    btn.textContent = originalText;
-                    btn.removeAttribute('aria-busy');
-                    btn.removeAttribute('aria-disabled');
-                    contactStatus.textContent = '';
-                }, 4000);
-            }, 800);
+                validateEmail();
+                validateName();
+                validateMsg();
+            }, 0);
         });
     }
 
     // 4.02 Contact Form Draft Persistence
     const formFields = {
-        name: document.getElementById('name'),
-        email: document.getElementById('email'),
-        message: document.getElementById('message')
+        name: nameInput,
+        email: emailInput,
+        message: msgInput
     };
 
     const saveDraft = () => {
@@ -397,9 +433,13 @@ document.addEventListener('DOMContentLoaded', () => {
                         // Manually trigger visual handlers to update UI instantly
                         if (key === 'message') {
                             updateCharCount();
+                            validateMsg();
                         }
                         if (key === 'email') {
                             validateEmail();
+                        }
+                        if (key === 'name') {
+                            validateName();
                         }
                     }
                 }

@@ -54,3 +54,7 @@
 ## 2026-08-09 - [Programmatic Skip Link & Focus Redirection]
 **Learning:** Standard "Skip to main content" links can fail to move visual or sequential keyboard focus to the main container in some browsers unless the target has `tabindex="-1"` and focus is programmatically managed. Coupling this with smooth scroll behavior and hiding unnecessary outlines on the focused container elements guarantees complete keyboard navigability.
 **Action:** Always add `tabindex="-1"` to target layout landmarks when using skip links, programmatically redirect focus on click, and suppress focus outlines using `main#main:focus { outline: none; }` to maintain design system polish.
+
+## 2026-08-10 - [Unified Contact Form Submission & Comprehensive Real-Time Validation]
+**Learning:** Overlapping or duplicate event handlers registered on the same element can silently bypass client-side validation logic and cause severe UX regressions where invalid states are submitted. Consolidating into a single robust submit event listener resolves duplicate triggers. Furthermore, implementing matched visual validation styles (`.is-valid`/`.is-invalid`) on textareas alongside input elements and synchronizing assistive attributes (`aria-invalid`) across submit, reset, and draft persistence states guarantees complete forms accessibility.
+**Action:** Always audit element event registrations for duplicates, match visual/interactive cues for textarea elements with normal inputs, and synchronize `aria-invalid` properties throughout form lifecycles.
