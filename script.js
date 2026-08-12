@@ -312,54 +312,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // 4.25 Form Submission Handler with validation check
-    if (contactForm && contactStatus) {
-        const btn = contactForm.querySelector('button[type="submit"]');
-        const originalText = btn.textContent;
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-
-            // Validate email before submitting
-            if (emailInput) {
-                const value = emailInput.value.trim();
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                const isValid = emailRegex.test(value);
-
-                if (!isValid) {
-                    hasBeenBlurred = true;
-                    validateEmail(true);
-                    emailInput.focus();
-                    if (typeof window.showToast === 'function') {
-                        window.showToast('Please enter a valid email address.');
-                    }
-                    return;
-                }
-            }
-
-            if (btn.classList.contains('btn-loading') || btn.classList.contains('btn-success')) return;
-            btn.classList.add('btn-loading');
-            btn.setAttribute('aria-busy', 'true');
-            btn.setAttribute('aria-disabled', 'true');
-            contactStatus.textContent = 'Sending message...';
-            setTimeout(() => {
-                btn.classList.remove('btn-loading');
-                btn.classList.add('btn-success');
-                btn.textContent = 'Message Sent!';
-                btn.setAttribute('aria-busy', 'false');
-                contactStatus.textContent = 'Message successfully sent to Leul.';
-
-                contactForm.reset();
-                setTimeout(() => {
-                    btn.classList.remove('btn-success');
-                    btn.textContent = originalText;
-                    btn.removeAttribute('aria-busy');
-                    btn.removeAttribute('aria-disabled');
-                    contactStatus.textContent = '';
-                }, 4000);
-            }, 800);
-        });
-    }
-
     // 4.02 Contact Form Draft Persistence
     const formFields = {
         name: document.getElementById('name'),
