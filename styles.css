@@ -2202,11 +2202,13 @@ body.page-loading .card:hover {
     color: #e67e22; /* Warm warning amber */
 }
 
-.form-group input.is-valid {
+.form-group input.is-valid,
+.form-group textarea.is-valid {
     border-color: var(--accent-highlight) !important;
 }
 
-.form-group input.is-invalid {
+.form-group input.is-invalid,
+.form-group textarea.is-invalid {
     border-color: #e67e22 !important;
 }
 
