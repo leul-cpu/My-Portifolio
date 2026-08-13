@@ -98,68 +98,215 @@ document.addEventListener('DOMContentLoaded', () => {
         yearSpan.textContent = new Date().getFullYear();
     }
 
-    // Contact Form Elements & State
+    // 4. Contact Form Validation, Copying & Draft Persistence Module
     const contactForm = document.getElementById('contact-form');
     const contactStatus = document.getElementById('contact-status');
     const nameInput = document.getElementById('name');
     const emailInput = document.getElementById('email');
-    const msgInput = document.getElementById('message');
+    const messageInput = document.getElementById('message');
+    const nameFeedback = document.getElementById('name-validation-message');
+    const emailFeedback = document.getElementById('email-validation-message');
+    const messageFeedback = document.getElementById('message-validation-message');
+    const charCountEl = document.getElementById('message-char-count');
 
-    // 4. Contact Form Submission Handling
+    let debounceTimer;
+    let emailHasBeenBlurred = false;
+    let nameHasBeenBlurred = false;
+    let messageHasBeenBlurred = false;
+
+    // Real-time Name Validation
+    const validateName = (isBlur = false) => {
+        if (!nameInput || !nameFeedback) return false;
+        const value = nameInput.value.trim();
+        if (!value) {
+            if (isBlur || nameHasBeenBlurred) {
+                nameFeedback.textContent = '⚠ Please enter your name';
+                nameFeedback.className = 'field-feedback active invalid';
+                nameInput.classList.remove('is-valid');
+                nameInput.classList.add('is-invalid');
+                nameInput.setAttribute('aria-invalid', 'true');
+            } else {
+                nameFeedback.textContent = '';
+                nameFeedback.className = 'field-feedback';
+                nameInput.classList.remove('is-valid', 'is-invalid');
+                nameInput.removeAttribute('aria-invalid');
+            }
+            return false;
+        }
+
+        nameFeedback.textContent = '✓ Name entered';
+        nameFeedback.className = 'field-feedback active valid';
+        nameInput.classList.remove('is-invalid');
+        nameInput.classList.add('is-valid');
+        nameInput.setAttribute('aria-invalid', 'false');
+        return true;
+    };
+
+    // Real-time Email Validation
+    const validateEmail = (isBlur = false) => {
+        if (!emailInput || !emailFeedback) return false;
+        const value = emailInput.value.trim();
+        if (!value) {
+            if (isBlur || emailHasBeenBlurred) {
+                emailFeedback.textContent = '⚠ Please enter your email address';
+                emailFeedback.className = 'field-feedback active invalid';
+                emailInput.classList.remove('is-valid');
+                emailInput.classList.add('is-invalid');
+                emailInput.setAttribute('aria-invalid', 'true');
+            } else {
+                emailFeedback.textContent = '';
+                emailFeedback.className = 'field-feedback';
+                emailInput.classList.remove('is-valid', 'is-invalid');
+                emailInput.removeAttribute('aria-invalid');
+            }
+            return false;
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const isValid = emailRegex.test(value);
+
+        if (isValid) {
+            emailFeedback.textContent = '✓ Valid email format';
+            emailFeedback.className = 'field-feedback active valid';
+            emailInput.classList.remove('is-invalid');
+            emailInput.classList.add('is-valid');
+            emailInput.setAttribute('aria-invalid', 'false');
+            return true;
+        } else if (isBlur || emailHasBeenBlurred) {
+            emailFeedback.textContent = '⚠ Please enter a valid email format';
+            emailFeedback.className = 'field-feedback active invalid';
+            emailInput.classList.remove('is-valid');
+            emailInput.classList.add('is-invalid');
+            emailInput.setAttribute('aria-invalid', 'true');
+        }
+        return false;
+    };
+
+    // Real-time Message Validation
+    const validateMessage = (isBlur = false) => {
+        if (!messageInput || !messageFeedback) return false;
+        const value = messageInput.value.trim();
+        if (!value) {
+            if (isBlur || messageHasBeenBlurred) {
+                messageFeedback.textContent = '⚠ Please enter your message';
+                messageFeedback.className = 'field-feedback active invalid';
+                messageInput.classList.remove('is-valid');
+                messageInput.classList.add('is-invalid');
+                messageInput.setAttribute('aria-invalid', 'true');
+            } else {
+                messageFeedback.textContent = '';
+                messageFeedback.className = 'field-feedback';
+                messageInput.classList.remove('is-valid', 'is-invalid');
+                messageInput.removeAttribute('aria-invalid');
+            }
+            return false;
+        }
+
+        messageFeedback.textContent = '✓ Message entered';
+        messageFeedback.className = 'field-feedback active valid';
+        messageInput.classList.remove('is-invalid');
+        messageInput.classList.add('is-valid');
+        messageInput.setAttribute('aria-invalid', 'false');
+        return true;
+    };
+
+    // Update Message Character Counter
+    const updateCharCount = () => {
+        if (!messageInput || !charCountEl) return;
+        const currentLength = messageInput.value.length;
+        const maxLength = parseInt(messageInput.getAttribute('maxlength') || '1000', 10);
+        charCountEl.textContent = `${currentLength} / ${maxLength} characters`;
+
+        if (currentLength >= maxLength * 0.9) {
+            charCountEl.classList.add('near-limit');
+        } else {
+            charCountEl.classList.remove('near-limit');
+        }
+    };
+
+    // Setup Event Listeners for Input Elements
+    if (nameInput) {
+        nameInput.addEventListener('input', () => validateName());
+        nameInput.addEventListener('blur', () => {
+            nameHasBeenBlurred = true;
+            validateName(true);
+        });
+    }
+
+    if (emailInput) {
+        emailInput.addEventListener('input', () => {
+            clearTimeout(debounceTimer);
+            const value = emailInput.value.trim();
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (emailRegex.test(value)) {
+                validateEmail();
+            } else {
+                debounceTimer = setTimeout(() => validateEmail(), 800);
+            }
+        });
+        emailInput.addEventListener('blur', () => {
+            emailHasBeenBlurred = true;
+            validateEmail(true);
+        });
+    }
+
+    if (messageInput) {
+        messageInput.addEventListener('input', () => {
+            updateCharCount();
+            validateMessage();
+        });
+        messageInput.addEventListener('blur', () => {
+            messageHasBeenBlurred = true;
+            validateMessage(true);
+        });
+    }
+
+    // Consolidated Form Submission Listener
     if (contactForm && contactStatus) {
         const btn = contactForm.querySelector('button[type="submit"]');
         const originalText = btn.textContent;
+
         contactForm.addEventListener('submit', (e) => {
             e.preventDefault();
+
+            // Set touched flags on submission so error messages are visible immediately
+            nameHasBeenBlurred = true;
+            emailHasBeenBlurred = true;
+            messageHasBeenBlurred = true;
+
+            const isNameValid = validateName(true);
+            const isEmailValid = validateEmail(true);
+            const isMessageValid = validateMessage(true);
+
+            if (!isNameValid) {
+                if (nameInput) nameInput.focus();
+                if (typeof window.showToast === 'function') {
+                    window.showToast('Please enter your name.');
+                }
+            }
+
+            if (!isEmailValid) {
+                if (emailInput) emailInput.focus();
+                if (typeof window.showToast === 'function') {
+                    window.showToast('Please enter a valid email address.');
+                }
+                return;
+            }
+
+            if (!isMessageValid) {
+                if (messageInput) messageInput.focus();
+                if (typeof window.showToast === 'function') {
+                    window.showToast('Please enter your message.');
+                }
+            }
+
             if (btn.classList.contains('btn-loading') || btn.classList.contains('btn-success')) return;
-
-            // Intercept submission to block sending if Name is invalid
-            if (nameInput) {
-                const nameValue = nameInput.value.trim();
-                if (!nameValue) {
-                    nameHasBeenBlurred = true;
-                    validateName(true);
-                    nameInput.focus();
-                    if (typeof window.showToast === 'function') {
-                        window.showToast('Please enter your name.');
-                    }
-                    return;
-                }
-            }
-
-            // Intercept submission to block sending if Email is invalid
-            if (emailInput) {
-                const emailValue = emailInput.value.trim();
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                if (!emailRegex.test(emailValue)) {
-                    hasBeenBlurred = true;
-                    validateEmail(true);
-                    emailInput.focus();
-                    if (typeof window.showToast === 'function') {
-                        window.showToast('Please enter a valid email address.');
-                    }
-                    return;
-                }
-            }
-
-            // Intercept submission to block sending if Message is invalid
-            if (msgInput) {
-                const msgValue = msgInput.value.trim();
-                if (!msgValue) {
-                    msgHasBeenBlurred = true;
-                    validateMsg(true);
-                    msgInput.focus();
-                    if (typeof window.showToast === 'function') {
-                        window.showToast('Please enter your message.');
-                    }
-                    return;
-                }
-            }
 
             btn.classList.add('btn-loading');
             btn.setAttribute('aria-busy', 'true');
             btn.setAttribute('aria-disabled', 'true');
             contactStatus.textContent = 'Sending message...';
+
             setTimeout(() => {
                 btn.classList.remove('btn-loading');
                 btn.classList.add('btn-success');
@@ -177,9 +324,47 @@ document.addEventListener('DOMContentLoaded', () => {
                 }, 4000);
             }, 800);
         });
+
+        contactForm.addEventListener('reset', () => {
+            emailHasBeenBlurred = false;
+            nameHasBeenBlurred = false;
+            messageHasBeenBlurred = false;
+
+            if (nameInput) {
+                nameInput.classList.remove('is-valid', 'is-invalid');
+                nameInput.removeAttribute('aria-invalid');
+            }
+            if (emailInput) {
+                emailInput.classList.remove('is-valid', 'is-invalid');
+                emailInput.removeAttribute('aria-invalid');
+            }
+            if (messageInput) {
+                messageInput.classList.remove('is-valid', 'is-invalid');
+                messageInput.removeAttribute('aria-invalid');
+            }
+
+            if (nameFeedback) {
+                nameFeedback.textContent = '';
+                nameFeedback.className = 'field-feedback';
+            }
+            if (emailFeedback) {
+                emailFeedback.textContent = '';
+                emailFeedback.className = 'field-feedback';
+            }
+            if (messageFeedback) {
+                messageFeedback.textContent = '';
+                messageFeedback.className = 'field-feedback';
+            }
+
+            setTimeout(() => {
+                updateCharCount();
+            }, 0);
+
+            localStorage.removeItem('contact_form_draft');
+        });
     }
 
-    // Helper to handle copy success UI state changes
+    // Email Copy Helper
     function triggerCopySuccess(button) {
         if (typeof window.showToast === 'function') {
             window.showToast('Email copied to clipboard!');
@@ -200,13 +385,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 3000);
     }
 
-    // 4.05 Copy Email to Clipboard Feature
     const copyEmailBtn = document.getElementById('btn-copy-email');
     if (copyEmailBtn) {
         copyEmailBtn.addEventListener('click', () => {
             const emailAddress = 'leulabiti98@gmail.com';
 
-            // Modern copy API with fallback
             if (navigator.clipboard && navigator.clipboard.writeText) {
                 navigator.clipboard.writeText(emailAddress)
                     .then(() => {
@@ -224,7 +407,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function fallbackCopyText(text, button) {
         const textArea = document.createElement('textarea');
         textArea.value = text;
-        textArea.style.position = 'fixed'; // Avoid scrolling to bottom
+        textArea.style.position = 'fixed';
         document.body.appendChild(textArea);
         textArea.focus();
         textArea.select();
@@ -237,181 +420,14 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.removeChild(textArea);
     }
 
-    // 4.1 Contact Form Textarea Character Counter
-    const charCountEl = document.getElementById('message-char-count');
-    const updateCharCount = () => {
-        if (!msgInput || !charCountEl) return;
-        const currentLength = msgInput.value.length;
-        const maxLength = parseInt(msgInput.getAttribute('maxlength') || '1000', 10);
-        charCountEl.textContent = `${currentLength} / ${maxLength} characters`;
-
-        // Add warn state if approaching 90% of max capacity
-        if (currentLength >= maxLength * 0.9) {
-            charCountEl.classList.add('near-limit');
-        } else {
-            charCountEl.classList.remove('near-limit');
-        }
-    };
-
-    if (msgInput && charCountEl) {
-        msgInput.addEventListener('input', updateCharCount);
-
-        if (contactForm) {
-            contactForm.addEventListener('reset', () => {
-                setTimeout(updateCharCount, 0);
-            });
-        }
-    }
-
-    // 4.2 Real-time Form validations (Name, Email, Message) with assistive live feedback
-    const emailFeedback = document.getElementById('email-validation-message');
-    let debounceTimer;
-    let hasBeenBlurred = false;
-    let nameHasBeenBlurred = false;
-    let msgHasBeenBlurred = false;
-
-    const validateName = (isBlur = false) => {
-        if (!nameInput) return;
-        const value = nameInput.value.trim();
-        if (!value) {
-            nameInput.classList.remove('is-valid');
-            if (isBlur || nameHasBeenBlurred) {
-                nameInput.classList.add('is-invalid');
-                nameInput.setAttribute('aria-invalid', 'true');
-            } else {
-                nameInput.classList.remove('is-invalid');
-                nameInput.removeAttribute('aria-invalid');
-            }
-            return;
-        }
-        nameInput.classList.remove('is-invalid');
-        nameInput.classList.add('is-valid');
-        nameInput.setAttribute('aria-invalid', 'false');
-    };
-
-    const validateMsg = (isBlur = false) => {
-        if (!msgInput) return;
-        const value = msgInput.value.trim();
-        if (!value) {
-            msgInput.classList.remove('is-valid');
-            if (isBlur || msgHasBeenBlurred) {
-                msgInput.classList.add('is-invalid');
-                msgInput.setAttribute('aria-invalid', 'true');
-            } else {
-                msgInput.classList.remove('is-invalid');
-                msgInput.removeAttribute('aria-invalid');
-            }
-            return;
-        }
-        msgInput.classList.remove('is-invalid');
-        msgInput.classList.add('is-valid');
-        msgInput.setAttribute('aria-invalid', 'false');
-    };
-
-    const validateEmail = (isBlur = false) => {
-        if (!emailInput || !emailFeedback) return;
-        const value = emailInput.value.trim();
-        if (!value) {
-            emailFeedback.textContent = '';
-            emailFeedback.className = 'field-feedback';
-            emailInput.classList.remove('is-valid', 'is-invalid');
-            emailInput.removeAttribute('aria-invalid');
-            return;
-        }
-
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        const isValid = emailRegex.test(value);
-
-        if (isValid) {
-            emailFeedback.textContent = '✓ Valid email format';
-            emailFeedback.className = 'field-feedback active valid';
-            emailInput.classList.remove('is-invalid');
-            emailInput.classList.add('is-valid');
-            emailInput.setAttribute('aria-invalid', 'false');
-        } else if (isBlur || hasBeenBlurred) {
-            emailFeedback.textContent = '⚠ Please enter a valid email format';
-            emailFeedback.className = 'field-feedback active invalid';
-            emailInput.classList.remove('is-valid');
-            emailInput.classList.add('is-invalid');
-            emailInput.setAttribute('aria-invalid', 'true');
-        }
-    };
-
-    if (nameInput) {
-        nameInput.addEventListener('input', () => validateName());
-        nameInput.addEventListener('blur', () => {
-            nameHasBeenBlurred = true;
-            validateName(true);
-        });
-    }
-
-    if (msgInput) {
-        msgInput.addEventListener('input', () => validateMsg());
-        msgInput.addEventListener('blur', () => {
-            msgHasBeenBlurred = true;
-            validateMsg(true);
-        });
-    }
-
-    if (emailInput && emailFeedback) {
-        emailInput.addEventListener('input', () => {
-            clearTimeout(debounceTimer);
-            const value = emailInput.value.trim();
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (emailRegex.test(value)) {
-                validateEmail();
-            } else {
-                debounceTimer = setTimeout(() => validateEmail(), 800);
-            }
-        });
-
-        emailInput.addEventListener('blur', () => {
-            hasBeenBlurred = true;
-            validateEmail(true);
-        });
-    }
-
-    if (contactForm) {
-        contactForm.addEventListener('reset', () => {
-            hasBeenBlurred = false;
-            nameHasBeenBlurred = false;
-            msgHasBeenBlurred = false;
-            if (emailInput) {
-                emailInput.classList.remove('is-valid', 'is-invalid');
-                emailInput.removeAttribute('aria-invalid');
-            }
-            if (nameInput) {
-                nameInput.classList.remove('is-valid', 'is-invalid');
-                nameInput.removeAttribute('aria-invalid');
-            }
-            if (msgInput) {
-                msgInput.classList.remove('is-valid', 'is-invalid');
-                msgInput.removeAttribute('aria-invalid');
-            }
-            setTimeout(() => {
-                validateEmail();
-                validateName();
-                validateMsg();
-            }, 0);
-        });
-    }
-
-    // 4.02 Contact Form Draft Persistence
-    const formFields = {
-        name: nameInput,
-        email: emailInput,
-        message: msgInput
-    };
-
+    // Contact Form Draft Persistence
     const saveDraft = () => {
-        const draft = {};
-        let hasData = false;
-        for (const [key, field] of Object.entries(formFields)) {
-            if (field) {
-                draft[key] = field.value;
-                if (field.value.trim()) hasData = true;
-            }
-        }
+        const draft = {
+            name: nameInput ? nameInput.value : '',
+            email: emailInput ? emailInput.value : '',
+            message: messageInput ? messageInput.value : ''
+        };
+        const hasData = draft.name.trim() || draft.email.trim() || draft.message.trim();
         if (hasData) {
             localStorage.setItem('contact_form_draft', JSON.stringify(draft));
         } else {
@@ -425,24 +441,24 @@ document.addEventListener('DOMContentLoaded', () => {
             if (saved) {
                 const draft = JSON.parse(saved);
                 let restoredAny = false;
-                for (const [key, field] of Object.entries(formFields)) {
-                    if (field && draft[key]) {
-                        field.value = draft[key];
-                        restoredAny = true;
 
-                        // Manually trigger visual handlers to update UI instantly
-                        if (key === 'message') {
-                            updateCharCount();
-                            validateMsg();
-                        }
-                        if (key === 'email') {
-                            validateEmail();
-                        }
-                        if (key === 'name') {
-                            validateName();
-                        }
-                    }
+                if (nameInput && draft.name) {
+                    nameInput.value = draft.name;
+                    restoredAny = true;
+                    validateName();
                 }
+                if (emailInput && draft.email) {
+                    emailInput.value = draft.email;
+                    restoredAny = true;
+                    validateEmail();
+                }
+                if (messageInput && draft.message) {
+                    messageInput.value = draft.message;
+                    restoredAny = true;
+                    updateCharCount();
+                    validateMessage();
+                }
+
                 if (restoredAny) {
                     setTimeout(() => {
                         if (typeof window.showToast === 'function') {
@@ -456,14 +472,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    if (contactForm && formFields.name && formFields.email && formFields.message) {
-        Object.values(formFields).forEach(field => {
-            field.addEventListener('input', saveDraft);
-        });
+    if (contactForm && nameInput && emailInput && messageInput) {
+        nameInput.addEventListener('input', saveDraft);
+        emailInput.addEventListener('input', saveDraft);
+        messageInput.addEventListener('input', saveDraft);
         restoreDraft();
-        contactForm.addEventListener('reset', () => {
-            localStorage.removeItem('contact_form_draft');
-        });
     }
 
     const navbar = document.querySelector('.navbar');
