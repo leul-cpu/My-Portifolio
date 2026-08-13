@@ -283,7 +283,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (typeof window.showToast === 'function') {
                     window.showToast('Please enter your name.');
                 }
-                return;
             }
 
             if (!isEmailValid) {
@@ -299,7 +298,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (typeof window.showToast === 'function') {
                     window.showToast('Please enter your message.');
                 }
-                return;
             }
 
             if (btn.classList.contains('btn-loading') || btn.classList.contains('btn-success')) return;
