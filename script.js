@@ -420,7 +420,101 @@ document.addEventListener('DOMContentLoaded', () => {
         document.body.removeChild(textArea);
     }
 
-    // Contact Form Draft Persistence
+    // 4.1 Contact Form Textarea Character Counter
+    const messageTextarea = document.getElementById('message');
+    const charCountEl = document.getElementById('message-char-count');
+    const updateCharCount = () => {
+        if (!messageTextarea || !charCountEl) return;
+        const currentLength = messageTextarea.value.length;
+        const maxLength = parseInt(messageTextarea.getAttribute('maxlength') || '1000', 10);
+        charCountEl.textContent = `${currentLength} / ${maxLength} characters`;
+
+        // Add warn state if approaching 90% of max capacity
+        if (currentLength >= maxLength * 0.9) {
+            charCountEl.classList.add('near-limit');
+        } else {
+            charCountEl.classList.remove('near-limit');
+        }
+    };
+
+    if (messageTextarea && charCountEl) {
+        messageTextarea.addEventListener('input', updateCharCount);
+
+        if (contactForm) {
+            contactForm.addEventListener('reset', () => {
+                setTimeout(updateCharCount, 0);
+            });
+        }
+    }
+
+    // 4.2 Real-time Email validation with assistive live feedback
+    const emailInput = document.getElementById('email');
+    const emailFeedback = document.getElementById('email-validation-message');
+    let debounceTimer;
+    let hasBeenBlurred = false;
+
+    const validateEmail = (isBlur = false) => {
+        if (!emailInput || !emailFeedback) return;
+        const value = emailInput.value.trim();
+        if (!value) {
+            emailFeedback.textContent = '';
+            emailFeedback.className = 'field-feedback';
+            emailInput.classList.remove('is-valid', 'is-invalid');
+            emailInput.removeAttribute('aria-invalid');
+            return;
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const isValid = emailRegex.test(value);
+
+        if (isValid) {
+            emailFeedback.textContent = '✓ Valid email format';
+            emailFeedback.className = 'field-feedback active valid';
+            emailInput.classList.remove('is-invalid');
+            emailInput.classList.add('is-valid');
+            emailInput.setAttribute('aria-invalid', 'false');
+        } else if (isBlur || hasBeenBlurred) {
+            emailFeedback.textContent = '⚠ Please enter a valid email format';
+            emailFeedback.className = 'field-feedback active invalid';
+            emailInput.classList.remove('is-valid');
+            emailInput.classList.add('is-invalid');
+            emailInput.setAttribute('aria-invalid', 'true');
+        }
+    };
+
+    if (emailInput && emailFeedback) {
+        emailInput.addEventListener('input', () => {
+            clearTimeout(debounceTimer);
+            const value = emailInput.value.trim();
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (emailRegex.test(value)) {
+                validateEmail();
+            } else {
+                debounceTimer = setTimeout(() => validateEmail(), 800);
+            }
+        });
+
+        emailInput.addEventListener('blur', () => {
+            hasBeenBlurred = true;
+            validateEmail(true);
+        });
+
+        if (contactForm) {
+            contactForm.addEventListener('reset', () => {
+                hasBeenBlurred = false;
+                emailInput.removeAttribute('aria-invalid');
+                setTimeout(() => validateEmail(), 0);
+            });
+        }
+    }
+
+    // 4.02 Contact Form Draft Persistence
+    const formFields = {
+        name: document.getElementById('name'),
+        email: document.getElementById('email'),
+        message: document.getElementById('message')
+    };
+
     const saveDraft = () => {
         const draft = {
             name: nameInput ? nameInput.value : '',

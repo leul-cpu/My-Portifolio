@@ -1316,7 +1316,8 @@ p {
     transition: filter 0.3s ease, transform 0.3s ease;
 }
 
-.edit-thumbnail-wrap:hover .edit-thumbnail-img {
+.edit-thumbnail-wrap:hover .edit-thumbnail-img,
+.edit-thumbnail-wrap:focus-visible .edit-thumbnail-img {
     transform: scale(1.08);
     filter: grayscale(20%) brightness(0.95);
 }
@@ -1345,7 +1346,8 @@ p {
     transition: background 0.3s ease;
 }
 
-.edit-thumbnail-wrap:hover .edit-play-overlay {
+.edit-thumbnail-wrap:hover .edit-play-overlay,
+.edit-thumbnail-wrap:focus-visible .edit-play-overlay {
     background: rgba(0, 0, 0, 0.25);
 }
 
@@ -1367,7 +1369,8 @@ p {
     margin-left: 1px;
 }
 
-.edit-thumbnail-wrap:hover .edit-play-btn {
+.edit-thumbnail-wrap:hover .edit-play-btn,
+.edit-thumbnail-wrap:focus-visible .edit-play-btn {
     background: var(--accent-highlight);
     color: #fff;
     transform: scale(1.1);

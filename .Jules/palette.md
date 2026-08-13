@@ -55,6 +55,6 @@
 **Learning:** Standard "Skip to main content" links can fail to move visual or sequential keyboard focus to the main container in some browsers unless the target has `tabindex="-1"` and focus is programmatically managed. Coupling this with smooth scroll behavior and hiding unnecessary outlines on the focused container elements guarantees complete keyboard navigability.
 **Action:** Always add `tabindex="-1"` to target layout landmarks when using skip links, programmatically redirect focus on click, and suppress focus outlines using `main#main:focus { outline: none; }` to maintain design system polish.
 
-## 2026-08-11 - [Consolidated Contact Form Real-Time Validation]
-**Learning:** Having multiple disjoint event listeners for form submission and disjoint validation routines creates duplicate triggers, race conditions, and poor visual synchronization. Real-time form validations for all required inputs (Name, Email, Message) on both 'input' and 'blur' events provide immediate, non-intrusive feedback and robust screen-reader integration.
-**Action:** Always consolidate form controllers, coordinate input/blur listeners, set `aria-invalid` state attributes, and synchronize drafts with complete validation sweeps.
+## 2026-08-11 - [Consolidated Form Handlers & Keyboard-Enhanced Focus States]
+**Learning:** Having redundant event listeners for the same form action can silently bypass validation steps and trigger duplicate resets. Additionally, focus-visible states should mirror hover micro-interactions to prevent keyboard navigators from experiencing a dry, static UI.
+**Action:** Always audit event listeners to prevent duplicate actions, and ensure all CSS hover effects have corresponding focus-visible state declarations for high-fidelity interactive elements.
