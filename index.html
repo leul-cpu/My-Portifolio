@@ -54,6 +54,7 @@
                 <ul class="nav-links" role="list">
                     <li><a href="#about">About</a></li>
                     <li><a href="#services">Services</a></li>
+                    <li><a href="#graphics">Graphics</a></li>
                     <li><a href="#projects">Work</a></li>
                     <li><a href="#testimonials">Clients</a></li>
                     <li><a href="#contact">Contact</a></li>
@@ -89,6 +90,7 @@
     <div class="nav-mobile-overlay" id="nav-mobile-overlay" aria-hidden="true">
         <a href="#about">About</a>
         <a href="#services">Services</a>
+        <a href="#graphics">Graphics</a>
         <a href="#projects">Work</a>
         <a href="#testimonials">Clients</a>
         <a href="#contact">Contact</a>
@@ -313,10 +315,120 @@
             </div>
         </section>
 
+        <!-- Graphic Design Section -->
+        <section id="graphics" class="section" aria-labelledby="graphics-heading">
+            <div class="container">
+                <div class="section-header-block fade-in">
+                    <span class="eyebrow">Graphic Design</span>
+                    <h2 id="graphics-heading" class="section-title">Social Graphics &amp; Visual Identity</h2>
+                    <p class="section-desc">Promotional campaigns, brand identities, and high-impact social media visual systems crafted with editorial precision.</p>
+                </div>
+
+                <!-- Filter Tabs -->
+                <div class="graphics-filter-wrap fade-in">
+                    <div class="graphics-filter-tabs" role="group" aria-label="Filter graphic design categories">
+                        <button type="button" class="graphics-filter-btn active" data-filter="all" aria-pressed="true">All</button>
+                        <button type="button" class="graphics-filter-btn" data-filter="Social Posts" aria-pressed="false">Social Posts</button>
+                        <button type="button" class="graphics-filter-btn" data-filter="Posters" aria-pressed="false">Posters</button>
+                        <button type="button" class="graphics-filter-btn" data-filter="Branding" aria-pressed="false">Branding</button>
+                        <button type="button" class="graphics-filter-btn" data-filter="Stories" aria-pressed="false">Stories</button>
+                    </div>
+                </div>
+
+                <!-- Masonry Grid (populated by JS) -->
+                <div class="graphics-masonry" id="graphics-grid" role="region" aria-label="Graphic design gallery">
+                    <!-- Cards are dynamically rendered from script.js -->
+                </div>
+            </div>
+        </section>
+
         <!-- Selected Work (Bento Grid) -->
         <section id="projects" class="section" aria-labelledby="projects-heading">
             <div class="container">
                 <h2 id="projects-heading" class="section-title fade-in">Selected Work</h2>
+
+                <!-- Creative Edits — inlined as bento cards at top of Selected Work -->
+                <div class="edits-divider fade-in" style="margin-top: 0; margin-bottom: var(--spacing-sm);">
+                    <span class="edits-divider-label">Creative Edits</span>
+                </div>
+
+                <div class="bento-grid edits-bento" style="margin-bottom: var(--spacing-lg);">
+                    <!-- Edit Video 1 -->
+                    <article class="project-card edit-card bento-square fade-in">
+                        <div class="edit-thumbnail-wrap" data-tiktok-url="https://vt.tiktok.com/ZSCcxQAww/"
+                            id="edit-card-1" role="button" tabindex="0"
+                            aria-label="Watch Fashion Brand Showcase on TikTok">
+                            <div class="edit-thumbnail-img" id="edit-thumb-1">
+                                <div class="thumb-loading">
+                                    <div class="spinner"></div>
+                                </div>
+                            </div>
+                            <div class="edit-play-overlay">
+                                <div class="edit-play-btn" aria-hidden="true">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <polygon points="5 3 19 12 5 21 5 3" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="project-content">
+                            <span class="project-category">Video Edit</span>
+                            <h3 class="project-title">Fashion Brand Showcase</h3>
+                            <p id="edit-desc-1" class="project-desc">Viral-style short-form edit for Amdi Design —
+                                dynamic cuts, smooth color grade, and scroll-stopping pacing.</p>
+                            <button class="read-more-btn" aria-expanded="false" aria-controls="edit-desc-1">Read More
+                                +</button>
+                            <div class="project-tags">
+                                <span>Color Grading</span><span>TikTok</span><span>Motion</span>
+                            </div>
+                            <div class="project-actions">
+                                <a href="https://vt.tiktok.com/ZSCcxQAww/" target="_blank" rel="noopener noreferrer"
+                                    class="btn-repo-alone">Watch on TikTok &rarr;</a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Edit Video 2 -->
+                    <article class="project-card edit-card bento-square fade-in">
+                        <div class="edit-thumbnail-wrap" data-tiktok-url="https://vt.tiktok.com/ZSCcxBXjU/"
+                            id="edit-card-2" role="button" tabindex="0"
+                            aria-label="Watch Brand Highlight Reel on TikTok">
+                            <div class="edit-thumbnail-img" id="edit-thumb-2">
+                                <div class="thumb-loading">
+                                    <div class="spinner"></div>
+                                </div>
+                            </div>
+                            <div class="edit-play-overlay">
+                                <div class="edit-play-btn" aria-hidden="true">
+                                    <svg viewBox="0 0 24 24" fill="currentColor">
+                                        <polygon points="5 3 19 12 5 21 5 3" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="project-content">
+                            <span class="project-category">Video Edit</span>
+                            <h3 class="project-title">Brand Highlight Reel</h3>
+                            <p id="edit-desc-2" class="project-desc">High-energy brand edit for Amdi Design —
+                                beat-synced transitions, cinematic framing, and viral aesthetic.</p>
+                            <button class="read-more-btn" aria-expanded="false" aria-controls="edit-desc-2">Read More
+                                +</button>
+                            <div class="project-tags">
+                                <span>Storytelling</span><span>TikTok</span><span>Transitions</span>
+                            </div>
+                            <div class="project-actions">
+                                <a href="https://vt.tiktok.com/ZSCcxBXjU/" target="_blank" rel="noopener noreferrer"
+                                    class="btn-repo-alone">Watch on TikTok &rarr;</a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+
+                <!-- Software Projects Divider -->
+                <div class="edits-divider fade-in" style="margin-top: 0; margin-bottom: var(--spacing-md);">
+                    <span class="edits-divider-label">Software &amp; Digital Products</span>
+                </div>
+
                 <div class="bento-grid">
                     <!-- Project 1 (Featured: Wide Card) -->
                     <article class="project-card bento-wide fade-in">
@@ -477,87 +589,6 @@
                 <div class="projects-footer fade-in">
                     <a href="https://github.com/leul-cpu" target="_blank" rel="noopener noreferrer"
                         class="more-link">More projects on GitHub <span>&rarr;</span></a>
-                </div>
-
-                <!-- Creative Edits — inlined as bento cards -->
-                <div class="edits-divider fade-in">
-                    <span class="edits-divider-label">Creative Edits</span>
-                </div>
-
-                <div class="bento-grid edits-bento">
-                    <!-- Edit Video 1 -->
-                    <article class="project-card bento-square fade-in">
-                        <div class="project-content">
-                            <span class="project-category">Video Edit</span>
-                            <div class="project-title-row">
-                                <div class="edit-thumbnail-wrap" data-tiktok-url="https://vt.tiktok.com/ZSCcxQAww/"
-                                    id="edit-card-1" role="button" tabindex="0"
-                                    aria-label="Watch Fashion Brand Showcase on TikTok">
-                                    <div class="edit-thumbnail-img" id="edit-thumb-1">
-                                        <div class="thumb-loading">
-                                            <div class="spinner"></div>
-                                        </div>
-                                    </div>
-                                    <div class="edit-play-overlay">
-                                        <div class="edit-play-btn" aria-hidden="true">
-                                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                                <polygon points="5 3 19 12 5 21 5 3" />
-                                            </svg>
-                                        </div>
-                                    </div>
-                                </div>
-                                <h3 class="project-title">Fashion Brand Showcase</h3>
-                            </div>
-                            <p id="edit-desc-1" class="project-desc">Viral-style short-form edit for Amdi Design —
-                                dynamic cuts, smooth color grade, and scroll-stopping pacing.</p>
-                            <button class="read-more-btn" aria-expanded="false" aria-controls="edit-desc-1">Read More
-                                +</button>
-                            <div class="project-tags">
-                                <span>Color Grading</span><span>TikTok</span><span>Motion</span>
-                            </div>
-                            <div class="project-actions">
-                                <a href="https://vt.tiktok.com/ZSCcxQAww/" target="_blank" rel="noopener noreferrer"
-                                    class="btn-repo-alone">Watch on TikTok &rarr;</a>
-                            </div>
-                        </div>
-                    </article>
-
-                    <!-- Edit Video 2 -->
-                    <article class="project-card bento-square fade-in">
-                        <div class="project-content">
-                            <span class="project-category">Video Edit</span>
-                            <div class="project-title-row">
-                                <div class="edit-thumbnail-wrap" data-tiktok-url="https://vt.tiktok.com/ZSCcxBXjU/"
-                                    id="edit-card-2" role="button" tabindex="0"
-                                    aria-label="Watch Brand Highlight Reel on TikTok">
-                                    <div class="edit-thumbnail-img" id="edit-thumb-2">
-                                        <div class="thumb-loading">
-                                            <div class="spinner"></div>
-                                        </div>
-                                    </div>
-                                    <div class="edit-play-overlay">
-                                        <div class="edit-play-btn" aria-hidden="true">
-                                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                                <polygon points="5 3 19 12 5 21 5 3" />
-                                            </svg>
-                                        </div>
-                                    </div>
-                                </div>
-                                <h3 class="project-title">Brand Highlight Reel</h3>
-                            </div>
-                            <p id="edit-desc-2" class="project-desc">High-energy brand edit for Amdi Design —
-                                beat-synced transitions, cinematic framing, and viral aesthetic.</p>
-                            <button class="read-more-btn" aria-expanded="false" aria-controls="edit-desc-2">Read More
-                                +</button>
-                            <div class="project-tags">
-                                <span>Storytelling</span><span>TikTok</span><span>Transitions</span>
-                            </div>
-                            <div class="project-actions">
-                                <a href="https://vt.tiktok.com/ZSCcxBXjU/" target="_blank" rel="noopener noreferrer"
-                                    class="btn-repo-alone">Watch on TikTok &rarr;</a>
-                            </div>
-                        </div>
-                    </article>
                 </div>
             </div>
         </section>
@@ -856,6 +887,46 @@
             </header>
             <div class="modal-body proposal-modal-body">
                 <!-- Proposal document injected dynamically here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Graphics Lightbox Modal -->
+    <div id="graphics-lightbox" class="graphics-lightbox" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Image Lightbox">
+        <div class="lightbox-backdrop" id="lightbox-backdrop"></div>
+        <div class="lightbox-dialog" role="document">
+            <button type="button" class="lightbox-close" id="lightbox-close" aria-label="Close lightbox">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+
+            <button type="button" class="lightbox-nav lightbox-prev" id="lightbox-prev" aria-label="Previous graphic">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+            </button>
+
+            <button type="button" class="lightbox-nav lightbox-next" id="lightbox-next" aria-label="Next graphic">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+            </button>
+
+            <div class="lightbox-content" id="lightbox-content">
+                <div class="lightbox-image-wrap">
+                    <img id="lightbox-img" src="" alt="" class="lightbox-image">
+                </div>
+                <div class="lightbox-caption" id="lightbox-caption">
+                    <div class="lightbox-caption-meta">
+                        <span class="lightbox-category" id="lightbox-category"></span>
+                        <span class="lightbox-sep" aria-hidden="true">&bull;</span>
+                        <span class="lightbox-year" id="lightbox-year"></span>
+                    </div>
+                    <h3 class="lightbox-title" id="lightbox-title"></h3>
+                    <p class="lightbox-client" id="lightbox-client"></p>
+                </div>
             </div>
         </div>
     </div>

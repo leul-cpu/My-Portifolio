@@ -1210,105 +1210,55 @@ p {
     border-radius: 100px;
 }
 
-/* The edits bento grid reuses .bento-grid rules; just constrain to 2 cols max and tight mobile gaps */
+/* The edits bento grid: spacious 2-column showcase */
 .edits-bento {
     grid-template-columns: repeat(2, 1fr) !important;
-    gap: 0.5rem !important;
+    gap: 1.5rem !important;
 }
 
-/* Make creative edits cards smaller on mobile to fit iPhone viewports */
-.edits-bento .project-card {
-    padding: 0.5rem;
+@media (max-width: 768px) {
+    .edits-bento {
+        grid-template-columns: 1fr !important;
+        gap: 1.25rem !important;
+    }
 }
 
-.edits-bento .project-card .project-category {
-    font-size: 0.52rem;
-    margin-bottom: 0.2rem;
-}
-
-.edits-bento .project-card .project-title {
-    font-size: 0.7rem;
-    line-height: 1.15;
-}
-
-.edits-bento .project-card .project-desc {
-    display: none; /* Hide on mobile to keep cards compact and small */
-}
-
-.edits-bento .project-card .btn-repo-alone {
-    padding: 0.35rem 0.5rem;
-    font-size: 0.55rem;
-    width: 100%;
-    justify-content: center;
-}
-
-/* Title row container to align inline thumbnail with title */
-.project-title-row {
+/* Creative edits card with prominent video thumbnail */
+.edits-bento .edit-card {
+    padding: 0 !important;
+    overflow: hidden;
     display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 0.5rem;
+    flex-direction: column;
+    height: 100%;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    background-color: var(--card-bg);
+    transition: var(--transition-smooth);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
-.project-title-row .project-title {
-    margin-bottom: 0; /* Align with layout */
-    flex-grow: 1;
+.edits-bento .edit-card:hover {
+    border-color: rgba(197, 168, 128, 0.5);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+    transform: translateY(-4px);
 }
 
-/* Rounded-square inline thumbnail (48px on mobile, 56px on desktop) */
+/* Prominent full-width video thumbnail */
 .edit-thumbnail-wrap {
     position: relative;
-    width: 48px;
-    height: 48px;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    min-height: 220px;
     background: #0a0a0a;
     cursor: pointer;
     overflow: hidden;
-    border-radius: 6px;
     flex-shrink: 0;
 }
 
-@media (min-width: 768px) {
-    .edits-bento {
-        gap: var(--spacing-md) !important;
-    }
-    .edits-bento .project-card {
-        padding: 1.25rem;
-    }
-    .edits-bento .project-card .project-category {
-        font-size: 0.75rem;
-        margin-bottom: 0.5rem;
-    }
-    .edits-bento .project-card .project-title {
-        font-size: 1rem;
-    }
-    .edits-bento .project-card .project-desc {
-        font-size: 0.9rem;
-        line-height: 1.5;
-        margin-bottom: 1.5rem;
-    }
-    .edits-bento .project-card .btn-repo-alone {
-        padding: 0.6rem 1.25rem;
-        font-size: 0.75rem;
-        width: auto;
-    }
-    .project-title-row {
-        gap: 12px;
-        margin-bottom: 0.75rem;
-    }
-    .edit-thumbnail-wrap {
-        width: 56px;
-        height: 56px;
-        border-radius: 8px;
-    }
-}
-
 @media (min-width: 1024px) {
-    .edits-bento {
-        grid-template-columns: repeat(2, 1fr) !important;
-    }
-    /* Override bento-wide span inside edits */
-    .edits-bento .bento-wide {
-        grid-column: span 1 !important;
+    .edit-thumbnail-wrap {
+        aspect-ratio: 16 / 9;
+        min-height: 240px;
     }
 }
 
@@ -1318,14 +1268,14 @@ p {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    filter: grayscale(50%) brightness(0.85);
-    transition: filter 0.3s ease, transform 0.3s ease;
+    filter: brightness(0.92);
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.3s ease;
 }
 
 .edit-thumbnail-wrap:hover .edit-thumbnail-img,
-.edit-thumbnail-wrap:focus-visible .edit-thumbnail-img {
-    transform: scale(1.08);
-    filter: grayscale(20%) brightness(0.95);
+.edit-card:hover .edit-thumbnail-img {
+    transform: scale(1.06);
+    filter: brightness(1);
 }
 
 .thumb-loading {
@@ -1341,45 +1291,102 @@ p {
     display: none;
 }
 
-/* Play overlay - semi-transparent dark circle with play triangle */
+/* Play overlay - semi-transparent dark vignette with centered play button */
 .edit-play-overlay {
     position: absolute;
     inset: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(0, 0, 0, 0.45);
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.15) 50%, rgba(0, 0, 0, 0.1) 100%);
     transition: background 0.3s ease;
 }
 
 .edit-thumbnail-wrap:hover .edit-play-overlay,
-.edit-thumbnail-wrap:focus-visible .edit-play-overlay {
-    background: rgba(0, 0, 0, 0.25);
+.edit-card:hover .edit-play-overlay {
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.1) 100%);
 }
 
 .edit-play-btn {
-    width: 24px;
-    height: 24px;
-    background: rgba(255, 255, 255, 0.85);
+    width: 56px;
+    height: 56px;
+    background: rgba(15, 15, 15, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1.5px solid rgba(255, 255, 255, 0.4);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #000;
-    transition: var(--transition-fast);
+    color: #FFFFFF;
+    transition: var(--transition-smooth);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
 }
 
 .edit-play-btn svg {
-    width: 10px;
-    height: 10px;
-    margin-left: 1px;
+    width: 20px;
+    height: 20px;
+    margin-left: 3px;
 }
 
 .edit-thumbnail-wrap:hover .edit-play-btn,
-.edit-thumbnail-wrap:focus-visible .edit-play-btn {
+.edit-card:hover .edit-play-btn {
     background: var(--accent-highlight);
-    color: #fff;
-    transform: scale(1.1);
+    border-color: var(--accent-highlight);
+    color: #FFFFFF;
+    transform: scale(1.12);
+    box-shadow: 0 10px 30px rgba(15, 51, 24, 0.5);
+}
+
+/* Card content below thumbnail */
+.edits-bento .edit-card .project-content {
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.edits-bento .edit-card .project-category {
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #C5A880;
+    margin-bottom: 0.4rem;
+}
+
+.edits-bento .edit-card .project-title {
+    font-family: var(--font-headings);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-color);
+    line-height: 1.25;
+    margin-bottom: 0.5rem;
+}
+
+.edits-bento .edit-card .project-desc {
+    display: block;
+    font-size: 0.88rem;
+    line-height: 1.55;
+    color: var(--text-muted);
+    margin-bottom: 1.25rem;
+}
+
+.edits-bento .edit-card .project-tags {
+    margin-top: auto;
+    margin-bottom: 1.25rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+}
+
+.edits-bento .edit-card .btn-repo-alone {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+    padding: 0.7rem 1.25rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
 }
 
 /* ==========================================================================
@@ -3063,4 +3070,517 @@ body.cursor-hover .cursor-outline {
     color: var(--text-muted);
     margin: 0;
 }
+
+/* ==========================================================================
+   Graphic Design Section
+   ========================================================================== */
+
+.section-header-block {
+    margin-bottom: var(--spacing-md);
+}
+
+.section-desc {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    max-width: 650px;
+    margin-top: -1.75rem;
+    margin-bottom: var(--spacing-lg);
+    line-height: 1.6;
+}
+
+@media (min-width: 768px) {
+    .section-desc {
+        font-size: 1.05rem;
+    }
+}
+
+/* Filter Tabs */
+.graphics-filter-wrap {
+    margin-bottom: var(--spacing-md);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 0.25rem;
+}
+
+.graphics-filter-tabs {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+}
+
+.graphics-filter-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem 1.15rem;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 100px;
+    font-family: var(--font-headings);
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: var(--transition-fast);
+    user-select: none;
+    white-space: nowrap;
+}
+
+.graphics-filter-btn:hover {
+    color: var(--text-color);
+    border-color: rgba(197, 168, 128, 0.45);
+    transform: translateY(-1px);
+}
+
+.graphics-filter-btn.active,
+.graphics-filter-btn[aria-pressed="true"] {
+    background-color: var(--accent-color);
+    color: var(--bg-color);
+    border-color: var(--accent-color);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Masonry Grid (CSS Columns) */
+.graphics-masonry {
+    column-count: 3;
+    column-gap: 1.25rem;
+    width: 100%;
+}
+
+@media (max-width: 991px) {
+    .graphics-masonry {
+        column-count: 2;
+        column-gap: 1rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .graphics-masonry {
+        column-count: 1;
+        column-gap: 1rem;
+    }
+}
+
+/* Graphic Card */
+.graphic-card {
+    break-inside: avoid;
+    margin-bottom: 1.25rem;
+    position: relative;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+    cursor: pointer;
+    transform: translateZ(0);
+    transition: transform var(--transition-smooth), border-color var(--transition-fast), box-shadow var(--transition-smooth), opacity 0.35s ease;
+    display: block;
+    width: 100%;
+    text-align: left;
+    outline: none;
+}
+
+.graphic-card:hover {
+    border-color: rgba(197, 168, 128, 0.4);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.22);
+}
+
+.graphic-card:focus-visible {
+    outline: 2px solid var(--accent-highlight);
+    outline-offset: 3px;
+}
+
+.graphic-card.is-hidden {
+    display: none !important;
+}
+
+.graphic-card.filtering-out {
+    opacity: 0;
+    transform: scale(0.95);
+    pointer-events: none;
+}
+
+.graphic-card.filtering-in {
+    animation: graphicFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes graphicFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95) translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.graphic-media-wrap {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    background: var(--bg-light);
+}
+
+.graphic-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.graphic-card:hover .graphic-img {
+    transform: scale(1.035);
+}
+
+/* Gradient Overlay & Hover Caption */
+.graphic-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(5, 5, 5, 0.95) 0%, rgba(5, 5, 5, 0.65) 45%, rgba(5, 5, 5, 0.1) 80%, transparent 100%);
+    opacity: 0;
+    transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 1.5rem;
+    pointer-events: none;
+}
+
+.graphic-card:hover .graphic-overlay,
+.graphic-card:focus-visible .graphic-overlay {
+    opacity: 1;
+}
+
+/* Touch devices: keep a subtle readable caption layer */
+@media (hover: none) {
+    .graphic-overlay {
+        opacity: 1;
+        background: linear-gradient(to top, rgba(5, 5, 5, 0.92) 0%, rgba(5, 5, 5, 0.45) 50%, transparent 100%);
+        padding: 1.1rem;
+    }
+}
+
+.graphic-caption {
+    transform: translateY(12px);
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.graphic-card:hover .graphic-caption,
+.graphic-card:focus-visible .graphic-caption {
+    transform: translateY(0);
+}
+
+@media (hover: none) {
+    .graphic-caption {
+        transform: translateY(0);
+    }
+}
+
+.graphic-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.4rem;
+}
+
+.graphic-category-tag {
+    font-family: var(--font-headings);
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #C5A880;
+}
+
+.graphic-dot {
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.4);
+    display: inline-block;
+}
+
+.graphic-year {
+    font-family: var(--font-headings);
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.graphic-title {
+    font-family: var(--font-headings);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #FFFFFF;
+    line-height: 1.25;
+    margin-bottom: 0.3rem;
+    letter-spacing: 0.01em;
+}
+
+.graphic-client {
+    font-family: var(--font-primary);
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.75);
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+/* ==========================================================================
+   Graphics Lightbox Modal
+   ========================================================================== */
+
+.graphics-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.35s ease;
+}
+
+.graphics-lightbox.is-open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.lightbox-backdrop {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(5, 5, 5, 0.94);
+    backdrop-filter: blur(24px) saturate(180%);
+    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    cursor: zoom-out;
+}
+
+.lightbox-dialog {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 92vw;
+    max-height: 92vh;
+    padding: 1rem;
+    outline: none;
+}
+
+.lightbox-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 100%;
+    max-height: 88vh;
+    transform: scale(0.96);
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.graphics-lightbox.is-open .lightbox-content {
+    transform: scale(1);
+}
+
+.lightbox-image-wrap {
+    position: relative;
+    max-width: 90vw;
+    max-height: 75vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    background: #0A0A0A;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.lightbox-image {
+    max-width: 90vw;
+    max-height: 75vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    display: block;
+    user-select: none;
+    transition: opacity 0.25s ease;
+}
+
+.lightbox-caption {
+    margin-top: 1rem;
+    text-align: center;
+    max-width: 600px;
+    width: 100%;
+}
+
+.lightbox-caption-meta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    margin-bottom: 0.35rem;
+}
+
+.lightbox-category {
+    font-family: var(--font-headings);
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #C5A880;
+}
+
+.lightbox-sep {
+    font-size: 0.6rem;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.lightbox-year {
+    font-family: var(--font-headings);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.lightbox-title {
+    font-family: var(--font-headings);
+    font-size: clamp(1.1rem, 2.5vw, 1.45rem);
+    font-weight: 700;
+    color: #FAFAFA;
+    letter-spacing: 0.02em;
+    margin-bottom: 0.25rem;
+}
+
+.lightbox-client {
+    font-family: var(--font-primary);
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.7);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin: 0;
+}
+
+/* Lightbox Controls */
+.lightbox-close {
+    position: absolute;
+    top: -2.8rem;
+    right: 0;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #FAFAFA;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--transition-fast);
+    z-index: 10;
+}
+
+.lightbox-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.08);
+}
+
+.lightbox-close svg {
+    width: 20px;
+    height: 20px;
+}
+
+.lightbox-nav {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(20, 20, 20, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #FAFAFA;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--transition-fast);
+    z-index: 10;
+}
+
+.lightbox-nav:hover {
+    background: rgba(40, 40, 40, 0.95);
+    border-color: #C5A880;
+    transform: translateY(-50%) scale(1.08);
+}
+
+.lightbox-nav svg {
+    width: 24px;
+    height: 24px;
+}
+
+.lightbox-prev {
+    left: 1.5rem;
+}
+
+.lightbox-next {
+    right: 1.5rem;
+}
+
+@media (max-width: 768px) {
+    .lightbox-close {
+        top: 0.75rem;
+        right: 0.75rem;
+        position: fixed;
+        background: rgba(15, 15, 15, 0.85);
+    }
+
+    .lightbox-nav {
+        width: 42px;
+        height: 42px;
+    }
+
+    .lightbox-prev {
+        left: 0.6rem;
+    }
+
+    .lightbox-next {
+        right: 0.6rem;
+    }
+
+    .lightbox-image-wrap {
+        max-width: 94vw;
+        max-height: 65vh;
+    }
+
+    .lightbox-image {
+        max-width: 94vw;
+        max-height: 65vh;
+    }
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+    .graphic-card,
+    .graphic-img,
+    .graphic-overlay,
+    .graphic-caption,
+    .graphics-lightbox,
+    .lightbox-content,
+    .graphics-filter-btn {
+        transition: none !important;
+        animation: none !important;
+        transform: none !important;
+    }
+}
+
 

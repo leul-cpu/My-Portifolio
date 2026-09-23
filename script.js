@@ -1005,4 +1005,363 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 3000);
     };
 
+    // ==========================================================================
+    // 15. Graphic Design Showcase & Custom Lightbox Module
+    // ==========================================================================
+    const graphics = [
+        {
+            src: "IMG_2107.PNG",
+            title: "Freshly Made Beetroot Juice",
+            client: "Madiga Restaurant & Café",
+            category: "Social Posts",
+            year: 2025,
+            alt: "Promotional graphic for Madiga Restaurant featuring freshly made beetroot juice, wellness benefits, and café atmosphere."
+        },
+        {
+            src: "IMG_2608.PNG",
+            title: "Back to School Hero Campaign",
+            client: "Kuncho",
+            category: "Posters",
+            year: 2025,
+            alt: "Vibrant back to school campaign poster for Kuncho featuring backpacks, water bottles, and stationery."
+        },
+        {
+            src: "IMG_2108.PNG",
+            title: "Trendy Lunch Boxes Campaign",
+            client: "Sheva Toys",
+            category: "Social Posts",
+            year: 2025,
+            alt: "Product showcase graphic for Sheva Toys featuring trendy, durable lunch boxes for school kids."
+        },
+        {
+            src: "IMG_2109.PNG",
+            title: "Kuncho Brand Teaser Launch",
+            client: "Kuncho",
+            category: "Stories",
+            year: 2025,
+            alt: "Coming soon brand launch teaser graphic for Kuncho kids & teens accessories with 3D logo emblem."
+        },
+        {
+            src: "IMG_2611.PNG",
+            title: "Back to School Essentials",
+            client: "Sheva Toys",
+            category: "Posters",
+            year: 2025,
+            alt: "Colorful promotional poster for Sheva Toys showcasing back-to-school essentials including backpacks, lunchboxes, and stationery."
+        },
+        {
+            src: "IMG_2620.PNG",
+            title: "Eat Your Protein Campaign",
+            client: "Madiga Restaurant & Café",
+            category: "Social Posts",
+            year: 2025,
+            alt: "Healthy dining social poster for Madiga Café emphasizing high protein meals with chicken, eggs, and spinach."
+        },
+        {
+            src: "IMG_2621.PNG",
+            title: "Tailoring Scissors Commercial",
+            client: "Nesbir Trading PLC",
+            category: "Branding",
+            year: 2024,
+            alt: "Commercial marketing poster for Nesbir Trading showcasing sharp, durable tailoring scissors and stationery supplies."
+        },
+        {
+            src: "IMG_2858.PNG",
+            title: "Ethiopian New Year Celebration",
+            client: "Madiga Café & Restaurant",
+            category: "Stories",
+            year: 2024,
+            alt: "Warm holiday celebration poster for Madiga Café wishing Happy Ethiopian New Year with traditional feast and scenic Addis Ababa sunrise."
+        },
+        {
+            src: "IMG_2860.PNG",
+            title: "Enkutatash Children's New Year",
+            client: "Kuncho",
+            category: "Posters",
+            year: 2024,
+            alt: "Festive Ethiopian New Year poster for Kuncho featuring children in traditional attire celebrating with yellow Adey Abeba flowers."
+        },
+        {
+            src: "IMG_3106.PNG",
+            title: "Commercial Waste Bin Launch",
+            client: "Atlantic Trading PLC",
+            category: "Branding",
+            year: 2024,
+            alt: "Industrial product poster for Atlantic Trading highlighting durable commercial waste bins with wheels."
+        },
+        {
+            src: "IMG_3146.PNG",
+            title: "Outdoor Table Set Promotion",
+            client: "Atlantic Trading PLC",
+            category: "Branding",
+            year: 2024,
+            alt: "Commercial patio table set product promotional poster for Atlantic Trading."
+        },
+        {
+            src: "IMG_3156.PNG",
+            title: "Umbrella Shade Promotional Banner",
+            client: "Atlantic Trading PLC",
+            category: "Posters",
+            year: 2024,
+            alt: "Large cantilever patio umbrella shade product banner for Atlantic Trading PLC."
+        },
+        {
+            src: "water bottle.png",
+            title: "Hydrate Play Repeat Kids Bottles",
+            client: "Kuncho",
+            category: "Social Posts",
+            year: 2025,
+            alt: "Fun and stylish kids water bottle promotional graphic for Kuncho with cartoon characters and lifestyle shots."
+        }
+    ];
+
+    const graphicsGrid = document.getElementById('graphics-grid');
+    const filterButtons = document.querySelectorAll('.graphics-filter-btn');
+
+    if (graphicsGrid) {
+        let currentFilter = 'all';
+        let filteredGraphics = [...graphics];
+        let currentLightboxIndex = 0;
+        let lastActiveTrigger = null;
+
+        // Render cards into masonry grid
+        function renderGraphicsGrid() {
+            graphicsGrid.innerHTML = '';
+
+            graphics.forEach((item, index) => {
+                const card = document.createElement('figure');
+                card.className = 'graphic-card fade-in';
+                card.dataset.category = item.category;
+                card.dataset.src = item.src;
+                card.setAttribute('tabindex', '0');
+                card.setAttribute('role', 'button');
+                card.setAttribute('aria-label', `View ${item.title} — ${item.client} (${item.category})`);
+                card.style.setProperty('--delay', `${(index % 6) * 0.08}s`);
+
+                card.innerHTML = `
+                    <div class="graphic-media-wrap">
+                        <picture>
+                            <img class="graphic-img" 
+                                 src="${item.src}" 
+                                 alt="${item.alt}" 
+                                 loading="lazy" 
+                                 decoding="async">
+                        </picture>
+                        <div class="graphic-overlay">
+                            <figcaption class="graphic-caption">
+                                <div class="graphic-meta-row">
+                                    <span class="graphic-category-tag">${item.category}</span>
+                                    <span class="graphic-dot"></span>
+                                    <span class="graphic-year">${item.year}</span>
+                                </div>
+                                <h3 class="graphic-title">${item.title}</h3>
+                                <p class="graphic-client">${item.client}</p>
+                            </figcaption>
+                        </div>
+                    </div>
+                `;
+
+                // Open Lightbox on click or keyboard Enter/Space
+                card.addEventListener('click', () => {
+                    openLightbox(item);
+                });
+
+                card.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        openLightbox(item);
+                    }
+                });
+
+                graphicsGrid.appendChild(card);
+            });
+
+            // Trigger scroll reveal observer for freshly rendered cards
+            const graphicCards = graphicsGrid.querySelectorAll('.graphic-card');
+            const cardFadeObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { root: null, rootMargin: '0px', threshold: 0.08 });
+
+            graphicCards.forEach(card => cardFadeObserver.observe(card));
+        }
+
+        renderGraphicsGrid();
+
+        // Filter tab interactions
+        function setFilter(filter) {
+            currentFilter = filter;
+            const cards = graphicsGrid.querySelectorAll('.graphic-card');
+
+            filterButtons.forEach(btn => {
+                const isSelected = btn.dataset.filter === filter;
+                btn.classList.toggle('active', isSelected);
+                btn.setAttribute('aria-pressed', isSelected ? 'true' : 'false');
+            });
+
+            cards.forEach(card => {
+                const cardCategory = card.dataset.category;
+                const matches = filter === 'all' || cardCategory.toLowerCase() === filter.toLowerCase();
+
+                if (matches) {
+                    card.classList.remove('is-hidden');
+                    card.classList.remove('filtering-out');
+                    card.classList.add('filtering-in');
+                } else {
+                    card.classList.remove('filtering-in');
+                    card.classList.add('filtering-out');
+                    setTimeout(() => {
+                        if (card.classList.contains('filtering-out')) {
+                            card.classList.add('is-hidden');
+                        }
+                    }, 200);
+                }
+            });
+
+            // Update current navigable array for lightbox
+            if (filter === 'all') {
+                filteredGraphics = [...graphics];
+            } else {
+                filteredGraphics = graphics.filter(g => g.category.toLowerCase() === filter.toLowerCase());
+            }
+        }
+
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                setFilter(btn.dataset.filter);
+            });
+        });
+
+        // Lightbox Elements
+        const lightbox = document.getElementById('graphics-lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const lightboxTitle = document.getElementById('lightbox-title');
+        const lightboxClient = document.getElementById('lightbox-client');
+        const lightboxCategory = document.getElementById('lightbox-category');
+        const lightboxYear = document.getElementById('lightbox-year');
+        const lightboxClose = document.getElementById('lightbox-close');
+        const lightboxPrev = document.getElementById('lightbox-prev');
+        const lightboxNext = document.getElementById('lightbox-next');
+        const lightboxBackdrop = document.getElementById('lightbox-backdrop');
+
+        function updateLightboxView() {
+            if (!filteredGraphics.length) return;
+            const item = filteredGraphics[currentLightboxIndex];
+            if (!item) return;
+
+            if (lightboxImg) {
+                lightboxImg.style.opacity = '0.3';
+                lightboxImg.src = item.src;
+                lightboxImg.alt = item.alt || item.title;
+                lightboxImg.onload = () => {
+                    lightboxImg.style.opacity = '1';
+                };
+            }
+
+            if (lightboxTitle) lightboxTitle.textContent = item.title;
+            if (lightboxClient) lightboxClient.textContent = item.client;
+            if (lightboxCategory) lightboxCategory.textContent = item.category;
+            if (lightboxYear) lightboxYear.textContent = item.year;
+        }
+
+        function openLightbox(item) {
+            lastActiveTrigger = document.activeElement;
+            currentLightboxIndex = filteredGraphics.findIndex(g => g.src === item.src);
+            if (currentLightboxIndex === -1) {
+                currentLightboxIndex = 0;
+            }
+
+            updateLightboxView();
+
+            if (lightbox) {
+                lightbox.classList.add('is-open');
+                lightbox.setAttribute('aria-hidden', 'false');
+                document.body.style.overflow = 'hidden';
+
+                setTimeout(() => {
+                    lightboxClose?.focus();
+                }, 50);
+            }
+        }
+
+        function closeLightbox() {
+            if (!lightbox || !lightbox.classList.contains('is-open')) return;
+            lightbox.classList.remove('is-open');
+            lightbox.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+
+            if (lastActiveTrigger && typeof lastActiveTrigger.focus === 'function') {
+                lastActiveTrigger.focus();
+            }
+        }
+
+        function prevGraphic() {
+            if (filteredGraphics.length <= 1) return;
+            currentLightboxIndex = (currentLightboxIndex - 1 + filteredGraphics.length) % filteredGraphics.length;
+            updateLightboxView();
+        }
+
+        function nextGraphic() {
+            if (filteredGraphics.length <= 1) return;
+            currentLightboxIndex = (currentLightboxIndex + 1) % filteredGraphics.length;
+            updateLightboxView();
+        }
+
+        lightboxClose?.addEventListener('click', closeLightbox);
+        lightboxBackdrop?.addEventListener('click', closeLightbox);
+        lightboxPrev?.addEventListener('click', prevGraphic);
+        lightboxNext?.addEventListener('click', nextGraphic);
+
+        // Keyboard navigation and focus trap
+        document.addEventListener('keydown', (e) => {
+            if (!lightbox || !lightbox.classList.contains('is-open')) return;
+
+            if (e.key === 'Escape') {
+                e.preventDefault();
+                closeLightbox();
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                prevGraphic();
+            } else if (e.key === 'ArrowRight') {
+                e.preventDefault();
+                nextGraphic();
+            } else if (e.key === 'Tab') {
+                handleFocusTrap(lightbox, e);
+            }
+        });
+
+        // Touch swipe gestures for mobile
+        let touchStartX = 0;
+        let touchStartY = 0;
+
+        if (lightbox) {
+            lightbox.addEventListener('touchstart', (e) => {
+                if (e.touches.length === 1) {
+                    touchStartX = e.touches[0].clientX;
+                    touchStartY = e.touches[0].clientY;
+                }
+            }, { passive: true });
+
+            lightbox.addEventListener('touchend', (e) => {
+                if (e.changedTouches.length === 1) {
+                    const deltaX = e.changedTouches[0].clientX - touchStartX;
+                    const deltaY = e.changedTouches[0].clientY - touchStartY;
+
+                    // Ensure dominant horizontal movement over 45px
+                    if (Math.abs(deltaX) > 45 && Math.abs(deltaX) > Math.abs(deltaY) * 1.4) {
+                        if (deltaX < 0) {
+                            nextGraphic();
+                        } else {
+                            prevGraphic();
+                        }
+                    }
+                }
+            }, { passive: true });
+        }
+    }
+
 });
