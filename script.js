@@ -408,40 +408,10 @@ alt: "Holiday celebration poster for Madiga Café wishing Happy Ethiopian New Ye
 const graphicsGrid = document.getElementById('graphics-grid');
 const filterButtons = document.querySelectorAll('.graphics-filter-btn');
 if (graphicsGrid) {
-let activeFilter = 'all';
 let currentIdx = 0;
 let lightboxTrigger = null;
-function renderCards() {
-graphicsGrid.innerHTML = '';
-graphicsData.forEach((item, index) => {
-const card = document.createElement('figure');
-card.className = 'graphic-card fade-in';
-card.dataset.category = item.category;
-card.setAttribute('tabindex', '0');
-card.setAttribute('role', 'button');
-card.setAttribute('aria-label', `View ${item.title} — ${item.client} (${item.category})`);
-card.innerHTML = `
-<div class="graphic-media-wrap">
-<img class="graphic-img"
-src="${item.src}"
-alt="${item.alt}"
-width="${item.width}"
-height="${item.height}"
-loading="lazy"
-decoding="async">
-<div class="graphic-overlay">
-<figcaption class="graphic-caption">
-<div class="graphic-meta-row">
-<span class="graphic-category-tag">${item.category}</span>
-<span class="graphic-dot"></span>
-<span class="graphic-year">${item.year}</span>
-</div>
-<h3 class="graphic-title">${item.title}</h3>
-<p class="graphic-client">${item.client}</p>
-</figcaption>
-</div>
-</div>
-`;
+const cards = graphicsGrid.querySelectorAll('.graphic-card');
+cards.forEach((card, index) => {
 card.addEventListener('click', () => openLightbox(index, card));
 card.addEventListener('keydown', (e) => {
 if (e.key === 'Enter' || e.key === ' ') {
@@ -449,22 +419,25 @@ e.preventDefault();
 openLightbox(index, card);
 }
 });
-graphicsGrid.appendChild(card);
 });
+function getNavigableIndices() {
+const visible = [];
+cards.forEach((c, i) => {
+if (!c.classList.contains('is-hidden')) visible.push(i);
+});
+return visible.length ? visible : Array.from({ length: graphicsData.length }, (_, i) => i);
 }
-renderCards();
 filterButtons.forEach(btn => {
 btn.addEventListener('click', () => {
 const filter = btn.dataset.filter;
-activeFilter = filter;
 filterButtons.forEach(b => {
 const isActive = b.dataset.filter === filter;
 b.classList.toggle('active', isActive);
 b.setAttribute('aria-pressed', isActive ? 'true' : 'false');
 });
-const cards = graphicsGrid.querySelectorAll('.graphic-card');
 cards.forEach(card => {
-const match = filter === 'all' || card.dataset.category.toLowerCase() === filter.toLowerCase();
+const cat = card.dataset.category || '';
+const match = filter === 'all' || cat.toLowerCase() === filter.toLowerCase();
 card.classList.toggle('is-hidden', !match);
 });
 });
@@ -509,34 +482,55 @@ if (!lightbox || !lightbox.classList.contains('is-open')) return;
 lightbox.classList.remove('is-open');
 lightbox.setAttribute('aria-hidden', 'true');
 document.body.style.overflow = '';
-if (lightboxTrigger) lightboxTrigger.focus();
+if (lightboxTrigger && typeof lightboxTrigger.focus === 'function') {
+lightboxTrigger.focus();
+}
+}
+function prevGraphic() {
+const visible = getNavigableIndices();
+const pos = visible.indexOf(currentIdx);
+if (pos === -1 || visible.length <= 1) return;
+currentIdx = visible[(pos - 1 + visible.length) % visible.length];
+updateLightboxView();
+}
+function nextGraphic() {
+const visible = getNavigableIndices();
+const pos = visible.indexOf(currentIdx);
+if (pos === -1 || visible.length <= 1) return;
+currentIdx = visible[(pos + 1) % visible.length];
+updateLightboxView();
 }
 if (lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
 if (lightboxBackdrop) lightboxBackdrop.addEventListener('click', closeLightbox);
-if (lightboxPrev) {
-lightboxPrev.addEventListener('click', () => {
-currentIdx = (currentIdx - 1 + graphicsData.length) % graphicsData.length;
-updateLightboxView();
-});
-}
-if (lightboxNext) {
-lightboxNext.addEventListener('click', () => {
-currentIdx = (currentIdx + 1) % graphicsData.length;
-updateLightboxView();
-});
-}
+if (lightboxPrev) lightboxPrev.addEventListener('click', prevGraphic);
+if (lightboxNext) lightboxNext.addEventListener('click', nextGraphic);
 document.addEventListener('keydown', (e) => {
 if (lightbox && lightbox.classList.contains('is-open')) {
 handleFocusTrap(lightbox, e);
 if (e.key === 'Escape') closeLightbox();
-else if (e.key === 'ArrowLeft') {
-currentIdx = (currentIdx - 1 + graphicsData.length) % graphicsData.length;
-updateLightboxView();
-} else if (e.key === 'ArrowRight') {
-currentIdx = (currentIdx + 1) % graphicsData.length;
-updateLightboxView();
-}
+else if (e.key === 'ArrowLeft') prevGraphic();
+else if (e.key === 'ArrowRight') nextGraphic();
 }
 });
+let touchStartX = 0;
+let touchStartY = 0;
+if (lightbox) {
+lightbox.addEventListener('touchstart', (e) => {
+if (e.touches.length === 1) {
+touchStartX = e.touches[0].clientX;
+touchStartY = e.touches[0].clientY;
+}
+}, { passive: true });
+lightbox.addEventListener('touchend', (e) => {
+if (e.changedTouches.length === 1) {
+const deltaX = e.changedTouches[0].clientX - touchStartX;
+const deltaY = e.changedTouches[0].clientY - touchStartY;
+if (Math.abs(deltaX) > 45 && Math.abs(deltaX) > Math.abs(deltaY) * 1.4) {
+if (deltaX < 0) nextGraphic();
+else prevGraphic();
+}
+}
+}, { passive: true });
+}
 }
 })();
