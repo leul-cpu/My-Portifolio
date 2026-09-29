@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://leul-cpu.github.io/My-Portifolio/sitemap.xml

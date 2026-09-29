@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 703 487" width="70" height="48" fill="none" aria-hidden="true">
+  <!-- Monogram LD -->
+  <g fill="currentColor">
+    <!-- L shape -->
+    <path d="M211 4v250h140v-40H251V4h-40z"/>
+    <!-- D shape -->
+    <path d="M284 4v180h80c65 0 120-40 120-90s-55-90-120-90h-80zm40 40h40c42 0 80 22 80 50s-38 50-80 50h-40V44z"/>
+    <!-- Leul.dev text -->
+    <text x="2" y="470" font-family="'Outfit', -apple-system, sans-serif" font-size="160" font-weight="800" letter-spacing="-3">Leul.dev</text>
+  </g>
+</svg>
